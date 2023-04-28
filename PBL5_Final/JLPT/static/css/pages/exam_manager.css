@@ -1,0 +1,13 @@
+@import url('../partials/teacher_info.css');
+@import url('../partials/teacher_nav.css');
+
+.row{
+    margin-top: 15px;
+}
+
+.exam-list{
+    padding: 2%;
+}
+.card-body{
+    background-color: aqua;
+}

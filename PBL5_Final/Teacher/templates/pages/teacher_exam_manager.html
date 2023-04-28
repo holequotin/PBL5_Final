@@ -1,0 +1,35 @@
+{% extends 'teacher_base.html' %}
+{% load static %}
+{% block linkcss %}
+    <link rel="stylesheet" href="{% static 'css/pages/exam_manager.css' %}">
+{% endblock linkcss %}
+
+{% block info %}
+    {% include 'partials/teacher_info.html' %}
+{% endblock info %}
+
+{% block navbar %}
+    {% include 'partials/teacher_nav.html' %}
+{% endblock  %}
+
+{% block content %}
+<a class = "btn btn-success col-1" href = "{% url 'Teacher:AddExam' %}">Add Exam</a>
+<div class = "row exam-list">
+    {% for exam in exams %}
+    <div class = "col-md-2 exam gx-3 gy-3" hx-target = "this">
+        <div class="card" style="width: 100%; height : 30%">
+            <img class="card-img-top" src="{{exam.image.url}}" alt="Card image cap" height = "100%">
+            <div class="card-body">
+                <h5 class="card-title">{{exam.name}}</h5>
+                <p>Cấp độ: {{exam.level.name}}</p>
+                <a href="#" class="">Chi tiết</a>
+                <form action="">
+                    {% csrf_token %}
+                    <a href="" class="btn btn-outline-danger" hx-post = "{% url 'Teacher:DeleteExam' pk=exam.id %}" hx-swap = "outerHTML" >Xóa đề thi</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
