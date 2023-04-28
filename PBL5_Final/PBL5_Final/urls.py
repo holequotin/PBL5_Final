@@ -21,7 +21,8 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("jlpt/",include('JLPT.urls'))
+    path("jlpt/",include('JLPT.urls')),
+    path("teacher/",include('Teacher.urls'))
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,82 @@
+{% extends 'teacher_base.html' %}
+{% load static %}
+{% block linkcss %}
+  <link rel="stylesheet" href="{% static 'css/pages/teacher_home.css' %}">
+{% endblock linkcss %}
+
+{% block script %}
+  <script src="{% static 'js/teacher_home.js' %}" defer></script>
+{% endblock%}
+
+{% block info %}
+  {% include 'partials/teacher_info.html'%}
+{% endblock info %}
+
+{% block navbar %}
+  {% include 'partials/teacher_nav.html' %}
+{% endblock navbar %}
+
+{% block content %}
+<div class="container-fluid row">
+  <div class="col-4 ">
+    <div class="card" style="width: 18rem">           
+      <h1 class="card-title">Giáo viên</h1>
+      <img class="card-img-top" src="{{profile.image.url}}" alt="Card image cap" height="50%">            
+      <h3 class="card-text">Nguyễn Duy Khoa</h3>
+      <h3 class="card-text">ID:24082002</h3>
+  </div>
+  </div>
+  <div class="col-4">
+      <ul class="list-group">
+          <li class="list-group-item active"style="text-align: center">Thông tin tài khoản</li>
+          <li class="list-group-item">Tên: {{user.first_name}} {{user.last_name}}</li>
+          <li class="list-group-item">Trường đại học Bách Khoa</li>
+          <li class="list-group-item">Chức vụ giáo viên</li>
+          <li class="list-group-item">Tài khoản: {{user.username}}</li>
+          <li class="list-group-item">Email: {{user.email}}</li>
+      </ul>
+  </div>
+  <div class="col-4 ">           
+        <div class="contianer">
+              <div class="calendar">
+                <div class="calendar-header">
+                  <span class="month-picker" id="month-picker"> May </span>
+                  <div class="year-picker" id="year-picker">
+                    <span class="year-change" id="pre-year">
+                      <pre><</pre>
+                    </span>
+                    <span id="year">2020 </span>
+                    <span class="year-change" id="next-year">
+                      <pre>></pre>
+                    </span>
+                  </div>
+                </div>
+         
+                <div class="calendar-body">
+                  <div class="calendar-week-days">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                  </div>
+                  <div class="calendar-days">
+                  </div>
+                </div>
+                <div class="calendar-footer">
+                </div>
+                <div class="date-time-formate">
+                  <div class="day-text-formate">TODAY</div>
+                  <div class="date-time-value">
+                    <div class="time-formate">02:51:20</div>
+                    <div class="date-formate">23 - july - 2022</div>
+                  </div>
+                </div>
+                <div class="month-list"></div>
+              </div>
+          </div>
+  </div>
+</div>
+{% endblock content %}
