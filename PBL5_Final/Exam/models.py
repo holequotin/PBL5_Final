@@ -55,3 +55,4 @@ class Question(models.Model):
     optionD = models.CharField(max_length=100)
     score = models.IntegerField()
     correct = models.CharField(max_length=1,default="A")
+    #test
