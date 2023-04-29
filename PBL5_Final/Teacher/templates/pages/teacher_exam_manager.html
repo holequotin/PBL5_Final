@@ -22,7 +22,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{exam.name}}</h5>
                 <p>Cấp độ: {{exam.level.name}}</p>
-                <a href="#" class="">Chi tiết</a>
+                <a href="{% url 'Teacher:DetailExam' pk=exam.id %}" class="">Chi tiết</a>
                 <form action="">
                     {% csrf_token %}
                     <a href="" class="btn btn-outline-danger" hx-post = "{% url 'Teacher:DeleteExam' pk=exam.id %}" hx-swap = "outerHTML" >Xóa đề thi</a>

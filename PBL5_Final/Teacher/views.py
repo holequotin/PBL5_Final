@@ -43,3 +43,15 @@ def teacher_delete_exam(request,pk):
     exam = Exam.objects.get(id = pk)
     exam.delete()
     return HttpResponse('')
+
+def teacher_detail_exam(request,pk):
+    user = request.user
+    profile = get_object_or_404(Profile,user = user)
+    exam = get_object_or_404(Exam,id = pk)
+    form = ExamForms.AddExamForm(instance=exam)
+    context = {
+        'user' :user,
+        'profile': profile,
+        'form' : form
+    }
+    return render(request,'pages/teacher_exam_detail.html',context)
