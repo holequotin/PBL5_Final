@@ -1,0 +1,20 @@
+{% extends 'teacher_base.html' %}
+{% load static %}
+{% block linkcss %}
+    <link rel="stylesheet" href="{% static 'css/pages/teacher_exam_detail.css' %}">
+{% endblock linkcss %}
+
+{% block info %}
+    {% include 'partials/teacher_info.html' %}
+{% endblock info %}
+
+{% block navbar %}
+    {% include 'partials/teacher_nav.html' %}
+{% endblock  %}
+
+{% block content %}
+    <div class="row d-flex justify-content-center">
+        <h1 style = "text-align:center" >{{form.instance.name}}</h1>
+    </div>
+    {% include 'partials/exam_detail.html' with form=form%}
+{% endblock content %}
