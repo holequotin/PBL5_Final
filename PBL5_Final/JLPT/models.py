@@ -9,4 +9,4 @@ class Profile(models.Model):
     image = models.ImageField(null=True)
 
     def __str__(self):
-        return self.role
+        return self.user.username
