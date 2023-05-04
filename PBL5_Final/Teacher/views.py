@@ -55,3 +55,14 @@ def teacher_detail_exam(request,pk):
         'form' : form
     }
     return render(request,'pages/teacher_exam_detail.html',context)
+
+def teacher_add_exam_detail(request,pk):
+    user = request.user
+    profile = get_object_or_404(Profile,user = user)
+    exam = get_object_or_404(Exam,id = pk)
+    context = {
+        'user' : user,
+        'profile' : profile,
+        'exam' : exam
+    }
+    return render(request,'pages/teacher_add_exam_detail.html',context)

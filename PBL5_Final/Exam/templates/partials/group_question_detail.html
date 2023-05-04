@@ -1,0 +1,31 @@
+{% load static %}
+{% load customfilter %}
+<div class = "group-question" id = "group-question-{{group.id}}">
+    <div class = "row d-inline-flex flex-col">
+        <input type="text" name="" id="group-name" class = "border-0 col-11" value = "{{group.content}}">
+        <div class="col-1 d-flex justify-content-center align-item-center">
+            <button class = "btn btn-outline-danger border-0" hx-get = "{% url 'Exam:DeleteGroupQuestion' pk=group.id %}" hx-target = "#group-question-{{group.id}}" hx-swap = "outerHMTL"><i class="bi bi-trash3"></i></button>
+            <button class = "btn btn-outline-success border-0" hx-get = "{% url 'Exam:AddQuestionForm' pk=group.id %}" hx-target = "#question-list-{{group.id}}" hx-swap = "beforeend"><i class="bi bi-plus-lg"></i></button>
+        </div>
+    </div>
+      {% if group.file %}
+      {% if group.file.url|lower|endswith:".mp3" or group.file.url|lower|endswith:".docx"%}
+        not images
+      {% elif group.file.url|lower|endswith:".jpg" or group.file.url|lower|endswith:".png" or group.file.url|lower|endswith:".jpeg"%}
+      <div class="image-container">
+      <img src="{{group.file.url}}" alt="My Image">
+      {% endif %}
+    </div>
+    {% endif %}
+    <div class = "d-inline-flex flex-column container" id = "question-list-{{group.id}}">
+        {% if group.questions %}
+        {% for question in group.questions %}
+        {% include 'partials/question_detail.html' with question=question %}
+        {% endfor %}
+  {% else %}
+    
+  {% endif %} 
+    </div>
+    <hr>
+  <link rel="stylesheet" href="{% static 'css/partials/group_question_detail.css' %}">
+</div>

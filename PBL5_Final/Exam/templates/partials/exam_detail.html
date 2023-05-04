@@ -25,4 +25,5 @@
             <a href="" class="btn btn-danger" hx-get = "{% url 'Exam:EditExam' pk=form.instance.id %}" hx-target = "#exam-detail" hx-swap="outerHTML"><i class="bi bi-pencil"></i></a>
         </div>
     </div>
+    <a href="{% url 'Teacher:AddExamDetail' pk=form.instance.id %}">Xem chi tiết đề thi</a>
 </div>
