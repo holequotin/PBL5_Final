@@ -1,0 +1,6 @@
+<form action="" method = "POST" hx-target = "this">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class = "btn btn-success" type = "submit" hx-post="{% url 'Exam:AddExamPartForm' pk=exam.id %}" hx-swap = "outerHMTL">Add</button>
+    <button class = "btn btn-outline-danger" hx-post={% url 'Exam:DeleteForm' %} hx-swap='outerHTML'>Delete form</button>
+</form>

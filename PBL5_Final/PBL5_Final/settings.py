@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
     'JLPT',
     'Teacher',
     'Exam'
@@ -123,6 +124,7 @@ STATIC_URL = '/static/'
 
 
 MEDIA_URL = '/media/'
+CKEDITOR_UPLOAD_PATH = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type

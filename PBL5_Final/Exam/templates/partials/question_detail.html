@@ -1,0 +1,51 @@
+{% load static %}
+<div class = "row d-inline-flex container-fluid question" id = "detail-question-{{question.id}}">
+    <div class = "row d-inline-flex flex-col">
+        <input class = "col-11 border-0" type="text" name="" id="question.content" value = "{{question.content}}">
+        <form class = "col-1 d-flex justify-content-center align-item-center">
+            {% csrf_token %}
+            <button class = "btn btn-outline-danger d-flex justify-content-center align-item-center border-0" hx-post = "" hx-target = "#detail-question-{{question.id}}" hx-swap = "outerHTML">
+                <i class="bi bi-trash3"></i>
+            </button>
+        </form>
+    </div>
+    
+    <div class = "row container d-inline-flex form-group">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input form-check-input-lg" 
+                type="radio"
+                name="answer-question-{{question.id}}" id="optionA-{{question.id}}" value="A" 
+                {% if question.correct == "A" %} checked {% endif %} 
+            />
+            <label class="form-check-label" for="optionD-{{question.id}}">{{question.optionA}}</label>
+        </div> 
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input form-check-input-lg" 
+                type="radio"
+                name="answer-question-{{question.id}}" id="optionB-{{question.id}}" value="B" 
+                {% if question.correct == "B" %} checked {% endif %} 
+            />
+            <label class="form-check-label" for="optionD-{{question.id}}">{{question.optionB}}</label>
+        </div> 
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input form-check-input-lg" 
+                type="radio"
+                name="ianswer-question-{{question.id}}" id="optionC-{{question.id}}" value="C" 
+                {% if question.correct == "C" %} checked {% endif %} 
+            />
+            <label class="form-check-label" for="optionD-{{question.id}}">{{question.optionC}}</label>
+        </div> 
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input form-check-input-lg" 
+                type="radio"
+                name="ianswer-question-{{question.id}}" id="optionD-{{question.id}}" value="D" 
+                {% if question.correct == "D" %} checked {% endif %} 
+            />
+            <label class="form-check-label" for="optionD-{{question.id}}">{{question.optionD}}</label>
+        </div> 
+    </div>
+    <link rel="stylesheet" href="{% static 'css/partials/question_detail.css' %}">
+</div>

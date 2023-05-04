@@ -1,13 +1,54 @@
-@import url('../partials/teacher_info.css');
-@import url('../partials/teacher_nav.css');
-
-.row{
-    margin-top: 15px;
+.user-name{
+    color: white;
 }
-
-.exam-list{
-    padding: 2%;
+#user-info{
+    margin-bottom: 25px;
+    color: white;
 }
-.card-body{
-    background-color: aqua;
+a{
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+.navbar{
+    background-color: #D9D9D9;
+}
+.btn-test{
+    background-color: #5AC8FA;
+}
+.menu{
+    color: white;
+}
+.result{
+    border: 2px solid red;
+    border-radius: 10px;
+}
+.question-result{
+    border: 1px solid black;
+    width: 35px;
+    height: 35px;
+    background-color: rgb(80, 172, 80);
+    border-radius: 20px;
+}
+.fail{
+    background-color: red;
+}
+.result-board{
+    width: 60%;
+    margin-top: 30px;
+    border: 1px solid rgb(184, 178, 178);
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.score{
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    background-color: #8DE96D;
+}
+.img{
+    width: 150px;
+    height: 150px;
 }
