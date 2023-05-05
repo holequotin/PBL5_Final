@@ -8,6 +8,7 @@ urlpatterns = [
     path('hx-exam-part-form/<int:pk>',exam_part_form,name='AddExamPartForm'),
     path('hx-group-question-form/<int:pk>',group_question_form,name='AddGroupQuestionForm'),
     path('hx-question-form/<int:pk>',question_form,name='AddQuestionForm'),
+    path('hx-update-answer/<int:pk>',update_answer,name='UpdateAnswer'),
     path('hx-exam-part-detail/<int:pk>',exam_part_detail,name='ExamPartDetail'),
     path('hx-question-detail/<int:pk>',question_detail,name='QuestionDetail'),
     path('hx-delete-part/<int:pk>',delete_part,name='DeletePart'),
