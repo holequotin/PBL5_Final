@@ -100,11 +100,17 @@ def delete_group_question(request,pk):
     group.delete()
     return HttpResponse('')
 
+def update_question_content(request,pk):
+    name = "content-question-" + str(pk)
+    content = request.POST.get(name)
+    question = Question.objects.get(id = pk)
+    question.content = content
+    question.save()
+    return redirect('Exam:QuestionDetail',pk = pk)
+
 def update_answer(request,pk):
-    print("Hello")
     name = "answer-question-" + str(pk)
     answer = request.POST.get(name)
-    print(answer)
     question = Question.objects.get(id = pk)
     question.correct = answer
     question.save()

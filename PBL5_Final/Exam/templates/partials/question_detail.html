@@ -1,7 +1,17 @@
 {% load static %}
 <div class = "row d-inline-flex container-fluid question" id = "detail-question-{{question.id}}">
     <div class = "row d-inline-flex flex-col">
-        <input class = "col-11 border-0" type="text" name="" id="question.content" value = "{{question.content}}">
+        <form action="">
+            {% csrf_token %}
+            <input class = "col-11 border-0" type="text" 
+            name="content-question-{{question.id}}" id="question-content" 
+            value = "{{question.content}}"
+            hx-post="{% url 'Exam:UpdateQuestionContent' pk=question.id %}"
+            hx-trigger="keyup changed delay:500ms, search" 
+            hx-target="#detail-question-{{question.id}}"
+            hx-swap = "outerHTML"
+            >
+        </form>
         <form class = "col-1 d-flex justify-content-center align-item-center">
             {% csrf_token %}
             <button class = "btn btn-outline-danger d-flex justify-content-center align-item-center border-0" hx-post = "" hx-target = "#detail-question-{{question.id}}" hx-swap = "outerHTML">

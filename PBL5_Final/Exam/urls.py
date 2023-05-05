@@ -14,5 +14,6 @@ urlpatterns = [
     path('hx-delete-part/<int:pk>',delete_part,name='DeletePart'),
     path("hx-delete-group-question/<int:pk>", delete_group_question, name="DeleteGroupQuestion"),
     path('hx-delete-form',delete_form,name='DeleteForm'),
-    path('hx-exam-list/',exam_list,name = 'ExamList')
+    path('hx-exam-list/',exam_list,name = 'ExamList'),
+    path('hx-update-question-content/<int:pk>',update_question_content,name = 'UpdateQuestionContent'),
 ]
