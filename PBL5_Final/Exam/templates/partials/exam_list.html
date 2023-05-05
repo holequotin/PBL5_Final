@@ -1,0 +1,28 @@
+<div class="row m-lg-2">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Tên đề</th>
+          <th scope="col">Cấp độ</th>
+          {% comment %} <th scope="col">Ảnh</th> {% endcomment %}
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for exam in exams %}
+          <tr hx-target = "this">
+              <th scope="row">{{forloop.counter}}</th>
+              <td><a href="{% url 'Teacher:AddExamDetail' pk=exam.id %}">{{exam.name}}</a></td>
+              <td>{{exam.level.name}}</td>
+              {% comment %} <td><img
+                  src="{{exam.image.url}}">
+              </td> {% endcomment %}
+              <td><form action="">{% csrf_token %} <a class="btn btn-outline-danger" hx-post = "{% url 'Teacher:DeleteExam' pk=exam.id %}" hx-swap = "outerHTML"><i class="bi bi-trash"></i></a></form></td>
+              <td><a class="btn btn-outline-primary" href = "{% url 'Teacher:DetailExam' pk=exam.id %}"><i class="bi bi-pen"></i></a></td>
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+  </div>

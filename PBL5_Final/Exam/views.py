@@ -42,6 +42,16 @@ def exam_part_form(request,pk):
     
     return render(request,'partials/add_exam_part_form.html',{'form' : form,'exam' : exam})   
 
+def exam_list(request):
+    search = request.GET.get('search')
+    print(search)
+    if search == '':
+        exams = Exam.objects.all()
+    else:
+        exams = Exam.objects.filter(name__icontains = search)
+    print(exams)
+    return render(request,'partials/exam_list.html',{'exams' : exams})
+
 def group_question_form(request,pk):
     if request.method == "POST" :
         form = AddGroupQuesitonForm(request.POST or None,request.FILES)
