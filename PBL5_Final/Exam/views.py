@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect,get_list_or_404,get_object_or_404
+from django.core.paginator import Paginator
 from .models import Exam
 from .forms import *
 from django.core.files.storage import default_storage
@@ -42,15 +43,21 @@ def exam_part_form(request,pk):
     
     return render(request,'partials/add_exam_part_form.html',{'form' : form,'exam' : exam})   
 
-def exam_list(request):
+def exam_list(request,number):
     search = request.GET.get('search')
-    print(search)
-    if search == '':
-        exams = Exam.objects.all()
+    if search == '' or search is None:
+        search = ''
+        exams = Exam.objects.all().filter(user=request.user)
     else:
         exams = Exam.objects.filter(name__icontains = search)
-    print(exams)
-    return render(request,'partials/exam_list.html',{'exams' : exams})
+    paginator = Paginator(exams,2)
+    page_obj = paginator.page(number)
+    context = {
+        'page_obj' : page_obj,
+        'search' :search,
+        'number' : number
+    }
+    return render(request,'partials/exam_list.html',context)
 
 def group_question_form(request,pk):
     if request.method == "POST" :
