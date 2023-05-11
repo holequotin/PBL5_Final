@@ -42,9 +42,9 @@ class AddExamPartForm(forms.ModelForm):
         fields = ['name','time','pass_score']
         
 class AddGroupQuesitonForm(forms.ModelForm):
-    content = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'form-control'
-    }))
+    # content = forms.CharField(widget=forms.TextInput(attrs={
+    #     'class': 'form-control'
+    # }))
     file = forms.FileField(widget=forms.FileInput(attrs={
         'class' : 'form-control'
     }),required=False)

@@ -1,6 +1,7 @@
 <div hx-target="this">
     <form action="" method = "POST" enctype="multipart/form-data" hx-encoding = "multipart/form-data"> 
         {% csrf_token %}
+        {{form.media}}
         {{form.as_p}}
         <button class = "btn btn-success" hx-post = "{% url 'Exam:AddGroupQuestionForm' pk=part_id %}">Save</button>
         <button class = "btn btn-outline-danger" hx-post = {% url 'Exam:DeleteForm'%} hx-swap='outerHTML'>Delete form</button>
