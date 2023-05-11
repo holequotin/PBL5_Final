@@ -1,10 +1,10 @@
 {% load static %}
-<form action="{% url 'Exam:AddQuestionForm' pk=pk %}" hx-target = "this" method="POST">
+<form action="{% url 'Exam:UpdateQuestionForm' pk=pk %}" hx-target = "this" method="POST">
     {% csrf_token %}
+    {{form.media}}
     <div class = "container">
-        {{form.media}}
         <div class="row">
-            {{form.content|safe}}
+            {{form.content}}
         </div>
         <div class="row">
             <div class = "col-3">
@@ -28,8 +28,9 @@
                 {{form.correct}}
             </div>
             <div class = "col-4">
-                <button class = "btn btn-success " type = "submit" style = "margin-top : 20px">Submit</button>
-                <button class = "btn btn-outline-danger " hx-get = "{% url 'Exam:DeleteForm' %}" style = "margin-top : 20px">Delete form</button>
+                <button class = "btn btn-success "style = "margin-top : 20px">Submit</button>
+                {% comment %} <button class = "btn btn-outline-danger " hx-get = "{% url 'Exam:DeleteForm' %}" style = "margin-top : 20px">Delete form</button> {% endcomment %}
+                <a href="{% url 'Teacher:AddExamDetail' pk=form.instance.group_question.exam_part.exam.id %}" class="btn btn-outline-danger" style = "margin-top : 20px">Delete Form</a>
             </div>
         </div>
     </div>

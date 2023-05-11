@@ -53,9 +53,9 @@ class AddGroupQuesitonForm(forms.ModelForm):
         fields = ['content','file']
         
 class AddQuestionForm(forms.ModelForm):
-    content = forms.CharField(widget=forms.TextInput(attrs={
-        'class' : 'form-control col-12'
-    }))
+    # content = forms.CharField(widget=forms.TextInput(attrs={
+    #     'class' : 'form-control col-12'
+    # }))
     optionA = forms.CharField(widget=forms.TextInput(attrs={
         'class' : 'form-control col-3 options'
     }))

@@ -50,7 +50,7 @@ class GroupQuestion(models.Model):
     
 class Question(models.Model):
     group_question = models.ForeignKey(GroupQuestion, on_delete= models.CASCADE)
-    content = models.CharField(max_length=1000)
+    content = RichTextField(null=True,blank=True)
     optionA = models.CharField(max_length=100)
     optionB = models.CharField(max_length=100)
     optionC = models.CharField(max_length=100)
