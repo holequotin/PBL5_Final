@@ -85,21 +85,21 @@ def importExcel(request, pk):
                 exam_part_resource = ExamPartResource()
                 group_question_resource = GroupQuestionResource()
                 question_resource = QuestionResource()
-                
+
                 # Importing data to ExamPart model
-                new_exam_part = ExamPart()
-                new_exam_part.name = data[4]
-                new_exam_part.time = data[5]
-                new_exam_part.pass_score = data[6]
-                new_exam_part.exam = Exam.objects.get(id=exam_id)
-                new_exam_part.save()
-                
+                exam_part_name = data[4]
+                exam_part = ExamPart.objects.filter(name=exam_part_name, exam=exam).first()
+                if not exam_part:
+                    exam_part = ExamPart.objects.create(name=exam_part_name, time=data[5], pass_score=data[6], exam=exam)
+                    exam_part.save()
+
                 # Importing data to GroupQuestion model
-                new_group_question = GroupQuestion()
-                new_group_question.content = data[7]
-                new_group_question.exam_part = new_exam_part
-                new_group_question.save()
-                
+                group_question_content = data[7]
+                group_question = GroupQuestion.objects.filter(content=group_question_content, exam_part=exam_part).first()
+                if not group_question:
+                    group_question = GroupQuestion.objects.create(content=group_question_content, exam_part=exam_part)
+                    group_question.save()
+
                 # Importing data to Question model
                 new_question = Question()
                 new_question.content = data[8]
@@ -109,7 +109,7 @@ def importExcel(request, pk):
                 new_question.optionD = data[12]
                 new_question.score = data[13]
                 new_question.correct = data[14]
-                new_question.group_question = new_group_question
+                new_question.group_question = group_question
                 new_question.save()
                 
             messages.success(request, 'Imported successfully.')
