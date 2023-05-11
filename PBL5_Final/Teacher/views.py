@@ -15,7 +15,7 @@ def exam_manager(request,number):
     user = request.user
     profile = get_object_or_404(Profile,user=user)
     exams = Exam.objects.all().filter(user = user)
-    paginator = Paginator(exams,2)
+    paginator = Paginator(exams,10)
     page_obj = paginator.page(number)
     context = {
         'number' : number,
