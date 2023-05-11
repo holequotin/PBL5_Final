@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'JLPT',
     'Teacher',
-    'Exam'
+    'Exam',
+    'import_export',
 ]
 
 MIDDLEWARE = [
