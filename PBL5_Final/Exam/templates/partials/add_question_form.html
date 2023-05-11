@@ -1,9 +1,10 @@
 {% load static %}
-<form action="" hx-target = "this">
+<form action="{% url 'Exam:AddQuestionForm' pk=pk %}" hx-target = "this" method="POST">
     {% csrf_token %}
     <div class = "container">
+        {{form.media}}
         <div class="row">
-            {{form.content}}
+            {{form.content|safe}}
         </div>
         <div class="row">
             <div class = "col-3">
@@ -27,7 +28,7 @@
                 {{form.correct}}
             </div>
             <div class = "col-4">
-                <button class = "btn btn-success " hx-post = "{% url 'Exam:AddQuestionForm' pk=pk %}" style = "margin-top : 20px">Submit</button>
+                <button class = "btn btn-success " type = "submit" style = "margin-top : 20px">Submit</button>
                 <button class = "btn btn-outline-danger " hx-get = "{% url 'Exam:DeleteForm' %}" style = "margin-top : 20px">Delete form</button>
             </div>
         </div>

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 import os
 # Create your models here.
 
@@ -40,7 +41,8 @@ class ExamPart(models.Model):
 
 class GroupQuestion(models.Model):
     exam_part = models.ForeignKey(ExamPart,on_delete=models.CASCADE)
-    content = models.CharField(max_length=100)
+    # content = models.CharField(max_length=100)
+    content = RichTextField(null=True,blank=True)
     file = models.FileField(upload_to='media/',null=True, blank=True)
     
     def questions(self):
@@ -48,7 +50,7 @@ class GroupQuestion(models.Model):
     
 class Question(models.Model):
     group_question = models.ForeignKey(GroupQuestion, on_delete= models.CASCADE)
-    content = models.CharField(max_length=1000)
+    content = RichTextField(null=True,blank=True)
     optionA = models.CharField(max_length=100)
     optionB = models.CharField(max_length=100)
     optionC = models.CharField(max_length=100)
