@@ -8,11 +8,14 @@
             <button class = "btn btn-outline-success border-0" hx-get = "{% url 'Exam:AddQuestionForm' pk=group.id %}" hx-target = "#question-list-{{group.id}}" hx-swap = "beforeend"><i class="bi bi-plus-lg"></i></button>
         </div>
     </div>
-      {% if group.file %}
-      {% if group.file.url|lower|endswith:".mp3" or group.file.url|lower|endswith:".docx"%}
-        not images
-      {% elif group.file.url|lower|endswith:".jpg" or group.file.url|lower|endswith:".png" or group.file.url|lower|endswith:".jpeg"%}
-      <div class="image-container">
+    {% if group.file %}
+    <div class="container">
+      {% if group.file.url|lower|endswith:".mp3" or group.file.url|lower|endswith:".wav" or group.file.url|lower|endswith:".ogg" %}
+      <audio controls>
+        <source src="{{group.file.url}}" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>      
+      {% elif group.file.url|lower|endswith:".jpg" or group.file.url|lower|endswith:".png" or group.file.url|lower|endswith:".jpeg" %}
       <img src="{{group.file.url}}" alt="My Image">
       {% endif %}
     </div>
