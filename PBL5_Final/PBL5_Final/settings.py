@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'Exam',
     'import_export',
 ]
-
+CKEDITOR_UPLOAD_PATH = 'uploads/'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

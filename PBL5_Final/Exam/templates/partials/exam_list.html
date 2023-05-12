@@ -1,0 +1,103 @@
+<div class="row m-lg-2">
+  <div class="container-fluid content mt-3 m-lg-5">
+    <div class="row mb-5">
+      <div class="col-sm-4">
+        <form class="d-flex">
+          {% comment %} <input class="form-control me-2" type="search" placeholder="Nhập tên đề thi" aria-label="Search" name="search"> {% endcomment %}
+          <input class="form-control me-2" type="search" 
+          name="search" placeholder="Nhập tên đề thi" 
+          hx-get="{% url 'Exam:ExamList' number=1 %}"
+          hx-trigger="keyup changed delay:500ms, search" 
+          hx-target="#exam-list-container"
+          hx-include = "[name = 'select-level']"
+          value={{search}}>
+        </form>
+      </div>
+      <div class="col-sm-2">
+        <select class="form-select" name = "select-level" 
+        hx-get="{% url 'Exam:ExamList' number=1 %}"
+        hx-target="#exam-list-container"
+        hx-include = "[name = 'search']"
+        >
+          <option value="All">Tất cả</option>
+          <option value="N5">N5</option>
+          <option value="N4">N4</option>
+          <option value="N3">N3</option>
+          <option value="N2">N2</option>
+          <option value="N1">N1</option>
+        </select>
+      </div>
+      <div class="col-sm-2">
+        <a class="btn btn-success" href = "{% url 'Teacher:AddExam' %}"><i class="bi bi-file-earmark-plus"></i>Thêm đề thi</a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Tên đề</th>
+          <th scope="col">Cấp độ</th>
+          {% comment %} <th scope="col">Ảnh</th> {% endcomment %}
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for exam in page_obj.object_list %}
+          <tr hx-target = "this">
+              <td><a href="{% url 'Teacher:AddExamDetail' pk=exam.id %}">{{exam.name}}</a></td>
+              <td>{{exam.level.name}}</td>
+              {% comment %} <td><img
+                  src="{{exam.image.url}}">
+              </td> {% endcomment %}
+              <td><form action="">{% csrf_token %} <a class="btn btn-outline-danger" hx-post = "{% url 'Teacher:DeleteExam' pk=exam.id %}" hx-swap = "outerHTML"><i class="bi bi-trash"></i></a></form></td>
+              <td><a class="btn btn-outline-primary" href = "{% url 'Teacher:DetailExam' pk=exam.id %}"><i class="bi bi-pen"></i></a></td>
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+  </div>
+    <div class="container">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item 
+          {% if not page_obj.has_previous %}
+            disabled
+          {% endif %}
+          ">
+            <a class="page-link"
+            {% if page_obj.has_previous %}
+              href = "#"       
+              hx-get={% url 'Exam:ExamList' number=page_obj.previous_page_number %} 
+              hx-include=[name='search'] 
+              hx-target="#exam-list-container"     
+            {% endif %}
+            >Previous</a>
+          </li>
+          {% for i in page_obj.paginator.page_range %}
+          <li class="page-item 
+          {% if number == forloop.counter %}active{% endif %}"
+          ><a class="page-link" href="" 
+          hx-get={% url 'Exam:ExamList' number=i %} 
+          hx-include=[name='search'] 
+          hx-target="#exam-list-container">{{i}}</a></li>
+          {% endfor %}
+          <li class="page-item 
+          {% if not page_obj.has_next %}
+          disabled
+          {% endif %}
+          ">
+            <a class="page-link" href="#"
+            {% if page_obj.has_next %}
+            href = "#"       
+            hx-get={% url 'Exam:ExamList' number=page_obj.next_page_number %} 
+            hx-include=[name='search'] 
+            hx-target="#exam-list-container"     
+            {% endif %}
+            >Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>

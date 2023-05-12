@@ -4,25 +4,32 @@ from Exam.models import *
 import Exam.forms as ExamForms
 from django.shortcuts import redirect,render,get_object_or_404
 from django.http import HttpResponse
+<<<<<<< HEAD
 from tablib import Dataset
 from .resources import LevelResource, ExamResource, ExamPartResource, GroupQuestionResource, QuestionResource
 from django.contrib import messages
 
 
+=======
+from django.core.paginator import Paginator
+>>>>>>> 5a8c3c943e83a8463f6c7ec6c525567e1801821b
 # Create your views here.
 def teacher_home(request):
     user = request.user
     profile = get_object_or_404(Profile,user = user)
     return render(request,'pages/teacher_home.html',{'user' : user, 'profile' : profile})
 
-def exam_manager(request):
+def exam_manager(request,number):
     user = request.user
     profile = get_object_or_404(Profile,user=user)
     exams = Exam.objects.all().filter(user = user)
+    paginator = Paginator(exams,10)
+    page_obj = paginator.page(number)
     context = {
+        'number' : number,
         'user' : user,
         'profile' :profile,
-        'exams' : exams
+        'page_obj' : page_obj
     }
     return render(request,'pages/teacher_exam_manager.html',context)
 
@@ -35,7 +42,7 @@ def teacher_add_exam(request):
             exam =  form.save(commit=False)
             exam.user = request.user
             exam.save()
-            return redirect('Teacher:ExamManager')
+            return redirect('Teacher:ExamManager',number = 1)
     form = ExamForms.AddExamForm()
     context = {
         'form' : form,

@@ -14,61 +14,8 @@
 
 {% block content %}
 <div class = "row exam-list">
-    <div class="container-fluid content mt-3 m-lg-5">
-        <div class="row mb-5">
-          <div class="col-sm-4">
-            <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Nhập tên đề thi" aria-label="Search">
-              <button class="btn btn-success" type="submit"><i class="bi bi-search"></i></button>
-            </form>
-          </div>
-          <div class="col-sm-2">
-            <div class="dropdown">
-              <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton2"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                Tất cả
-              </button>
-              <ul class="dropdown-menu" id="dropdown-menu1" aria-labelledby="dropdownMenuButton2">
-                <li><a class="dropdown-item" href="#">N5</a></li>
-                <li><a class="dropdown-item" href="#">N4</a></li>
-                <li><a class="dropdown-item" href="#">N3</a></li>
-                <li><a class="dropdown-item" href="#">N2</a></li>
-                <li><a class="dropdown-item" href="#">N1</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-sm-2">
-            <a class="btn btn-success" href = "{% url 'Teacher:AddExam' %}"><i class="bi bi-file-earmark-plus"></i>Thêm đề thi</a>
-          </div>
-        </div>
-        <div class="row m-lg-2">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">STT</th>
-                <th scope="col">Tên đề</th>
-                <th scope="col">Cấp độ</th>
-                {% comment %} <th scope="col">Ảnh</th> {% endcomment %}
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-                {% for exam in exams %}
-                <tr hx-target = "this">
-                    <th scope="row">{{forloop.counter}}</th>
-                    <td><a href="{% url 'Teacher:AddExamDetail' pk=exam.id %}">{{exam.name}}</a></td>
-                    <td>{{exam.level.name}}</td>
-                    {% comment %} <td><img
-                        src="{{exam.image.url}}">
-                    </td> {% endcomment %}
-                    <td><form action="">{% csrf_token %} <a class="btn btn-outline-danger" hx-post = "{% url 'Teacher:DeleteExam' pk=exam.id %}" hx-swap = "outerHTML"><i class="bi bi-trash"></i></a></form></td>
-                    <td><a class="btn btn-outline-primary" href = "{% url 'Teacher:DetailExam' pk=exam.id %}"><i class="bi bi-pen"></i></a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
+    <div class = "container" id="exam-list-container">
+      {% include "partials/exam_list.html" %}
+    </div>
 </div>
 {% endblock content %}

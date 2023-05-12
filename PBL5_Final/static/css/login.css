@@ -1,0 +1,18 @@
+.login-form{
+    width: 70%;
+    height: 80%;
+    border: 1px solid gray;
+    border-radius: 20px;
+    padding: 5%;
+}
+.form-group{
+    margin-top: 20px;
+}
+.container-div{
+    height: 700px;
+    margin-top: 100px;
+    padding: 40px;
+}
+p{
+    text-align: center;
+}
