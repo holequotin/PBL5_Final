@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'JLPT',
     'Teacher',
-    'Exam'
+    'Exam',
+    'Student'
 ]
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 MIDDLEWARE = [
