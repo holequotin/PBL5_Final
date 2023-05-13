@@ -42,7 +42,11 @@ INSTALLED_APPS = [
     'JLPT',
     'Teacher',
     'Exam',
+<<<<<<< HEAD
     'import_export',
+=======
+    'Student'
+>>>>>>> authen-author
 ]
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 MIDDLEWARE = [

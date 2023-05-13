@@ -18,7 +18,7 @@ def login_page(request):
                 return redirect('Teacher:TeacherHome')
             if user.groups.filter(name = 'Student'):
                 print('Is student')
-                return render(request,'student_home.html',{})
+                return redirect('Student:StudentHome')
             # if profile.role == 'teacher':
             #     return redirect('jlpt:TeacherHome')
             # if profile.role == 'student':
