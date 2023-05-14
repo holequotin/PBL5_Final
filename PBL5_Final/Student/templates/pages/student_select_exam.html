@@ -25,6 +25,8 @@
         </div>
     </div>
     <div class="row d-flex flex-row">
-
+        {% for exam in exams %}
+            <a href="{% url 'Student:ExamDetail' pk=exam.id %}">{{exam.name}}</a> - <a href="{% url 'Student:StartTest' pk=exam.id %}">Làm bài</a>
+        {% endfor %}
     </div>
 {% endblock content %}
