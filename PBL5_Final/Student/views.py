@@ -24,16 +24,22 @@ def exam_list(request,level):
     return render(request,'pages/student_select_exam.html',context )
 
 def exam_detail(request,pk):
-    exam = get_object_or_404(Exam,id = pk)
+    exam = get_object_or_404(PracticeHistory,id = pk)
     context = {
         'exam' : exam
     }
     return render(request,'pages/student_exam_detail.html',context)
 
-def test_part(request,pk):
-    part = get_object_or_404(ExamPart,id = pk)
+def practice_history_detail(request,pk):
+    practice_history = get_object_or_404(PracticeHistory,id = pk)
     context = {
-        'part' : part
+        'practice_history' : practice_history
+    }
+    return render(request,'pages/student_practice_history_detail.html',context)
+def test_part(request,pk):
+    part_history = get_object_or_404(PracticePartHistory,id = pk)
+    context = {
+        'part_history' : part_history
     }
     return render(request,'pages/student_test_part.html',context)
 
@@ -41,6 +47,8 @@ def start_test(request,pk):
     exam = get_object_or_404(Exam,id = pk)
     if PracticeHistory.objects.filter(exam = exam,status = False).exists():
         print("Bạn có một bài chưa hoàn thành của exam này")
+        practice_history = get_object_or_404(PracticeHistory,exam = exam,status = False)
+        return redirect('Student:PracticeHistoryDetail', pk=practice_history.id)
     else:    
         practice_history = PracticeHistory(
             student = request.user,
@@ -71,23 +79,6 @@ def start_test(request,pk):
                   file = group.file
               )  
               group_history.save()
-                # group_question = models.ForeignKey(GroupQuestionHistory, on_delete= models.CASCADE)
-                # content = RichTextField(null=True,blank=True)
-                # optionA = models.CharField(max_length=100)
-                # optionB = models.CharField(max_length=100)
-                # optionC = models.CharField(max_length=100)
-                # optionD = models.CharField(max_length=100)
-                # score = models.IntegerField()
-                # correct = models.CharField(max_length=1,default="A")
-                
-                # group_question = models.ForeignKey(GroupQuestion, on_delete= models.CASCADE)
-                # content = RichTextField(null=True,blank=True)
-                # optionA = models.CharField(max_length=100)
-                # optionB = models.CharField(max_length=100)
-                # optionC = models.CharField(max_length=100)
-                # optionD = models.CharField(max_length=100)
-                # score = models.IntegerField()
-                # correct = models.CharField(max_length=1,default="A")
               for question in group.questions():
                   question_history = QuestionHistory(
                       group_question = group_history,
@@ -100,4 +91,16 @@ def start_test(request,pk):
                       correct = question.correct,
                   )
                   question_history.save()
-    return redirect('Student:ExamDetail', pk=pk)
+        return redirect('Student:PracticeHistoryDetail', pk=practice_history.id)
+    
+def update_answer(request,pk):
+    name = "answer-question-" + str(pk)
+    answer = request.POST.get(name)
+    question_history = QuestionHistory.objects.get(id = pk)
+    question_history.answer = answer
+    question_history.save()
+    return redirect('Student:QuestionHistory',pk = pk)
+
+def question_history_detail(request,pk):
+    question_history = get_object_or_404(QuestionHistory,id = pk)
+    return render(request,'partials/student_question_history.html',{'question' : question_history })

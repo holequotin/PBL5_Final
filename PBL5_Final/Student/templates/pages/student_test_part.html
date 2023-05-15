@@ -5,5 +5,10 @@
 {% endblock linkcss %}
 
 {% block content %}
-    <h1>{{part.name}}</h1>
+    <h1>{{part_history.name}}</h1>
+    <div class="container">
+    {% for group in part_history.groups %}
+        {% include 'partials/student_group_history.html' with group=group %}
+      {% endfor %} 
+    </div>
 {% endblock content %}

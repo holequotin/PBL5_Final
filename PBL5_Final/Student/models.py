@@ -45,4 +45,4 @@ class QuestionHistory(models.Model):
     optionD = models.CharField(max_length=100)
     score = models.IntegerField()
     correct = models.CharField(max_length=1,default="A")
-    answer = models.CharField(max_length=1,default="A",null = True,blank = True)
+    answer = models.CharField(max_length=1,null = True,blank = True)

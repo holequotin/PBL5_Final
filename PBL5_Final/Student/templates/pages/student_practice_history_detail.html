@@ -1,0 +1,17 @@
+{% extends 'student_base.html' %}
+{% load static %}
+{% block linkcss %}
+    <link rel="stylesheet" href="{% static 'css/pages/student_practice_history_detail.css' %}">
+{% endblock linkcss %}
+
+{% block content %}
+    <h1>{{practice_history.name}}</h1>
+    <div class="exam-part-list">
+        {% for part in practice_history.parts %}
+            <div class="part-detail">
+                <h2>{{part.name}}</h2>
+                <a href="{% url 'Student:TestPart' pk=part.id %}">Làm bài</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}
