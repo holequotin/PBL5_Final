@@ -4,15 +4,12 @@ from Exam.models import *
 import Exam.forms as ExamForms
 from django.shortcuts import redirect,render,get_object_or_404
 from django.http import HttpResponse
-<<<<<<< HEAD
 from tablib import Dataset
 from .resources import LevelResource, ExamResource, ExamPartResource, GroupQuestionResource, QuestionResource
 from django.contrib import messages
 
 
-=======
 from django.core.paginator import Paginator
->>>>>>> 5a8c3c943e83a8463f6c7ec6c525567e1801821b
 # Create your views here.
 def teacher_home(request):
     user = request.user
