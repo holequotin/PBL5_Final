@@ -4,6 +4,7 @@ app_name = 'Student'
 
 urlpatterns = [
     path('index',index,name='StudentHome'),
+<<<<<<< HEAD
     path('exam-list/<str:level>',exam_list,name='ExamList'),
     path('exam-detail/<int:pk>',exam_detail,name = 'ExamDetail'),
     path('practice-history-detail/<int:pk>',practice_history_detail,name='PracticeHistoryDetail'),
@@ -12,4 +13,9 @@ urlpatterns = [
     
     path('hx-update-answer/<int:pk>',update_answer,name='UpdateAnswer'),
     path('hx-question-history/<int:pk>',question_history_detail,name = 'QuestionHistory')
+=======
+    path('exam-list',exam_select_list,name='ExamSelectList'),
+    path('exam-list/<str:level>',exam_list,name='ExamList'),
+    path('exam<str:level>',exam_n,name='ExamN')
+>>>>>>> master
 ]

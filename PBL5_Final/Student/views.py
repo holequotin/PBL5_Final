@@ -21,6 +21,7 @@ def exam_list(request,level):
     context = {
         'exams' : exams
     }
+<<<<<<< HEAD
     return render(request,'pages/student_select_exam.html',context )
 
 def exam_detail(request,pk):
@@ -104,3 +105,17 @@ def update_answer(request,pk):
 def question_history_detail(request,pk):
     question_history = get_object_or_404(QuestionHistory,id = pk)
     return render(request,'partials/student_question_history.html',{'question' : question_history })
+=======
+    return render(request,'pages/student_exam_list.html',context)
+
+def exam_select_list(request):
+
+    return render(request,'pages/student_select_exam_new.html')
+
+def exam_n(request,level):
+    level_obj = level
+    context = {
+        'level' : level_obj
+    }
+    return render(request,'pages/student_exam_N.html',context)
+>>>>>>> master
