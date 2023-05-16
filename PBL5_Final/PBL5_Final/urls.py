@@ -22,11 +22,8 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("jlpt/",include('JLPT.urls')),
-<<<<<<< HEAD
     path("teacher/", include('Teacher.urls')),
     path("exam/",include("Exam.urls")),
-=======
->>>>>>> 495fc3812bbc4d382e4fdd6b28805f26b128c6b3
     path("teacher/",include('Teacher.urls')),
     path("exam/",include("Exam.urls")),
     path("student/",include("Student.urls"))
