@@ -17,4 +17,15 @@ def exam_list(request,level):
     context = {
         'exams' : exams
     }
-    return render(request,'pages/student_select_exam.html',context)
+    return render(request,'pages/student_exam_list.html',context)
+
+def exam_select_list(request):
+
+    return render(request,'pages/student_select_exam_new.html')
+
+def exam_n(request,level):
+    level_obj = level
+    context = {
+        'level' : level_obj
+    }
+    return render(request,'pages/student_exam_N.html',context)
