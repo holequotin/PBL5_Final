@@ -44,7 +44,7 @@ class GroupQuestion(models.Model):
     # content = models.CharField(max_length=100)
     content = RichTextField(null=True,blank=True)
     file = models.FileField(upload_to='media/',null=True, blank=True)
-    
+    #audio = models.FileField(upload_to='media/', null=True, blank=True)
     def questions(self):
         return Question.objects.all().filter(group_question = self)
     

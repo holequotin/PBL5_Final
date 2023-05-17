@@ -4,15 +4,15 @@ from Exam.models import *
 import Exam.forms as ExamForms
 from django.shortcuts import redirect,render,get_object_or_404
 from django.http import HttpResponse
-<<<<<<< HEAD
 from tablib import Dataset
 from .resources import LevelResource, ExamResource, ExamPartResource, GroupQuestionResource, QuestionResource
 from django.contrib import messages
+import media
+import os
+from django.core.files.base import ContentFile
 
 
-=======
 from django.core.paginator import Paginator
->>>>>>> 5a8c3c943e83a8463f6c7ec6c525567e1801821b
 # Create your views here.
 def teacher_home(request):
     user = request.user
@@ -100,22 +100,31 @@ def importExcel(request, pk):
                     exam_part = ExamPart.objects.create(name=exam_part_name, time=data[5], pass_score=data[6], exam=exam)
                     exam_part.save()
 
-                # Importing data to GroupQuestion model
+
                 group_question_content = data[7]
+                group_question_file_path = data[8]
                 group_question = GroupQuestion.objects.filter(content=group_question_content, exam_part=exam_part).first()
                 if not group_question:
                     group_question = GroupQuestion.objects.create(content=group_question_content, exam_part=exam_part)
-                    group_question.save()
+
+                if group_question_file_path:
+                    file_name = os.path.basename(group_question_file_path)
+                    with open(group_question_file_path, 'rb') as file:
+                        file_content = file.read()
+                        group_question.file.save(file_name, ContentFile(file_content), save=True)
+
+                group_question.save()
+
 
                 # Importing data to Question model
                 new_question = Question()
-                new_question.content = data[8]
-                new_question.optionA = data[9]
-                new_question.optionB = data[10]
-                new_question.optionC = data[11]
-                new_question.optionD = data[12]
-                new_question.score = data[13]
-                new_question.correct = data[14]
+                new_question.content = data[9]
+                new_question.optionA = data[10]
+                new_question.optionB = data[11]
+                new_question.optionC = data[12]
+                new_question.optionD = data[13]
+                new_question.score = data[14]
+                new_question.correct = data[15]
                 new_question.group_question = group_question
                 new_question.save()
                 
