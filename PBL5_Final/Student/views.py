@@ -4,6 +4,8 @@ from Exam.models import *
 from django.shortcuts import get_list_or_404,get_object_or_404
 from .models import *
 from datetime import timedelta
+from django.db.models import Sum
+from django.db.models import F
 # Create your views here.
 fs = FileSystemStorage(location=settings.MEDIA_ROOT)
 def index(request):
@@ -21,8 +23,7 @@ def exam_list(request,level):
     context = {
         'exams' : exams
     }
-<<<<<<< HEAD
-    return render(request,'pages/student_select_exam.html',context )
+    return render(request,'pages/student_exam_list.html',context )
 
 def exam_detail(request,pk):
     exam = get_object_or_404(PracticeHistory,id = pk)
@@ -39,6 +40,8 @@ def practice_history_detail(request,pk):
     return render(request,'pages/student_practice_history_detail.html',context)
 def test_part(request,pk):
     part_history = get_object_or_404(PracticePartHistory,id = pk)
+    if part_history.status:
+        return redirect('Student:PracticeHistoryDetail',pk = part_history.practice_history.id)
     context = {
         'part_history' : part_history
     }
@@ -105,7 +108,6 @@ def update_answer(request,pk):
 def question_history_detail(request,pk):
     question_history = get_object_or_404(QuestionHistory,id = pk)
     return render(request,'partials/student_question_history.html',{'question' : question_history })
-=======
     return render(request,'pages/student_exam_list.html',context)
 
 def exam_select_list(request):
@@ -118,4 +120,45 @@ def exam_n(request,level):
         'level' : level_obj
     }
     return render(request,'pages/student_exam_N.html',context)
->>>>>>> master
+
+def complete_practice_part(request,pk):
+    practice_part = get_object_or_404(PracticePartHistory,id = pk)
+    practice_part.status = True
+    practice_part.save()
+    
+    practice = get_object_or_404(PracticeHistory,id = practice_part.practice_history.id)
+    practice.status = True
+    
+    #check practice was done
+    for part in practice.parts():
+        if not part.status:
+            practice.status = False
+            break
+    
+    practice.save()
+    
+    return redirect('Student:PracticeHistoryDetail',pk = practice_part.practice_history.id)
+
+def practice_result(request,pk):
+    #kiểm tra bài thi đã hoàn thành hay chưa
+    result = {}
+    answers = 'ABCD'
+    base_score = {}
+    practice = get_object_or_404(PracticeHistory,id = pk)
+    for part in practice.parts():
+        value = QuestionHistory.objects.filter(group_question__in = part.groups(),answer__exact = F('correct')).aggregate(sum = Sum('score'))
+        total = QuestionHistory.objects.filter(group_question__in = part.groups()).aggregate(sum = Sum('score'))
+        value = 0 if value['sum'] is None else value['sum']
+        total = 0 if total['sum'] is None else total['sum']
+        result[part.name] = value
+        base_score[part.name] = total
+    
+    profile = Profile.objects.get(user = request.user)    
+
+    context = {
+        'result' : result,
+        'base_score' : base_score,
+        'profile' : profile,
+        'practice' : practice
+    }
+    return render(request,'pages/student_practice_result.html',context)

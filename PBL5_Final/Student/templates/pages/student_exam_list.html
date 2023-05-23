@@ -85,7 +85,7 @@
                             <div class="card-body">
                             <h5 class="card-title">{{exam.name}}{{exam.level}}</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Vào thi</a>
+                            <a href="{% url 'Student:StartTest' pk=exam.id %}" class="btn btn-primary">Vào thi</a>
                             </div>
                         </div>
                     </div>
