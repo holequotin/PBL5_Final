@@ -9,5 +9,11 @@ urlpatterns = [
     path('delete_exam/<int:pk>',teacher_delete_exam,name = 'DeleteExam'),
     path('detail_exam/<int:pk>',teacher_detail_exam,name = "DetailExam"),
     path('add_exam_detail/<int:pk>/',teacher_add_exam_detail,name = "AddExamDetail"),
-    path('import/<int:pk>/',importExcel,name='push_excel')
+    path('import/<int:pk>/',importExcel,name='push_excel'),
+    # path('add_document/',),
+    path('documentmanager/<int:number>',document_manager,name = 'DocumentManager'),
+    path('adddocument',teacher_add_document,name='AddDocument'),
+    path('add_document_detail/<int:pk>/',teacher_add_document_detail,name = "AddDocumentDetail"),
+    path('delete_document/<int:pk>',teacher_delete_document,name = 'DeleteDocument'),
+    path('detail_document/<int:pk>',teacher_detail_document,name = "DetailDocument"),
 ]

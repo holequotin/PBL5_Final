@@ -1,0 +1,89 @@
+<div class="row m-lg-2">
+    <div class="container-fluid content mt-3 m-lg-5">
+        <div class="row mb-5">
+          <div class="col-sm-4">
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Nhập tên tài liệu" aria-label="Search" name="search"> 
+              <input class="form-control me-2" type="search" 
+              name="search" placeholder="Nhập tên tài liệu" 
+              hx-get="{% url 'Document:DocumentList' number=1 %}"
+              hx-trigger="keyup changed delay:500ms, search" 
+              hx-target="#document-list-container"
+              value={{search}}>
+            </form>
+          </div>
+          <div class="col-sm-2">
+            <a class="btn btn-success" href = "{% url 'Teacher:AddDocument' %}"><i class="bi bi-file-earmark-plus"></i>Thêm tài liệu</a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Tên tiêu đề</th>
+              <th scope="col">Ngày thêm</th>
+              {% comment %} <th scope="col">Ảnh</th> {% endcomment %}
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for document in page_obj.object_list %}
+              <tr hx-target = "this">
+                  <td><a href="{% url 'Teacher:AddDocumentDetail' pk=document.id %}">{{document.title}}</a></td>
+                  <td>{{document.title}}</td>
+                  {% comment %} <td><img
+                      src="{{exam.image.url}}">
+                  </td> {% endcomment %}
+                  <td><form action="">{% csrf_token %} <a class="btn btn-outline-danger" hx-post = "{% url 'Teacher:DeleteDocument' pk=document.id %}" hx-swap = "outerHTML"><i class="bi bi-trash"></i></a></form></td>
+                  <td><a class="btn btn-outline-primary" href = "{% url 'Teacher:DetailDocument' pk=document.id %}"><i class="bi bi-pen"></i></a></td>
+              </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="container">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item 
+            {% if not page_obj.has_previous %}
+              disabled
+            {% endif %}
+            ">
+              <a class="page-link"
+              {% if page_obj.has_previous %}
+                href = "#"       
+                hx-get={% url 'Document:DocumentList' number=page_obj.previous_page_number %} 
+                hx-include=[name='search'] 
+                hx-target="#document-list-container"     
+              {% endif %}
+              >Previous</a>
+            </li>
+            {% for i in page_obj.paginator.page_range %}
+            <li class="page-item 
+            {% if number == forloop.counter %}active{% endif %}"
+            ><a class="page-link" href="" 
+            hx-get={% url 'Document:DocumentList' number=i %} 
+            hx-include=[name='search'] 
+            hx-target="#document-list-container">{{i}}</a></li>
+            {% endfor %}
+            <li class="page-item 
+            {% if not page_obj.has_next %}
+            disabled
+            {% endif %}
+            ">
+              <a class="page-link" href="#"
+              {% if page_obj.has_next %}
+              href = "#"       
+              hx-get={% url 'Document:DocumentList' number=page_obj.next_page_number %} 
+              hx-include=[name='search'] 
+              hx-target="#document-list-container"     
+              {% endif %}
+              >Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+</div>
