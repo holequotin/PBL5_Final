@@ -1,0 +1,8 @@
+@import url('../partials/student_info.css');
+@import url('../partials/student_navbar.css');
+.banner{
+    background-image: url(../../images/student_banner.png);
+    height: 85vh;
+    background-size: cover;
+    background-position: center;
+}

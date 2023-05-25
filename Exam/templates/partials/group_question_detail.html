@@ -1,0 +1,50 @@
+{% load static %}
+{% load customfilter %}
+<div class = "group-question" id = "group-question-{{group.id}}">
+  <div class="container" id = "group-info">
+  <div class="row">
+    <div class="col-11">
+      <h2>{{group.content|safe}}</h2>
+    </div>
+    <div class="col">
+      <a href="" class="btn btn-outline-info"
+      hx-get = "{% url 'Exam:UpdateGroupQuestion' pk=group.id %}"
+      hx-target = "#group-info"
+      hx-swap = "innerHTML"
+      >
+        <i class="bi bi-pencil"></i>
+      </a>
+    </div>
+  </div>
+    <div class = "row d-inline-flex flex-col">
+        {% comment %} <input type="text" name="" id="group-name" class = "border-0 col-11" value = "{{group.content}}"> {% endcomment %}
+        <div class="col-12 d-flex justify-content-start align-item-center">
+            <button class = "btn btn-outline-danger border-0" hx-get = "{% url 'Exam:DeleteGroupQuestion' pk=group.id %}" hx-target = "#group-question-{{group.id}}" hx-swap = "outerHMTL"><i class="bi bi-trash3"></i></button>
+            <button class = "btn btn-outline-success border-0" hx-get = "{% url 'Exam:AddQuestionForm' pk=group.id %}" hx-target = "#question-list-{{group.id}}" hx-swap = "beforeend"><i class="bi bi-plus-lg"></i></button>
+        </div>
+    </div>
+    {% if group.file %}
+    <div class="container">
+      {% if group.file.url|lower|endswith:".mp3" or group.file.url|lower|endswith:".wav" or group.file.url|lower|endswith:".ogg" %}
+      <audio controls>
+        <source src="{{group.file.url}}" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>      
+      {% elif group.file.url|lower|endswith:".jpg" or group.file.url|lower|endswith:".png" or group.file.url|lower|endswith:".jpeg" %}
+      <img src="{{group.file.url}}" alt="My Image">
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+    <div class = "d-inline-flex flex-column container" id = "question-list-{{group.id}}">
+        {% if group.questions %}
+        {% for question in group.questions %}
+        {% include 'partials/question_detail.html' with question=question %}
+        {% endfor %}
+  {% else %}
+    
+  {% endif %} 
+    </div>
+    <hr>
+  <link rel="stylesheet" href="{% static 'css/partials/group_question_detail.css' %}">
+</div>

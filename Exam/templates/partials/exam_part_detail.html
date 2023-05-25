@@ -1,0 +1,34 @@
+<div class="card" hx-target = "this" id = "part-detail-{{part.id}}">
+    <div class="card-header" id="heading-{{part.id}}">
+      <h5 class="mb-0">
+        <button
+          class="btn btn-link"
+          data-toggle="collapse"
+          data-target="#part-{{part.id}}"
+          aria-expanded="true"
+          aria-controls="part-{{part.id}}"
+        >
+          {{part.name}}
+        </button>
+      </h5>
+    </div>
+
+    <div
+      id="part-{{part.id}}"
+      class="collapse show"
+      aria-labelledby="heading-{{part.id}}"
+      data-parent="#accordion"
+    >
+      <div class="card-body" id = "group-list-{{part.id}}">
+
+        <form action="">
+          {% csrf_token %}
+          <button class = "btn btn-outline-danger" hx-post="{% url 'Exam:DeletePart' pk=part.id %}" hx-swap = "outerHTML" hx-confirm="Bạn có chắc chắn muốn xóa phần thi này?"><i class="bi bi-trash3"></i></button>
+          <button class = "btn btn-outline-success border-0" hx-get={% url 'Exam:AddGroupQuestionForm' pk=part.id %} hx-target="#group-list-{{part.id}}" hx-swap="beforeend"><i class="bi bi-plus-lg"></i></button>
+        </form>
+         {% for group in part.groups %}
+          {% include 'partials/group_question_detail.html' with group=group %}
+        {% endfor %} 
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,46 @@
+<div class="container" id="exam-detail">
+  <div class="row">
+    <div class="col-6">
+      <label for="exam-name">Tên bài thi</label>
+      {{form.name}}
+    </div>
+    <div class="col-6">
+      <label for="exam-level">Cấp độ</label>
+      {{form.level}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <label for="exam-image">Ảnh</label>
+      {{form.image}}
+    </div>
+    <div class="col-6">
+      <img
+        src="{{form.instance.image.url}}"
+        alt=""
+        width="30%"
+        height="100%"
+        style="margin-top: 20px" />
+    </div>
+  </div>
+  <div class="row" style="display: inline">
+    <div class="col-md-3">
+      <label for="exam-pass-score">Điểm pass</label>
+      {{form.pass_score}}
+      <a
+        href=""
+        class="btn btn-danger"
+        hx-get="{% url 'Exam:EditExam' pk=form.instance.id %}"
+        hx-target="#exam-detail"
+        hx-swap="outerHTML"
+        ><i class="bi bi-pencil"></i
+      ></a>
+    </div>
+  </div>
+  <a href="{% url 'Teacher:AddExamDetail' pk=form.instance.id %}"
+    >Xem chi tiết đề thi</a
+  >
+  <a href="{% url 'Teacher:push_excel' pk=form.instance.id %}"
+    >Thêm bằng file excel</a
+  >
+</div>

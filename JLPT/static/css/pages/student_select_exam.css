@@ -1,0 +1,20 @@
+@import url('../partials/student_info.css');
+@import url('../partials/student_navbar.css');
+
+.banner{
+    background-color: rgb(120, 220, 190);
+    height: 80vh;
+}
+h3{
+    text-align: center;
+    align-items: center;
+    padding: 10px;
+    border : 2px solid black;
+}
+.level{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+}

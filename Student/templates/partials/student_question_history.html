@@ -1,0 +1,59 @@
+{% load static %}
+<div class = "row d-inline-flex container-fluid question" id = "detail-question-{{question.id}}">
+    <div class="row">
+        <h3 class="col-12">{{question.content|safe}}</h3>
+    </div>
+    <form action="">
+        {% csrf_token %}
+        <div class = "row container d-inline-flex form-group">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input form-check-input-lg" 
+                    type="radio"
+                    name="answer-question-{{question.id}}" id="optionA-{{question.id}}" value="A"
+                    {% if question.answer == "A" %} checked {% endif %} 
+                    hx-post="{% url 'Student:UpdateAnswer' pk=question.id %}" 
+                    hx-target="#detail-question-{{question.id}}" 
+                    hx-swap = "outerHTML"
+                />
+                <label class="form-check-label" for="optionD-{{question.id}}">{{question.optionA}}</label>
+            </div> 
+    
+            <div class="form-check form-check-inline">
+                <input class="form-check-input form-check-input-lg" 
+                    type="radio"
+                    name="answer-question-{{question.id}}" id="optionB-{{question.id}}" value="B" 
+                    {% if question.answer == "B" %} checked {% endif %} 
+                    hx-post="{% url 'Student:UpdateAnswer' pk=question.id %}" 
+                    hx-target="#detail-question-{{question.id}}" 
+                    hx-swap = "outerHTML"
+                />
+                <label class="form-check-label" for="optionD-{{question.id}}">{{question.optionB}}</label>
+            </div> 
+    
+            <div class="form-check form-check-inline">
+                <input class="form-check-input form-check-input-lg" 
+                    type="radio"
+                    name="answer-question-{{question.id}}" id="optionC-{{question.id}}" value="C" 
+                    {% if question.answer == "C" %} checked {% endif %} 
+                    hx-post="{% url 'Student:UpdateAnswer' pk=question.id %}" 
+                    hx-target="#detail-question-{{question.id}}" 
+                    hx-swap = "outerHTML"
+                />
+                <label class="form-check-label" for="optionD-{{question.id}}">{{question.optionC}}</label>
+            </div> 
+    
+            <div class="form-check form-check-inline">
+                <input class="form-check-input form-check-input-lg" 
+                    type="radio"
+                    name="answer-question-{{question.id}}" id="optionD-{{question.id}}" value="D" 
+                    {% if question.answer == "D" %} checked {% endif %} 
+                    hx-post="{% url 'Student:UpdateAnswer' pk=question.id %}" 
+                    hx-target="#detail-question-{{question.id}}" 
+                    hx-swap = "outerHTML"
+                />
+                <label class="form-check-label" for="optionD-{{question.id}}">{{question.optionD}}</label>
+            </div> 
+        </div>
+    </form>
+    <link rel="stylesheet" href="{% static 'css/partials/question_detail.css' %}">
+</div>

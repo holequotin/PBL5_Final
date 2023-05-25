@@ -1,0 +1,25 @@
+{% extends 'teacher_base.html' %}
+{% load static %}
+{% block linkcss %}
+    <link rel="stylesheet" href="{% static 'css/pages/teacher_add_exam_detail.css' %}">
+{% endblock linkcss %}
+
+{% block info %}
+    {% include 'partials/teacher_info.html' %}
+{% endblock info %}
+
+{% block navbar %}
+    {% include 'partials/teacher_nav.html' %}
+{% endblock  %}
+
+{% block content %}
+    <div class="row d-flex justify-content-center">
+        <h1 style = "text-align:center" >{{exam.name}}</h1>
+    </div>
+    <button class="btn btn-success" hx-get = "{% url 'Exam:AddExamPartForm' pk=exam.id%}" hx-target = "#exam-part-list" hx-swap = "beforeend">Add Part</button>
+    <div class="container exam-part-list" id = "exam-part-list">
+        {% for part in exam.parts %}
+        {% include 'partials/exam_part_detail.html' with part=part %}
+    {% endfor %}
+    </div>
+{% endblock content %}
