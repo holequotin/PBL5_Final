@@ -13,7 +13,7 @@ urlpatterns = [
     # path('add_document/',),
     path('documentmanager/<int:number>',document_manager,name = 'DocumentManager'),
     path('adddocument',teacher_add_document,name='AddDocument'),
-    path('add_document_detail/<int:pk>/',teacher_add_document_detail,name = "AddDocumentDetail"),
+    # path('add_document_detail/<int:pk>/',teacher_add_document_detail,name = "AddDocumentDetail"),
     path('delete_document/<int:pk>',teacher_delete_document,name = 'DeleteDocument'),
     path('detail_document/<int:pk>',teacher_detail_document,name = "DetailDocument"),
 ]

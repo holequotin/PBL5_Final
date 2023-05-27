@@ -25,7 +25,7 @@ def document_list(request,number):
         'search' :search,
         'number' : number
     }
-    return render(request,'partials/document_list.html',context)
+    return render(request,'Document/document_list.html',context)
 
 def edit_document(request,pk):
     document = get_object_or_404(Post,id = pk)

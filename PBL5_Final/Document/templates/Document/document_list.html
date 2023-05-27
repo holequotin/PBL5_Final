@@ -3,7 +3,7 @@
         <div class="row mb-5">
           <div class="col-sm-4">
             <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Nhập tên tài liệu" aria-label="Search" name="search"> 
+              {% comment %} <input class="form-control me-2" type="search" placeholder="Nhập tên tài liệu" aria-label="Search" name="search">  {% endcomment %}
               <input class="form-control me-2" type="search" 
               name="search" placeholder="Nhập tên tài liệu" 
               hx-get="{% url 'Document:DocumentList' number=1 %}"
@@ -31,8 +31,9 @@
           <tbody>
               {% for document in page_obj.object_list %}
               <tr hx-target = "this">
-                  <td><a href="{% url 'Teacher:AddDocumentDetail' pk=document.id %}">{{document.title}}</a></td>
-                  <td>{{document.title}}</td>
+                  {% comment %} <td><a href="{% url 'Teacher:AddDocumentDetail' pk=document.id %}">{{document.title}}</a></td> {% endcomment %}
+                  <td><p>{{document.title}}</p></td>
+                  <td>{{document.date}}</td>
                   {% comment %} <td><img
                       src="{{exam.image.url}}">
                   </td> {% endcomment %}

@@ -82,8 +82,9 @@ def teacher_add_exam_detail(request, pk):
 
 
 def importExcel(request, pk):
+    exam = get_object_or_404(Exam, id=pk)
     if request.method == "POST":
-        exam = get_object_or_404(Exam, id=pk)
+        # exam = get_object_or_404(Exam, id=pk)
         exam_id = exam.id
         dataset = Dataset()
         try:
@@ -142,7 +143,7 @@ def importExcel(request, pk):
             messages.success(request, "Imported successfully.")
         except Exception as e:
             messages.error(request, f"An error occurred while importing the file: {e}")
-    return render(request, "pages/form.html")
+    return render(request, "pages/form.html",{"exam":exam})
 
 def document_manager(request, number):
     user = request.user
@@ -169,13 +170,6 @@ def teacher_add_document(request):
     form = DocumentForms.AddDocumentForm()
     context = {"form": form, "user": user, "profile": profile}
     return render(request, "pages/teacher_add_document.html", context)
-
-def teacher_add_document_detail(request, pk):
-    user = request.user
-    profile = get_object_or_404(Profile, user=user)
-    document = get_object_or_404(Post, id=pk)
-    context = {"user": user, "profile": profile, "document": document}
-    return render(request, "pages/teacher_add_document_detail.html", context)
 
 def teacher_delete_document(request, pk):
     document = Post.objects.get(id=pk)
