@@ -1,0 +1,16 @@
+li{
+    display: inline;
+    margin: auto 5px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+ul{
+    margin-right: 10px;
+}
+.navbar{
+    height: 10vh;
+    background-color: rgb(97, 168, 201);
+}
+

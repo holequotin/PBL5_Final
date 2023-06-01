@@ -1,0 +1,8 @@
+<form action="{% url 'Document:EditDocument' pk=form.instance.id %}" method = "POST" enctype="multipart/form-data" class = "container">
+    {% csrf_token %}
+    {{form.media}}
+    {{form.as_p}}
+    <div class = "form-group row d-flex justify-content-center">
+        <button class = "btn btn-success col-3" style = "margin-top:20px" type = "submit" >Lưu</button>
+    </div>
+</form>

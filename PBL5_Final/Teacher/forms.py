@@ -1,5 +1,6 @@
 from django import forms
 from Exam.models import *
+from Document.models import *
 
 class LevelForm(forms.ModelForm):
     class Meta:
@@ -24,4 +25,9 @@ class GroupQuestionForm(forms.ModelForm):
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
+        fields = '__all__'
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
         fields = '__all__'

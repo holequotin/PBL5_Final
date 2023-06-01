@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'Teacher',
     'Exam',
     'import_export',
+    'Student',
+    'Document'
 ]
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 MIDDLEWARE = [
