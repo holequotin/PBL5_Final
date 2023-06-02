@@ -1,0 +1,32 @@
+{% extends 'student_base.html' %}
+{% load static %}
+{% block linkcss %}
+    <link rel="stylesheet" href="{% static 'css/pages/student_select_exam.css' %}">
+{% endblock linkcss %}
+
+{% block content %}
+    <div class="container-fluid banner">
+        <div class="row d-flex justify-content-center flex-row">
+            <div class="level col">
+                <a href=""><h3>N1</h3></a>
+            </div>
+            <div class="level col">
+                <a href=""><h3>N2</h3></a>
+            </div>
+            <div class="level col">
+                <a href=""><h3>N3</h3></a>
+            </div>
+            <div class="level col">
+                <a href=""><h3>N4</h3></a>
+            </div>
+            <div class="level col">
+                <a href=""><h3>N5</h3></a>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex flex-row">
+        {% for exam in exams %}
+            <a href="{% url 'Student:ExamDetail' pk=exam.id %}">{{exam.name}}</a> - <a href="{% url 'Student:StartTest' pk=exam.id %}">Làm bài</a>
+        {% endfor %}
+    </div>
+{% endblock content %}

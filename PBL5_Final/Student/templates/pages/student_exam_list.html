@@ -51,7 +51,7 @@
                 <li class="nav-item"><a class="nav-link active" href="#">TÀI LIỆU FREE</a></li>
                 <li class="nav-item"><a class="nav-link active" href="#">SÁCH HỌC JLPT</a></li>
                 <li class="nav-item"><a class="nav-link active" href="#">ĐỀ THEO KỸ NĂNG</a></li>
-                <li class="nav-item"><a class="nav-link active" href="#">ĐỀ THI CHUẨN JLPT</a></li> 
+                <li class="nav-item"><a class="nav-link active" href="{% url 'Student:ExamSelectList' %}">ĐỀ THI CHUẨN JLPT</a></li> 
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <!-- <li class="btn btn-primary" style="height: 41px;">VÀO THI NGAY</li> -->
                 <li class="vaothingay" style="vertical-align: middle;">
@@ -85,7 +85,7 @@
                             <div class="card-body">
                             <h5 class="card-title">{{exam.name}}{{exam.level}}</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Vào thi</a>
+                            <a href="{% url 'Student:StartTest' pk=exam.id %}" class="btn btn-primary">Vào thi</a>
                             </div>
                         </div>
                     </div>

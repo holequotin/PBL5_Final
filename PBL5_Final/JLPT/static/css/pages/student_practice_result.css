@@ -1,0 +1,23 @@
+.vien {
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(to right, rgb(126, 66, 66), orange, rgb(190, 190, 72), rgb(35, 107, 123), rgb(183, 140, 70), rgb(179, 95, 95), rgb(23, 177, 103));
+}
+.nav-link {
+  color: rgb(46, 44, 44); 
+}
+.vien2 {
+  height: 2px;
+  width: 100%;
+  background: rgba(205, 209, 212, .5);;
+}
+.btn-custom {
+  font-size: 30px;
+  padding: 10px 20px;
+
+ 
+  border-width: 2px;
+}
+.btn_capdo{
+  color: #4c6b94;
+}

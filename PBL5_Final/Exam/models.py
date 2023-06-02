@@ -41,7 +41,6 @@ class ExamPart(models.Model):
 
 class GroupQuestion(models.Model):
     exam_part = models.ForeignKey(ExamPart,on_delete=models.CASCADE)
-    # content = models.CharField(max_length=100)
     content = RichTextField(null=True,blank=True)
     file = models.FileField(upload_to='media/',null=True, blank=True)
     #audio = models.FileField(upload_to='media/', null=True, blank=True)
