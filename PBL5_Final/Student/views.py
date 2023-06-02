@@ -21,7 +21,8 @@ def exam_list(request,level):
     exams = Exam.objects.all().filter(level = level_obj)
     print(exams)
     context = {
-        'exams' : exams
+        'exams' : exams,
+        'profile' : Profile.objects.get(user = request.user)
     }
     return render(request,'pages/student_exam_list.html',context )
 
@@ -35,7 +36,8 @@ def exam_detail(request,pk):
 def practice_history_detail(request,pk):
     practice_history = get_object_or_404(PracticeHistory,id = pk)
     context = {
-        'practice_history' : practice_history
+        'practice_history' : practice_history,
+        'profile' : Profile.objects.get(user = request.user)
     }
     return render(request,'pages/student_practice_history_detail.html',context)
 def test_part(request,pk):
@@ -43,7 +45,8 @@ def test_part(request,pk):
     if part_history.status:
         return redirect('Student:PracticeHistoryDetail',pk = part_history.practice_history.id)
     context = {
-        'part_history' : part_history
+        'part_history' : part_history,
+        'profile' : Profile.objects.get(user = request.user)
     }
     return render(request,'pages/student_test_part.html',context)
 
@@ -111,8 +114,10 @@ def question_history_detail(request,pk):
     return render(request,'pages/student_exam_list.html',context)
 
 def exam_select_list(request):
-
-    return render(request,'pages/student_select_exam_new.html')
+    context = {
+        'profile' : Profile.objects.get(user = request.user)
+    }
+    return render(request,'pages/student_select_exam_new.html',context)
 
 def exam_n(request,level):
     level_obj = level

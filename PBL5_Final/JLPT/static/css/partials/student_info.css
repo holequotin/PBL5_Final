@@ -1,10 +1,5 @@
-.user-name{
-    color: white;
-}
-#user-info{
-    margin-bottom: 25px;
-    color: white;
-}
-.menu{
-    color: white;
-}
+.vien {
+    height: 4px;
+    width: 100%;
+    background: linear-gradient(to right, rgb(126, 66, 66), orange, rgb(190, 190, 72), rgb(35, 107, 123), rgb(183, 140, 70), rgb(179, 95, 95), rgb(23, 177, 103));
+  }

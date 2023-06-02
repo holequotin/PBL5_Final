@@ -49,12 +49,12 @@ def exam_list(request,number):
         search = ''
         exams = Exam.objects.all().filter(user=request.user)
     else:
-        exams = Exam.objects.filter(name__icontains = search)
+        exams = Exam.objects.filter(name__icontains = search, user = request.user)
     filter_level = request.GET.get('select-level')
     print(filter_level)
     if filter_level != 'All':
         filter_level = get_object_or_404(Level,name = filter_level)
-        exams = exams.filter(level = filter_level)
+        exams = exams.filter(level = filter_level,user =request.user)
     paginator = Paginator(exams,10)
     page_obj = paginator.page(number)
     context = {

@@ -1,16 +1,15 @@
-li{
-    display: inline;
-    margin: auto 5px;
-}
-a{
-    text-decoration: none;
-    color: black;
-}
-ul{
-    margin-right: 10px;
-}
-.navbar{
-    height: 10vh;
-    background-color: rgb(97, 168, 201);
-}
+.nav-link {
+    color: rgb(46, 44, 44); 
+  }
+.vien2 {
+    height: 2px;
+    width: 100%;
+    background: rgba(205, 209, 212, .5);;
+  }
+  .btn-custom {
+    font-size: 30px;
+    padding: 10px 20px;
 
+   
+    border-width: 2px;
+}

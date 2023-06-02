@@ -1,0 +1,51 @@
+<div class="row m-lg-2">
+  <div class="container-fluid content mt-3 m-lg-5">
+    <div class="row mb-5">
+      <div class="col-sm-4">
+        <form class="d-flex">
+          {% comment %}
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Nhập tên đề thi"
+            aria-label="Search"
+            name="search"
+          />
+          {% endcomment %}
+          <input
+            class="form-control me-2"
+            type="search"
+            name="search"
+            placeholder="Nhập tên đề thi"
+            hx-get="{% url 'Exam:ExamList' number=1 %}"
+            hx-trigger="keyup changed delay:500ms, search"
+            hx-target="#exam-list-container"
+            hx-include="[name = 'select-level']"
+            value="{{search}}"
+          />
+        </form>
+      </div>
+      <div class="col-sm-2">
+        <select
+          class="form-select"
+          name="select-level"
+          hx-get="{% url 'Exam:ExamList' number=1 %}"
+          hx-target="#exam-list-container"
+          hx-include="[name = 'search']"
+        >
+          <option value="All">Tất cả</option>
+          <option value="N5">N5</option>
+          <option value="N4">N4</option>
+          <option value="N3">N3</option>
+          <option value="N2">N2</option>
+          <option value="N1">N1</option>
+        </select>
+      </div>
+      <div class="col-sm-2">
+        <a class="btn btn-success" href="{% url 'Teacher:AddExam' %}"
+          ><i class="bi bi-file-earmark-plus"></i>Thêm đề thi</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
