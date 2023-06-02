@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'Teacher',
     'Exam',
     'import_export',
-    'Student'
     'Student',
     'Document'
 ]
