@@ -6,6 +6,8 @@ from .models import *
 from datetime import timedelta
 from django.db.models import Sum
 from django.db.models import F
+from django.contrib import messages
+from django.contrib.messages import get_messages
 # Create your views here.
 fs = FileSystemStorage(location=settings.MEDIA_ROOT)
 def index(request):
@@ -53,9 +55,12 @@ def test_part(request,pk):
 def start_test(request,pk):
     exam = get_object_or_404(Exam,id = pk)
     if PracticeHistory.objects.filter(exam = exam,status = False).exists():
-        print("Bạn có một bài chưa hoàn thành của exam này")
         practice_history = get_object_or_404(PracticeHistory,exam = exam,status = False)
-        return redirect('Student:PracticeHistoryDetail', pk=practice_history.id)
+        messages.warning(request,"Bạn có một bài thi chưa hoàn thành của exam này, có muốn tiếp tục làm bài ?")
+        messages.info(request,str(practice_history.id))
+        request.session['practice_id'] = practice_history.id
+        request.session['exam_id'] = exam.id
+        return redirect(request.META.get('HTTP_REFERER', '/'))
     else:    
         practice_history = PracticeHistory(
             student = request.user,
@@ -99,7 +104,54 @@ def start_test(request,pk):
                   )
                   question_history.save()
         return redirect('Student:PracticeHistoryDetail', pk=practice_history.id)
-    
+
+#TODO : New test
+def new_test(request,pk):
+    pk = int(pk)
+    exam = get_object_or_404(Exam,id = pk)
+    practice_history = PracticeHistory(
+            student = request.user,
+            name = exam.name,
+            level = exam.level,
+            user = exam.user,
+            image = exam.image,
+            pass_score = exam.pass_score,
+            exam = exam,
+            status = False
+        )
+    practice_history.save()
+        
+    for part in practice_history.exam.parts():
+            part_history = PracticePartHistory(
+                name = part.name,
+                duration = timedelta(minutes=part.time),
+                pass_score = part.pass_score,
+                practice_history = practice_history,
+                status = False,
+                time_left = timedelta(minutes=part.time)
+            )
+            part_history.save()
+            for group in part.groups():
+              group_history = GroupQuestionHistory(
+                  part = part_history,
+                  content = group.content,
+                  file = group.file
+              )  
+              group_history.save()
+              for question in group.questions():
+                  question_history = QuestionHistory(
+                      group_question = group_history,
+                      content = question.content,
+                      optionA = question.optionA,
+                      optionB = question.optionB,
+                      optionC = question.optionC,
+                      optionD = question.optionD,
+                      score = question.score,
+                      correct = question.correct,
+                  )
+                  question_history.save()
+    return redirect('Student:PracticeHistoryDetail', pk=practice_history.id)
+
 def update_answer(request,pk):
     name = "answer-question-" + str(pk)
     answer = request.POST.get(name)
