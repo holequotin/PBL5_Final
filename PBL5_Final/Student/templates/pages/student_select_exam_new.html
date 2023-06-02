@@ -31,9 +31,9 @@
                 <div class="dropdown-menu" aria-labelledby="triggerId" style="z-index: 9999;">
                     <a class="dropdown-item" href="#"><i class="bi bi-person-circle"></i> &nbsp; Thông tin tài khoản</a>
                     <a class="dropdown-item" href="#"><i class="bi bi-key-fill"></i> &nbsp; Đổi mật khẩu</a>
-                    <a class="dropdown-item" href="#"><i class="bi bi-file-earmark-fill"></i>&nbsp; Lịch sử làm bài</a>
+                    <a class="dropdown-item" href="{% url 'Student:HistoryList' %}"><i class="bi bi-file-earmark-fill"></i>&nbsp; Lịch sử làm bài</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right"></i> &nbsp; Đăng xuất</a>
+                    <a class="dropdown-item" href="{% url 'jlpt:Logout' %}"><i class="bi bi-box-arrow-right"></i> &nbsp; Đăng xuất</a>
                 </div>
             </div>
         </div>
@@ -52,11 +52,11 @@
                 <li class="nav-item"><a class="nav-link active" href="#">TÀI LIỆU FREE</a></li>
                 <li class="nav-item"><a class="nav-link active" href="#">SÁCH HỌC JLPT</a></li>
                 <li class="nav-item"><a class="nav-link active" href="#">ĐỀ THEO KỸ NĂNG</a></li>
-                <li class="nav-item"><a class="nav-link active" href="#">ĐỀ THI CHUẨN JLPT</a></li> 
+                <li class="nav-item"><a class="nav-link active" href="{% url 'Student:ExamSelectList' %}">ĐỀ THI CHUẨN JLPT</a></li> 
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <!-- <li class="btn btn-primary" style="height: 41px;">VÀO THI NGAY</li> -->
                 <li class="vaothingay" style="vertical-align: middle;">
-                    <a href="#" style="background: #93beda;color: #fff; height: 37px; text-align: center;
+                    <a href="{% url 'Student:ExamSelectList' %}" style="background: #93beda;color: #fff; height: 37px; text-align: center;
                                             width: 131px; padding: 10px !important;margin-top: 29px; list-style-type:none;
                                             border-radius: 7px;text-decoration: none;">VÀO THI NGAY</a>
                 </li>

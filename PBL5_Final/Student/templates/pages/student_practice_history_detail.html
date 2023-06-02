@@ -33,7 +33,7 @@
                 <div class="dropdown-menu" aria-labelledby="triggerId" style="z-index: 9999;">
                     <a class="dropdown-item" href="#"><i class="bi bi-person-circle"></i> &nbsp; Thông tin tài khoản</a>
                     <a class="dropdown-item" href="#"><i class="bi bi-key-fill"></i> &nbsp; Đổi mật khẩu</a>
-                    <a class="dropdown-item" href="#"><i class="bi bi-file-earmark-fill"></i>&nbsp; Lịch sử làm bài</a>
+                    <a class="dropdown-item" href="{% url 'Student:HistoryList' %}"><i class="bi bi-file-earmark-fill"></i>&nbsp; Lịch sử làm bài</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right"></i> &nbsp; Đăng xuất</a>
                 </div>
@@ -46,7 +46,7 @@
     <div class="container-fluid sticky-top">
         <div class="row text-center" style="background-color: white; height: 96px;">
             <ul class="nav justify-content-center align-items-center">
-                <li><img src="../images/logo-jlpt.jpg" class="img-fluid" style="width: 96px; height: 96px;"></li>
+                <li><img src="{% static 'images/logo-jlpt.jpg' %}" class="img-fluid" style="width: 96px; height: 96px;"></li>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <li class="nav-item"><a class="nav-link active" href="#">TRANG CHỦ</a></li>
                 <li class="nav-item"><a class="nav-link active" href="#">CẬP NHẬT JLPT 2023</a></li>
@@ -69,7 +69,7 @@
     <!-- content -->
     <div class="container no-padding content-area no-sidebar">
         <div class="row align-items-center" style="height: 100px;">     
-            <h2 style="text-align: center;">{{exam.name}}</h2>
+            <h2 style="text-align: center;">{{practice_history.name}}</h2>
         </div>
         <div class="row card card-body mb-4">
             <p class="mb-0"><i>Đề thi gồm có 3 mục: <b>「文字・語彙」</b> , <b>「文法・読解」</b> , <b>「聴解」</b>. Bấm vào từng mục để hiện/ẩn nội dung. 
@@ -102,11 +102,14 @@
             </div>
         </div>
         {% endfor %}
+
         {% if practice_history.status %}
         <div class="row d-flex justify-content-center mt-lg-5">
             <a href="{% url 'Student:PracticeResult' pk=practice_history.id %}" class="btn btn-warning" style="width: 150px;">Xem kết quả</a>
         </div>
         {% endif %}
+        <div class="row" style="height: 400px;"></div>
+    </div>
         {% comment %} <div class="row justify-content-start border border-2 mt-4">
             <button class="btn btn-primary pri-custom" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
                 <b>「文法・読解」</b>
@@ -154,7 +157,7 @@
             <div class="row" style="height: 50px;"></div>
             <div class="row">
                 <div class="col-lg-2 d-flex justify-content-center align-items-center">
-                    <img src="../images/JLPT_logo2.webp" alt="" style="height: 65px; width: 150px;">
+                    <img src="{% static 'images/JLPT_logo2.webp' %}" alt="" style="height: 65px; width: 150px;">
                 </div>
                 <div class="col-lg-4">
                     <h5>Giới thiệu</h5>

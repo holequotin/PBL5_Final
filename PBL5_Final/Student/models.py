@@ -11,6 +11,8 @@ class PracticeHistory(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     image = models.ImageField(upload_to='media/history',default='media/jlpt.jpeg',storage=fs)
     pass_score = models.IntegerField(default=0)
+    scored = models.IntegerField(default = 0)
+    base_score = models.IntegerField(default = 0)
     start_time = models.DateTimeField(auto_now_add=True)
     status = models.BooleanField(default = False) 
     

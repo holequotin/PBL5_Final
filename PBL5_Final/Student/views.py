@@ -140,7 +140,7 @@ def complete_practice_part(request,pk):
     return redirect('Student:PracticeHistoryDetail',pk = practice_part.practice_history.id)
 
 def practice_result(request,pk):
-    #kiểm tra bài thi đã hoàn thành hay chưa
+    #TODO : kiểm tra bài thi đã hoàn thành hay chưa
     result = {}
     answers = 'ABCD'
     base_score = {}
@@ -154,7 +154,9 @@ def practice_result(request,pk):
         base_score[part.name] = total
     
     profile = Profile.objects.get(user = request.user)    
-
+    practice.scored = sum(result.values())
+    practice.base_score = sum(base_score.values())
+    practice.save()
     context = {
         'result' : result,
         'base_score' : base_score,
@@ -162,3 +164,13 @@ def practice_result(request,pk):
         'practice' : practice
     }
     return render(request,'pages/student_practice_result.html',context)
+
+def history_list(request):
+    user = request.user
+    profile = Profile.objects.get(user = user)
+    history_list = PracticeHistory.objects.filter(student = user)
+    context = {
+        'history_list' : history_list,
+        'profile' : profile
+    }
+    return render(request,'pages/student_history_list.html',context)

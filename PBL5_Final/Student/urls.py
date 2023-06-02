@@ -15,5 +15,6 @@ urlpatterns = [
     path('exam-list/<str:level>',exam_list,name='ExamList'),
     path('exam<str:level>',exam_n,name='ExamN'),
     path('student-complete-part/<int:pk>',complete_practice_part,name = 'CompletePart'),
-    path('studet-practice-result/<int:pk>',practice_result,name='PracticeResult')
+    path('student-practice-result/<int:pk>',practice_result,name='PracticeResult'),
+    path('student-history-list',history_list,name = 'HistoryList')
 ]
