@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    {% load static %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,16 +18,61 @@
     <!--JQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
+    {% block linkcss %}{% endblock linkcss %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
     <!--htmx-->
     <script src="https://unpkg.com/htmx.org@1.8.6" integrity="sha384-Bj8qm/6B+71E6FQSySofJOUjA/gq330vEqjFx9LakWybUySyI1IQHwPtbTU7bNwx" crossorigin="anonymous"></script>
 </head>
 <body>
     {% block navbar %}
-    
+        {% if profile.role == "student" %}
+            {% include 'partials/student_info.html' %}
+            {% include 'partials/student_navbar.html' %}
+        {% elif profile.role == "teacher" %}
+            {% include 'partials/teacher_info.html' %}
+            {% include 'partials/teacher_nav.html' %}
+        {% endif %}
     {% endblock navbar %}
 
     {% block content %}
 
     {% endblock content %}
+    {% block footer %}
+    <footer class="footer bg-secondary text-light">
+        <div class="container-fluid">
+            <div class="row" style="height: 50px;"></div>
+            <div class="row">
+                <div class="col-lg-2 d-flex justify-content-center align-items-center">
+                    <img src="{% static 'images/JLPT_logo2.webp' %}" alt="" style="height: 65px; width: 150px;">
+                </div>
+                <div class="col-lg-4">
+                    <h5>Giới thiệu</h5>
+                    <p>Chào mừng đến với trang web học và thi JLPT!
+                    Chúng tôi là một đội ngũ đam mê tiếng Nhật và mong muốn giúp đỡ những người đang chuẩn bị cho kỳ thi JLPT.
+                    Tại trang web của chúng tôi, bạn sẽ tìm thấy một bộ sưu tập tài liệu học, đề thi mẫu và các nguồn tài liệu hữu ích khác để nâng cao kỹ năng tiếng Nhật của mình.
+                    Chúng tôi cam kết cung cấp các tài liệu chất lượng, được tổ chức một cách rõ ràng và dễ hiểu, giúp bạn tiếp cận và nắm bắt kiến thức một cách hiệu quả.
+                    Hãy cùng chúng tôi trên hành trình học tập và chuẩn bị cho kỳ thi JLPT. Chúng tôi hy vọng sẽ đồng hành và đóng góp vào sự thành công của bạn!</p>
+                </div>
+                <div class="col-lg-3">
+                    <h5>Liên hệ</h5>
+                    <p>Địa chỉ: Liên Chiểu, Đà Nẵng</p>
+                    <p>Email: nihongogajouzudesune@gmail.com</p>
+                    <p>Phone: 123-456-7890</p>
+                </div>
+                <div class="col-lg-3">
+                <h5>Theo dõi chúng tôi</h5>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#"><i class="bi bi-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="bi bi-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="bi bi-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="bi bi-youtube"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row" style="height: 50px;"></div>
+        </div>
+      </footer>
+    {% endblock footer %}
 </body>
 </html>
