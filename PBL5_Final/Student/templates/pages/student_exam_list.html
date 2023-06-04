@@ -16,7 +16,8 @@
             </div>
             <div class="modal-footer">
               <a type="button" class="btn btn-secondary" href = "{% url 'Student:NewTest' pk=request.session.exam_id %}">Làm bài thi mới</a>
-              <a type="button" class="btn btn-primary" href = "{% url 'Student:PracticeHistoryDetail' pk=request.session.practice_id %}">Tiếp tục làm bài</a>
+              {% comment %} <a type="button" class="btn btn-primary" href = "{% url 'Student:PracticeHistoryDetail' pk=request.session.practice_id %}">Tiếp tục làm bài</a> {% endcomment %}
+              <a type="button" class="btn btn-primary" href = "{% url 'Student:HistoryList' %}">Tiếp tục làm bài</a> 
             </div>
           </div>
         </div>

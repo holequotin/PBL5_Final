@@ -54,11 +54,11 @@ def test_part(request,pk):
 
 def start_test(request,pk):
     exam = get_object_or_404(Exam,id = pk)
-    if PracticeHistory.objects.filter(exam = exam,status = False).exists():
-        practice_history = get_object_or_404(PracticeHistory,exam = exam,status = False)
-        messages.warning(request,"Bạn có một bài thi chưa hoàn thành của exam này, có muốn tiếp tục làm bài ?")
-        messages.info(request,str(practice_history.id))
-        request.session['practice_id'] = practice_history.id
+    if PracticeHistory.objects.filter(exam = exam,status = False,student = request.user).exists():
+        practice_history = get_list_or_404(PracticeHistory,exam = exam,status = False,student = request.user)
+        messages.warning(request,f"Bạn có {len(practice_history)} bài thi chưa hoàn thành của exam này, có muốn tiếp tục làm bài ?")
+        #messages.info(request,str(practice_history.id))
+        #request.session['practice_id'] = practice_history.id
         request.session['exam_id'] = exam.id
         return redirect(request.META.get('HTTP_REFERER', '/'))
     else:    
