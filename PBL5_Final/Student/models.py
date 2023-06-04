@@ -2,6 +2,8 @@ from django.db import models
 from Exam.models import *
 from django.contrib.auth.models import User
 from Exam.models import *
+from enum import Enum
+
 # Create your models here.
 class PracticeHistory(models.Model):
     student = models.ForeignKey(User,on_delete=models.CASCADE,related_name = 'Student')

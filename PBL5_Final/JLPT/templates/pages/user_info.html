@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block linkcss %}
+    <link rel="stylesheet" href="{% static 'css/pages/user_info.css' %}">
+{% endblock linkcss %}
+
+
+
+{% block content %}
+<div class="container no-padding content-area no-sidebar">
+    <div class="row align-items-center" style="height: 100px;">
+        <h3 style="text-align: center; color:  rgb(0, 142, 64);">THÔNG TIN TÀI KHOẢN</h3>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 m-lg-4" style="border: 1px solid #ccc; border-radius: 5px ;">
+            <div class="row d-flex justify-content-center"; style="text-align: center;">
+                <img src="{{profile.image.url}}" alt=""; style="width: 126px; height: 100px ;margin-top: 17px;">
+                <label style="margin-top: 15px;" >{{profile.user.first_name}} {{profile.user.last_name}}</label>
+                <label style="margin-top: 12px;">Username: <b style="color: rgb(0, 142, 64);">{{profile.user.username}}</b></label>
+            </div>
+            <div style="background-color: #ccc; height: 0.5px; margin-top: 17px;"></div>
+            <div class="row">
+                <a style="text-decoration: none; color:#303030; margin-left: 33px; margin-top: 10px;" href="{% url 'jlpt:UserInfo' %}"><i class="bi bi-person-circle"></i> &nbsp; Thông tin tài khoản</a>
+                <a style="text-decoration: none; color:#303030; margin-left: 33px; margin-top: 10px;" href="{% url 'jlpt:ChangePassword' %}"><i class="bi bi-key-fill"></i> &nbsp; Đổi mật khẩu</a>
+                {% if profile.role == 'student' %}
+                <a style="text-decoration: none; color:#303030; margin-left: 33px; margin-top: 10px;" href="{% url 'Student:HistoryList' %}"><i class="bi bi-file-earmark-fill"></i>&nbsp; Lịch sử làm bài</a>
+                {% endif %}
+                <div style="background-color: #ccc; height: 0.5px; margin-top: 17px;"></div>
+                <a style="text-decoration: none; color:#303030; margin-left: 33px; margin-top: 10px; margin-bottom: 10px;" href="{% url 'jlpt:Logout' %}"><i class="bi bi-box-arrow-right"></i> &nbsp; Đăng xuất</a>
+            </div>
+        </div>
+        <div class="col-sm-8 m-lg-3">
+            <form method = "post" action = "{% url 'jlpt:UpdateProfile' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Họ  <label style="color: red;">*</label></label>
+                    {{form.first_name}}
+                    {{form.first_name.errors}}
+                  </div>
+                <div class="form-group">
+                    <label>Tên <label style="color: red;">*</label></label>
+                    {{form.last_name}}
+                    {{form.last_name.errors}}
+                </div>
+                <div class="form-group mt-3">           
+                    <label for="inputEmail4">Email <label style="color: red;">*</label></label>
+                    {{form.email}}
+                    {{form.email.errors}}
+                </div>
+                {% comment %} <div class="form-group mt-3">
+                    <label>Địa chỉ <label style="color: red;">*</label></label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="Nhập địa chỉ" required>
+                </div> {% endcomment %}
+                <div class="form-row mt-3">
+                    <div class="form-group col-md-6">
+                        <label>Số điện thoại <label style="color: red;">*</label></label>
+                        {{form.phone_num}}
+                        <p class="text-danger">{{form.phone_num.errors|join:", "}}</p>
+                    </div>                        
+                </div>
+                <button type="submit" class="btn btn-primary mt-5">Cập nhật</button>
+                {% for message in messages %}
+                    <div class="form-row mt-3">
+                        <div class="alert alert-{{message.tags}}" role="alert">
+                            {{message}}
+                        </div>
+                    </div>
+                {% endfor %}
+              </form>
+        </div>
+    </div>
+    <div class="row" style="height: 150px;"></div> 
+</div>
+<script>
+    $(document).ready(function() {
+        // Show the alert
+        $('.alert').alert();
+
+        // Hide the alert after a certain time (e.g., 5 seconds)
+        setTimeout(function() {
+            $('.alert').alert('close');
+        }, 2000);
+    });
+</script>
+{% endblock content %}
