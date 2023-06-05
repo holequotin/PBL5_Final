@@ -1,17 +1,20 @@
-<div class="container-fluid d-flex justify-content-end" style="background-color: #303030;" id="user-info">
-    {% comment %} <img src="{{profile.image.url}}" alt="" height="40px" width="40px"> {% endcomment %}
-    <div class="dropdown">
-        <button class="btn btn-outline dropdown-toggle border-0 menu" type="button" id="triggerId"
-            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Xin chào! {{user.first_name}} {{user.last_name}}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="triggerId">
-            <a class="dropdown-item" href="#"><i class="bi bi-person-circle"></i>Thông tin tài khoản</a>
-            <a class="dropdown-item" href="#"><i class="bi bi-key-fill"></i>Đổi mật khẩu</a>
-            <a class="dropdown-item" href="#"><i class="bi bi-file-earmark-fill"></i>Lịch sử làm bài</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{% url 'jlpt:Logout' %}"><i class="bi bi-box-arrow-right"></i>Đăng xuất</a>
+    <!-- top-header -->
+    <div class="top-header">
+        <div class="container-fluid d-flex justify-content-end" style="background-color: #303030;" id="user-info">
+            <!-- <img src="../images/avatar.jpeg" alt="" height="40px" width="40px"> -->
+            <div class="dropdown">
+                <button class="btn btn-outline dropdown-toggle border-0 menu" type="button" id="triggerId"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: aliceblue;">
+                    Xin chào! {{profile.user.first_name}} {{profile.user.last_name}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="triggerId" style="z-index: 9999;">
+                    <a class="dropdown-item" href="{% url 'jlpt:UserInfo' %}"><i class="bi bi-person-circle"></i> &nbsp; Thông tin tài khoản</a>
+                    <a class="dropdown-item" href="#"><i class="bi bi-key-fill"></i> &nbsp; Đổi mật khẩu</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'jlpt:Logout' %}"><i class="bi bi-box-arrow-right"></i> &nbsp; Đăng xuất</a>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
+    <!-- viền -->
+    <div class="vien"></div>

@@ -3,3 +3,6 @@ from django.contrib.auth.models import Group
 
 def user_is_teacher(user):
     return user.groups.filter(name='Teacher').exists()
+
+def user_is_student(user):
+    return user.groups.filter(name='Student').exists()

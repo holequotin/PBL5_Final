@@ -5,7 +5,15 @@ from django.conf import settings
 from django.urls import reverse
 from ckeditor.fields import RichTextField
 import os
+from enum import Enum
 # Create your models here.
+
+CATEGORY_CHOICES = [
+    ('Listening','Listening'),
+    ('Reading','Reading'),
+    ('Grammar','Grammar'),
+    ('Vocabulary','Vocabulary'),
+]
 
 fs = FileSystemStorage(location=settings.MEDIA_ROOT)
 
@@ -34,14 +42,16 @@ class ExamPart(models.Model):
     name = models.CharField(max_length=100)
     time = models.PositiveIntegerField()
     pass_score = models.PositiveIntegerField(default=0)
-    exam = models.ForeignKey(Exam,on_delete=models.CASCADE)
+    exam = models.ForeignKey(Exam,on_delete=models.CASCADE,null=True,blank=True)
+    category = models.CharField(max_length=100,null=True,blank=True,choices=CATEGORY_CHOICES)
     
     def groups(self):
         return GroupQuestion.objects.all().filter(exam_part = self)
+    def __str__(self) -> str:
+        return self.name
 
 class GroupQuestion(models.Model):
     exam_part = models.ForeignKey(ExamPart,on_delete=models.CASCADE)
-    # content = models.CharField(max_length=100)
     content = RichTextField(null=True,blank=True)
     file = models.FileField(upload_to='media/',null=True, blank=True)
     #audio = models.FileField(upload_to='media/', null=True, blank=True)

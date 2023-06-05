@@ -1,0 +1,33 @@
+{% extends 'student_base.html' %}
+{% load static %}
+{% block content %}
+<div class="container no-padding content-area no-sidebar">
+    <div class="row align-items-center" style="height: 100px;">     
+        <h2 style="text-align: center;">{{exam.name}}</h2>
+    </div>
+    <div class="row card card-body mb-4">
+        <p class="mb-0"><i>Đề thi gồm có 3 mục: <b>「文字・語彙」</b> , <b>「文法・読解」</b> , <b>「聴解」</b>. Bấm vào từng mục để hiện/ẩn nội dung. 
+            Sau khi thi xong, hãy bấm vào nút <b style="color: orange;">Xem kết quả</b> để biết kết quả thi của bạn.
+        </i></p>
+    </div>
+
+    {% for part in exam.parts %}
+    <div class="row justify-content-start border border-2">
+        <button class="btn btn-primary pri-custom" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
+            <b>{{part.name}}</b>
+        </button>
+        <div class="collapse mt-2" id="collapseExample1">
+            <div class="card card-body border-2 mb-3" style="border-radius: 0; border-color: #f1f1f1;">
+                <h1 style="text-align: center; font-size: 4.5em;">{{exam.level.name}}</h1>
+                <h4 style="text-align: center;">{{part.name}}</h4>
+                {% comment %} <h2 style="text-align: center;">言語知識 (文字・語彙)</h2> {% endcomment %}
+                <h2 style="text-align: center;">（{{part.time}}ぷん）</h2>
+            </div>
+            <h2 style="text-align: center; color: blue;">がんばれ！</h2>
+            <div class="d-flex justify-content-center mt-4 mb-4">
+                <a href="" class="btn btn-warning">Bắt đầu</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock content %}
