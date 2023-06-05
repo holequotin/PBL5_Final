@@ -17,5 +17,6 @@ urlpatterns = [
     path('student-complete-part/<int:pk>',complete_practice_part,name = 'CompletePart'),
     path('student-practice-result/<int:pk>',practice_result,name='PracticeResult'),
     path('student-history-list',history_list,name = 'HistoryList'),
-    path('student-new-test/<int:pk>',new_test,name='NewTest')
+    path('student-new-test/<int:pk>',new_test,name='NewTest'),
+    path('student-practice-history-result-detail/<int:pk>/',practice_result_detail,name = 'ResultDetail')
 ]

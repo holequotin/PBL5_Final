@@ -8,6 +8,8 @@ from django.db.models import Sum
 from django.db.models import F
 from django.contrib import messages
 from django.contrib.messages import get_messages
+from django.contrib.auth.decorators import user_passes_test,login_required
+import JLPT.test_funcs
 # Create your views here.
 fs = FileSystemStorage(location=settings.MEDIA_ROOT)
 def index(request):
@@ -231,3 +233,14 @@ def history_list(request):
         'profile' : profile
     }
     return render(request,'pages/student_history_list.html',context)
+
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func= JLPT.test_funcs.user_is_student)
+def practice_result_detail(request,pk):
+    profile = Profile.objects.get(user = request.user)
+    practice = get_object_or_404(PracticeHistory,id = pk)
+    context = {
+        'practice' : practice,
+        'profile' : profile
+    }
+    return render(request,'pages/student_practice_result_detail.html',context)
