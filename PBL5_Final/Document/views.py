@@ -4,11 +4,16 @@ from .models import Post
 from .forms import *
 from django.core.paginator import Paginator
 from django.shortcuts import render,redirect,get_list_or_404,get_object_or_404
+from JLPT.models import *
 # from .models import Document
 
 # Create your views here.
 def list(request):
-   Data = {'Posts': Post.objects.all().order_by('-date')}
+   profile = Profile.objects.get(user = request.user)
+   Data = {
+       'Posts': Post.objects.all().order_by('-date'),
+       'profile' : profile
+    }
    return render(request, 'Document/document.html', Data)
 
 def document_list(request,number):
@@ -43,4 +48,5 @@ def edit_document(request,pk):
     return render(request,'Document/edit_document_form.html',{'form' : form})
 def document_detail(request,pk):
     post = get_object_or_404(Post,id = pk)
-    return render(request, 'Document/document_detail_main.html',{'post': post})
+    profile = Profile.objects.get(user = request.user)
+    return render(request, 'Document/document_detail_main.html',{'post': post,'profile' : profile})
