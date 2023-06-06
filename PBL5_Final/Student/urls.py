@@ -1,5 +1,7 @@
 from django.urls import path,include
 from .views import *
+from . import views
+
 app_name = 'Student'
 
 urlpatterns = [
@@ -17,5 +19,7 @@ urlpatterns = [
     path('student-complete-part/<int:pk>',complete_practice_part,name = 'CompletePart'),
     path('student-practice-result/<int:pk>',practice_result,name='PracticeResult'),
     path('student-history-list',history_list,name = 'HistoryList'),
-    path('student-new-test/<int:pk>',new_test,name='NewTest')
+    path('student-new-test/<int:pk>',new_test,name='NewTest'),
+    path('save-exit-time/',save_exit_time,name='save_exit_time'),
+    path('end-time/',end_time,name = 'EndTime'),
 ]

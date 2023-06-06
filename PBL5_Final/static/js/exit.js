@@ -20,7 +20,7 @@ function getCookie(name) {    // hàm lấy cookie
   });
 
 window.addEventListener("beforeunload", function(event) {
-    if (!isButtonClicked) {     // nếu bấm hoàn tất hàm lấy thời gian thoát sẽ không chạy
+    if (!isButtonClicked && time > 0) {     // nếu bấm hoàn tất và khi thời gian lớn hơn 0 hàm lấy thời gian thoát sẽ không chạy
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/student/save-exit-time/", true);
@@ -45,5 +45,6 @@ window.addEventListener("beforeunload", function(event) {
     };
   
     xhr.send(JSON.stringify(data));
+
   }
   });

@@ -1,3 +1,6 @@
+import datetime
+import json
+from django.http import JsonResponse
 from django.shortcuts import render,redirect
 from JLPT.models import *
 from Exam.models import *
@@ -43,12 +46,21 @@ def practice_history_detail(request,pk):
     }
     return render(request,'pages/student_practice_history_detail.html',context)
 def test_part(request,pk):
+    time = get_object_or_404(PracticePartHistory,id = pk)
+    input = int(time.time_left.total_seconds())
+    idSP = pk
+    giay = input % 60
+    phut= input // 60
     part_history = get_object_or_404(PracticePartHistory,id = pk)
     if part_history.status:
         return redirect('Student:PracticeHistoryDetail',pk = part_history.practice_history.id)
     context = {
+        
         'part_history' : part_history,
-        'profile' : Profile.objects.get(user = request.user)
+        'input' : input,
+        'phut' : phut,
+        'giay': giay,
+        'idSP' : idSP,
     }
     return render(request,'pages/student_test_part.html',context)
 
@@ -188,7 +200,7 @@ def complete_practice_part(request,pk):
     
     #check practice was done
     for part in practice.parts():
-        if not part.status:
+        if not part.status:     
             practice.status = False
             break
     
@@ -231,3 +243,42 @@ def history_list(request):
         'profile' : profile
     }
     return render(request,'pages/student_history_list.html',context)
+
+def save_exit_time(request):
+    if request.method == 'POST':
+        data = json.loads(request.body) #đọc json và lấy dữ liệu từ json
+        time = data['exit_time']  
+        exti_time = int(time)   
+        data_id = data['my_id']
+        id = int(data_id)   
+ 
+        duration = datetime.timedelta(seconds=exti_time)
+        practice_history = get_object_or_404(PracticePartHistory,id = id)
+        practice_history.time_left = duration
+        practice_history.save()
+
+        return JsonResponse({'message': 'Success'})  # Phản hồi thành công
+
+def end_time(request):
+    if request.method == 'POST':
+        data = json.loads(request.body) #đọc json và lấy dữ liệu từ json
+        data_id = data['my_id']
+        pk = int(data_id) 
+        print(pk)
+        practice_part = get_object_or_404(PracticePartHistory,id = pk)
+        practice_part.status = True
+        practice_part.save()
+        
+        practice = get_object_or_404(PracticeHistory,id = practice_part.practice_history.id)
+        practice.status = True
+        
+        #check practice was done
+        for part in practice.parts():
+            if not part.status:
+                practice.status = False
+                break
+        
+        practice.save()
+        
+        response_data = {'redirect_url': reverse('Student:PracticeHistoryDetail', kwargs={'pk': practice_part.practice_history.id})}
+        return JsonResponse(response_data)
