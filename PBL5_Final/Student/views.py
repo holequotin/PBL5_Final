@@ -45,6 +45,9 @@ def practice_history_detail(request,pk):
     }
     return render(request,'pages/student_practice_history_detail.html',context)
 def test_part(request,pk):
+    type = request.GET.get('type')
+    if type != "skill":
+        type = "test"
     part_history = get_object_or_404(PracticePartHistory,id = pk)
     if part_history.status == True and part_history.practice_history is not None:
         return redirect('Student:PracticeHistoryDetail', pk = part_history.practice_history.id) 
@@ -53,7 +56,7 @@ def test_part(request,pk):
     context = {
         'part_history' : part_history,
         'profile' : Profile.objects.get(user = request.user),
-        'type' : 'test'
+        'type' : type
     }
     return render(request,'pages/student_test_part.html',context)
 
@@ -66,12 +69,16 @@ def start_skill_exam(request,pk):
         'type' : 'skill'
     }
     #TODO: Chinh ali
-    if PracticePartHistory.objects.filter(part = part,status = False).exists():
-        part_his = PracticePartHistory.objects.filter(part = part,status = False).first()
-        context['part_history'] = part_his
-        return render(request,'pages/student_test_part.html',context)
+    if PracticePartHistory.objects.filter(part = part,status = False,student = request.user).exists():
+        # part_his = PracticePartHistory.objects.filter(part = part,status = False).first()
+        # context['part_history'] = part_his
+        parts = get_list_or_404(PracticePartHistory,part = part,status = False,student = request.user)
+        messages.warning(request,f"Bạn có {len(parts)} bài thi chưa hoàn thành của exam này, có muốn tiếp tục làm bài ?")
+        request.session['part_id'] = part.id
+        return redirect(request.META.get('HTTP_REFERER', '/'))
     
     part_history = PracticePartHistory(
+                student = request.user,
                 name = part.name,
                 duration = timedelta(minutes=part.time),
                 pass_score = part.pass_score,
@@ -100,7 +107,7 @@ def start_skill_exam(request,pk):
                   )
                   question_history.save()
     context['part_history'] = part_history
-    return render(request,'pages/student_test_part.html',context)
+    return render(request,'pages/student_test_part.html',context)    
 
 def start_test(request,pk):
     exam = get_object_or_404(Exam,id = pk)
@@ -155,6 +162,44 @@ def start_test(request,pk):
                   question_history.save()
         return redirect('Student:PracticeHistoryDetail', pk=practice_history.id)
 
+def new_skill_exam(request,pk):
+    pk = int(pk)
+    context = {
+        'profile' : Profile.objects.get(user = request.user),
+        'type' : 'skill'
+    }
+    part = get_object_or_404(ExamPart,id=pk)
+    part_history = PracticePartHistory(
+                student = request.user,
+                name = part.name,
+                duration = timedelta(minutes=part.time),
+                pass_score = part.pass_score,
+                part = part,
+                status = False,
+                time_left = timedelta(minutes=part.time)
+            )
+    part_history.save()
+    for group in part.groups():
+              group_history = GroupQuestionHistory(
+                  part = part_history,
+                  content = group.content,
+                  file = group.file
+              )  
+              group_history.save()
+              for question in group.questions():
+                  question_history = QuestionHistory(
+                      group_question = group_history,
+                      content = question.content,
+                      optionA = question.optionA,
+                      optionB = question.optionB,
+                      optionC = question.optionC,
+                      optionD = question.optionD,
+                      score = question.score,
+                      correct = question.correct,
+                  )
+                  question_history.save()
+    context['part_history'] = part_history
+    return render(request,'pages/student_test_part.html',context)   
 #TODO : New test
 def new_test(request,pk):
     pk = int(pk)
@@ -262,6 +307,7 @@ def exam_skill_result(request,pk):
     base_score[part.name] = total
     part.scored = value
     part.status = True
+    part.base_score = total
     part.save()
     profile = Profile.objects.get(user = request.user)    
     context = {
@@ -325,6 +371,16 @@ def history_list(request):
         'profile' : profile
     }
     return render(request,'pages/student_history_list.html',context)
+
+def history_skill(request):
+    user = request.user
+    profile = Profile.objects.get(user = user)
+    part_list = PracticePartHistory.objects.filter(student = user,practice_history__isnull = True)
+    context = {
+        'part_list' : part_list,
+        'profile' : profile
+    }
+    return render(request,'pages/student_history_skill.html',context)
 
 @login_required(login_url='jlpt:Login')
 @user_passes_test(test_func= JLPT.test_funcs.user_is_student)
