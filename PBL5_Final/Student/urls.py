@@ -18,5 +18,8 @@ urlpatterns = [
     path('student-practice-result/<int:pk>',practice_result,name='PracticeResult'),
     path('student-history-list',history_list,name = 'HistoryList'),
     path('student-new-test/<int:pk>',new_test,name='NewTest'),
-    path('student-practice-history-result-detail/<int:pk>/',practice_result_detail,name = 'ResultDetail')
+    path('student-practice-history-result-detail/<int:pk>/',practice_result_detail,name = 'ResultDetail'),
+    path('student-select-skill',exam_skill,name = 'SkillList'),
+    path('student-start-skill/<int:pk>',start_skill_exam,name = 'StartSkill'),
+    path('student-skill-result/<int:pk>',exam_skill_result,name = 'SkillResult')
 ]
