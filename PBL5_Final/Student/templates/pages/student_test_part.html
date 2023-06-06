@@ -32,6 +32,14 @@
       {% endfor %} 
     </div>
     <div style = "display : flex; justify-content : center; align-item : center">
+
         <a id="complete-button" href = "{% url 'Student:CompletePart' pk=part_history.id %}"  class = "btn btn-success">Hoàn tất</a>
+        
+        {% if type == "skill" %}
+        <a href = "{% url 'Student:SkillResult' pk=part_history.id %}"  class = "btn btn-success">Hoàn tất</a>
+        {% endif %}
+        {% if type == "test" %}
+        <a href = "{% url 'Student:CompletePart' pk=part_history.id %}"  class = "btn btn-success">Hoàn tất</a>
+        {% endif %}
     </div>
 {% endblock content %}

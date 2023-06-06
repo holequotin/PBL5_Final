@@ -1,0 +1,61 @@
+{% extends 'student_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid no-padding content-area no-sidebar" style="background-image: url('{% static 'images/background3.png' %}'); background-repeat: no-repeat; background-size: cover;">
+    <div class="row" style="height: 20px;"></div>
+    <div class="row d-flex justify-content-center align-items-center" style=" height: 130px;">
+        <h2 class="text-center">CHỌN TRÌNH ĐỘ</h2>
+    </div>
+    <div class="row button-trinhdo justify-content-center" style="height: 90px;">
+        <div class="col-sm-4 d-flex justify-content-center align-items-center">
+            <div onclick="changeColor(this)" class="btn btn-outline-dark btn-custom mx-3 {% if request.session.level == "N5"%}active{% endif %}"><a class="btn_capdo" style="text-decoration: none;" href="{% url 'Student:SkillList' %}?level=N5">N5</a></div>
+            <div onclick="changeColor(this)" class="btn btn-outline-dark btn-custom mx-3 {% if request.session.level == "N4"%}active{% endif %}"><a class="btn_capdo" style="text-decoration: none;" href="{% url 'Student:SkillList' %}?level=N4">N4</a></div>
+            <div onclick="changeColor(this)" class="btn btn-outline-dark btn-custom mx-3 {% if request.session.level == "N3"%}active{% endif %}"><a class="btn_capdo" style="text-decoration: none;" href="{% url 'Student:SkillList' %}?level=N3">N3</a></div>
+            <div onclick="changeColor(this)" class="btn btn-outline-dark btn-custom mx-3 {% if request.session.level == "N2"%}active{% endif %}"><a class="btn_capdo" style="text-decoration: none;" href="{% url 'Student:SkillList' %}?level=N2">N2</a></div>
+            <div onclick="changeColor(this)" class="btn btn-outline-dark btn-custom mx-3 {% if request.session.level == "N1"%}active{% endif %}"><a class="btn_capdo" style="text-decoration: none;" href="{% url 'Student:SkillList' %}?level=N1">N1</a></div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center align-items-center" style=" height: 140px;">
+        <h2 class="text-center mt-5">CHỌN LOẠI ĐỀ</h2>
+    </div>
+    <div class="row d-flex justify-content-center mt-3">
+        <div class="col-sm-5">
+            <ul class="nav nav-tabs d-flex justify-content-center" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="kynang-tab" data-bs-toggle="tab" data-bs-target="#kynang" type="button" role="tab" aria-controls="profile" aria-selected="false"><b>Đề theo kỹ năng</b></button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent" style="background-color: #fff; height: 110px; border-bottom: 1px solid rgb(188, 183, 183);">
+                <div class="tab-pane fade show active" id="kynang" role="tabpanel" aria-labelledby="jlpt-tab">
+                    <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+                        <a href="{% url 'Student:SkillList' %}?skill=Vocabulary" class="btn btn-info btn-vaothi" style="display: flex; justify-content: center; align-items: center; margin-top: 30px;">文字・語彙</a> &nbsp;&nbsp;
+                        <a href="{% url 'Student:SkillList' %}?skill=Grammar" class="btn btn-info btn-vaothi" style="display: flex; justify-content: center; align-items: center; margin-top: 30px;">文法</a> &nbsp;&nbsp;
+                        <a href="{% url 'Student:SkillList' %}?skill=Reading" class="btn btn-info btn-vaothi" style="display: flex; justify-content: center; align-items: center; margin-top: 30px;">読解</a> &nbsp;&nbsp;
+                        <a href="{% url 'Student:SkillList' %}?skill=Listening" class="btn btn-info btn-vaothi" style="display: flex; justify-content: center; align-items: center; margin-top: 30px;">聴解</a> &nbsp;&nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- for nguyên cụm ni -->
+        {% for part in parts %}
+        <div class="col">
+            <div class="card mt-3" style="width: 18rem;">
+                {% with image_path="images/jlpt-"|add:part.level|add:".webp" %}
+                <img src="{% static image_path %}" class="card-img-top" alt="...">
+                {% endwith %}   
+                <div class="card-body">
+                <h5 class="card-title">{{part.name}}{{part.level}}</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="{% url 'Student:StartSkill' pk=part.id %}" class="btn btn-primary">Vào thi</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <!--  -->
+    </div>
+    <div class="row" style="height: 130px;"></div>
+</div>
+{% endblock content %}

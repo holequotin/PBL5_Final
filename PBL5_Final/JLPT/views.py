@@ -21,6 +21,8 @@ def login_page(request):
                 return redirect('Teacher:TeacherHome')
             if user.groups.filter(name = 'Student'):
                 print('Is student')
+                request.session['level'] = ''
+                request.session['skill'] = ''
                 return redirect('Student:StudentHome')
             # if profile.role == 'teacher':
             #     return redirect('jlpt:TeacherHome')

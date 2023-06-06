@@ -10,7 +10,7 @@
     <div class="row justify-content-center" style="height: 410px;">
         <div class="col-sm-6" style="background-image: url({% static 'images/ketquathi.png' %}); background-repeat: no-repeat; background-position: center;">
             <div class="row">
-                <h4 style="text-align: center; margin-top: 100px;">{{practice.name}} - {{practice.level.name}}</h4>
+                <h4 style="text-align: center; margin-top: 100px;">{{part.name}} - {{part.level.name}}</h4>
             </div>
             <div class="row">
                 <div class="col" style="text-align: center">
@@ -52,7 +52,7 @@
     <!-- end chứng nhận -->
     <div class="row d-flex justify-content-center mt-5">
         <div class="col-sm-3 d-flex justify-content-center">
-            <a href="{% url 'Student:ResultDetail' pk=practice.id %}" class="btn btn-info">Xem đáp án</a>
+            <a href="" class="btn btn-info">Xem đáp án</a>
         </div>      
     </div>
     <div class="row" style="height: 150px;"></div> 
