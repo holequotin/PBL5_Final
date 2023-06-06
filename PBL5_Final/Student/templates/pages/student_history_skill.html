@@ -26,7 +26,7 @@
                         <td>{{item.start_time}}</td>
                         {% if item.status %}
                         <td>{{item.scored}}/{{item.base_score}}</td>
-                        <td><a style="text-decoration: none;" href="#">Xem</a></td>
+                        <td><a style="text-decoration: none;" href="{% url 'Student:SkillResultDetail' pk=item.id %}">Xem</a></td>
                         {% else %}
                         <td>Chưa hoàn thành</td>
                         <td><a style="text-decoration: none;" href="{% url 'Student:TestPart' pk=item.id %}?type=skill">Tiếp tục làm bài</a></td>

@@ -392,3 +392,12 @@ def practice_result_detail(request,pk):
         'profile' : profile
     }
     return render(request,'pages/student_practice_result_detail.html',context)
+
+def skill_result_detail(request,pk):
+    profile = Profile.objects.get(user = request.user)
+    part = get_object_or_404(PracticePartHistory,id = pk)
+    context = {
+        'part' : part,
+        'profile' : profile
+    }
+    return render(request,'pages/student_skill_result_detail.html',context)
