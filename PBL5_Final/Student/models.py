@@ -22,12 +22,17 @@ class PracticeHistory(models.Model):
         return PracticePartHistory.objects.all().filter(practice_history = self)
 
 class PracticePartHistory(models.Model):
+    student = models.ForeignKey(User,null = True,blank = True,on_delete=models.CASCADE,related_name = 'StudentSkill')
     name = models.CharField( max_length=100)
     duration = models.DurationField() # sử dụng timedelta để nhập dữ liệu
     pass_score = models.IntegerField(default=0)
-    practice_history = models.ForeignKey(PracticeHistory,on_delete=models.CASCADE)
+    practice_history = models.ForeignKey(PracticeHistory,null = True,blank = True,on_delete=models.CASCADE,related_name = 'PracticeHistory')
+    part = models.ForeignKey( ExamPart,null = True,on_delete=models.CASCADE)
     status = models.BooleanField(default = False)
     time_left = models.DurationField()
+    scored = models.IntegerField(null = True,blank = True)
+    base_score = models.IntegerField(null = True,blank = True)
+    start_time = models.DateTimeField(auto_now_add=True,null = True)
     
     def groups(self):
         return GroupQuestionHistory.objects.all().filter(part = self)
