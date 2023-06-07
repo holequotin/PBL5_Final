@@ -11,15 +11,15 @@
       </thead>
       <tbody>
           {% for exam in page_obj.object_list %}
-          <tr hx-target = "this">
-              <td><a href="{% url 'Teacher:AddExamDetail' pk=exam.id %}">{{exam.name}}</a></td>
-              <td>{{exam.level}}</td>
-              {% comment %} <td><img
-                  src="{{exam.image.url}}">
-              </td> {% endcomment %}
-              <td><form action="">{% csrf_token %} <a class="btn btn-outline-danger" hx-post = "{% url 'Teacher:DeleteExam' pk=exam.id %}" hx-swap = "outerHTML"><i class="bi bi-trash"></i></a></form></td>
-              <td><a class="btn btn-outline-primary" href = "{% url 'Teacher:DetailExam' pk=exam.id %}"><i class="bi bi-pen"></i></a></td>
-          </tr>
+            <tr hx-target = "this">
+                <td><a href="{% url 'Teacher:AddExamSkillDetail' pk=exam.id %}">{{exam.name}}</a></td>
+                <td>{{exam.level}}</td>
+                {% comment %} <td><img
+                    src="{{exam.image.url}}">
+                </td> {% endcomment %}
+                <td><form action="">{% csrf_token %} <a class="btn btn-outline-danger" hx-post = "{% url 'Teacher:DeleteExamSkill' pk=exam.id %}" hx-swap = "outerHTML"><i class="bi bi-trash"></i></a></form></td>
+                <td><a class="btn btn-outline-primary" href = "{% url 'Teacher:EditExamSkill' pk=exam.id %}"><i class="bi bi-pen"></i></a></td>
+            </tr>
           {% endfor %}
       </tbody>
     </table>

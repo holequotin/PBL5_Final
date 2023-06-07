@@ -1,0 +1,44 @@
+{% extends 'student_base.html' %}
+{% load static %}
+{% load customfilter %}
+{% block content %}
+<div class="container no-padding content-area no-sidebar">
+    <div class="row align-items-center" style="height: 100px;">     
+        <h2 style="text-align: center;">Đáp án {{part.name}}</h2>
+    </div>
+    {% for group in part.groups %}
+            <div class = "group-question" id = "group-question-{{group.id}}">
+                <div class="container" id = "group-info">
+                <div class="row">
+                  <div class="col">
+                    <h2>{{group.content|safe}}</h2>
+                  </div>
+                </div>
+                  {% if group.file %}
+                  <div class="container">
+                    {% if group.file.url|lower|endswith:".mp3" or group.file.url|lower|endswith:".wav" or group.file.url|lower|endswith:".ogg" %}
+                    <audio controls>
+                      <source src="{{group.file.url}}" type="audio/mp3">
+                      Your browser does not support the audio element.
+                    </audio>      
+                    {% elif group.file.url|lower|endswith:".jpg" or group.file.url|lower|endswith:".png" or group.file.url|lower|endswith:".jpeg" %}
+                    <img src="{{group.file.url}}" alt="My Image">
+                    {% endif %}
+                  </div>
+                  {% endif %}
+                </div>
+                  <div class = "d-inline-flex flex-column container" id = "question-list-{{group.id}}">
+                      {% if group.questions %}
+                      {% comment "show list question" %}{% endcomment %}
+                      {% for question in group.questions %}
+                      {% include 'partials/student_question_result.html' with question=question %}
+                      {% endfor %}
+                {% else %}
+                  
+                {% endif %} 
+                  </div>
+                  <hr>
+                <link rel="stylesheet" href="{% static 'css/partials/group_question_detail.css' %}">
+              </div>
+              {% endfor %} 
+{% endblock content %}

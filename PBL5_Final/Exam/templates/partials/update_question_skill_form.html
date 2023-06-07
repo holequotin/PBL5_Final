@@ -1,0 +1,38 @@
+{% load static %}
+<form action="{% url 'Exam:UpdateQuestionSkillForm' pk=pk %}" hx-target = "this" method="POST">
+    {% csrf_token %}
+    {{form.media}}
+    <div class = "container">
+        <div class="row">
+            {{form.content}}
+        </div>
+        <div class="row">
+            <div class = "col-3">
+                <label for="">A.</label>{{form.optionA}}
+            </div>
+            <div class = "col-3">
+                <label for="">B.</label>{{form.optionB}}
+            </div>
+            <div class = "col-3">
+                <label for="">C.</label>{{form.optionC}}
+            </div>
+            <div class = "col-3">
+                <label for="">D.</label>{{form.optionD}}
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-6">
+                {{form.score}}
+            </div>
+            <div class = "col-2">
+                {{form.correct}}
+            </div>
+            <div class = "col-4">
+                <button class = "btn btn-success "style = "margin-top : 20px">Submit</button>
+                {% comment %} <button class = "btn btn-outline-danger " hx-get = "{% url 'Exam:DeleteForm' %}" style = "margin-top : 20px">Delete form</button> {% endcomment %}
+                <a href="{% url 'Teacher:AddExamSkillDetail' pk=form.instance.group_question.exam_part.id %}" class="btn btn-outline-danger" style = "margin-top : 20px">Delete Form</a>
+            </div>
+        </div>
+    </div>
+    <link rel="stylesheet" href="{% static 'css/partials/add_question_form.css' %}">
+</form>

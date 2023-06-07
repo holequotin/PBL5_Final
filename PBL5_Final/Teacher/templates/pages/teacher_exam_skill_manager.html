@@ -5,9 +5,10 @@
 {% endblock linkcss %}
 
 {% block content %}
-<div class = "row document-list">
-    <div class = "container" id="document-list-container">
-      {% include "Document/document_list.html" %}
+<div class = "row exam-list">
+    {% include "partials/teacher_filter_skill.html" %}
+    <div class = "container" id="exam-list-container">
+        {% include "partials/exam_skill_list.html" %}
     </div>
 </div>
 {% endblock content %}
