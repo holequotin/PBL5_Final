@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'Exam',
     'import_export',
     'Student',
-    'Document'
+    'Document',
+    'Administer'
 ]
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_CONFIGS = {

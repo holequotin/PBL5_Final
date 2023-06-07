@@ -255,3 +255,23 @@ def add_exam_skill_detail(request,pk):
     part = ExamPart.objects.get(id = pk)
     context = {"profile": profile, "part": part}
     return render(request, "pages/add_exam_skill_detail.html", context)
+def teacher_add_exam_skill(request):
+    user = request.user
+    profile = Profile.objects.get(user=user)
+    if request.method == "POST":
+        form = ExamForms.AddExamSkillPartForm(request.POST, request.FILES)
+        if form.is_valid():
+            exam = form.save(commit=False)
+            exam.user = request.user
+            exam.save()
+            return redirect("Teacher:ExamManager", number=1)
+    form = ExamForms.AddExamSkillPartForm()
+    context = {"form": form, "user": user, "profile": profile}
+    return render(request, "pages/teacher_add_exam.html", context)
+
+def teacher_profile(request):
+    user = request.user
+    profile = get_object_or_404(Profile, user=user)
+    return render(
+        request, "pages/teacher_profile.html", {"user": user, "profile": profile}
+    )

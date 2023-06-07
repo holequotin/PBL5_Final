@@ -1,2 +1,12 @@
 @import url('../partials/student_info.css');
 @import url('../partials/student_navbar.css');
+#wrapper {
+    position: relative; /* Đảm bảo vị trí tương đối cho các phần tử con */
+}
+  
+#fixedDiv {
+  position: fixed;
+  top: 150px; /* Vị trí top cụ thể */
+  left: 100px; /* Vị trí left cụ thể */
+  font-size: 50px;
+}
