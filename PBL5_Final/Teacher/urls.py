@@ -15,4 +15,6 @@ urlpatterns = [
     path('adddocument',teacher_add_document,name='AddDocument'),
     path('delete_document/<int:pk>',teacher_delete_document,name = 'DeleteDocument'),
     path('detail_document/<int:pk>',teacher_detail_document,name = "DetailDocument"),
+    path('profile',teacher_profile,name="TeacherProfile"),
+
 ]

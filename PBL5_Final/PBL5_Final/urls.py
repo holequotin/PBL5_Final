@@ -34,7 +34,8 @@ urlpatterns = [
     path("teacher/", include("Teacher.urls")),
     path("exam/", include("Exam.urls")),
     path("student/", include("Student.urls")),
-    path("document/",include("Document.urls"))
+    path("document/",include("Document.urls")),
+    path("administer/",include("Administer.urls"))
 ]
 
 if settings.DEBUG:

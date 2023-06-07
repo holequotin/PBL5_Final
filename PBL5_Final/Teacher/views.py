@@ -198,3 +198,9 @@ def teacher_add_exam_skill(request):
     context = {"form": form, "user": user, "profile": profile}
     return render(request, "pages/teacher_add_exam.html", context)
 
+def teacher_profile(request):
+    user = request.user
+    profile = get_object_or_404(Profile, user=user)
+    return render(
+        request, "pages/teacher_profile.html", {"user": user, "profile": profile}
+    )
