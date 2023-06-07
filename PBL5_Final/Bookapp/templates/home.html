@@ -1,0 +1,111 @@
+{% extends "book_base.html" %}
+
+{% block title %}
+    <title>Sách free | Home</title>
+{% endblock %}
+
+
+{% block content %}
+<div class = 'container'>
+    <div class = 'row'><h4>Sách được đề xuất</h4></div>
+    <div class = 'row'>
+      {% for books in recommended_books %}
+      <div class = 'col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2'>
+        <a href = "{% url 'Bookapp:book_detail' books.slug %}">
+          <div>
+            <div class="uk-card uk-card-default uk-card-body"> 
+                <img src = "{{books.cover_image.url}}">
+               
+            </div>
+        </div>
+      </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  
+  <div class = 'container'>
+    <div class = 'row'><h4>Sách luyện đọc hàng đầu</h4></div>
+    <div class = 'row'>
+      {% for reading_book in reading_books %}
+      <div class = 'col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2'>
+        <a href = "{% url 'Bookapp:book_detail' reading_book.slug %}">
+          <div>
+            <div class="uk-card uk-card-default uk-card-body"> 
+               <img src = "{{reading_book.cover_image.url}}">
+            </div>
+        </div>
+      </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  
+  <div class = 'container'>
+      <div class = 'row'><h4>Sách luyện ngữ pháp hàng đầu</h4></div>
+      <div class = 'row'>
+        {% for grammar_book in grammar_books %}
+        <div class = 'col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2'>
+          <a href = "{% url 'Bookapp:book_detail' grammar_book.slug %}">
+            <div>
+              <div class="uk-card uk-card-default uk-card-body"> 
+                 <img src = "{{grammar_book.cover_image.url}}">
+              </div>
+          </div>
+        </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div> 
+
+    <div class = 'container'>
+        <div class = 'row'><h4>Sách luyện từ vựng/kanji hàng đầu</h4></div>
+        <div class = 'row'>
+          {% for vocabulary_book in vocabulary_books %}
+          <div class = 'col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2'>
+             <a href = "{% url 'Bookapp:book_detail' vocabulary_book.slug %}"> 
+              <div>
+                <div class="uk-card uk-card-default uk-card-body"> 
+                   <img src = "{{vocabulary_book.cover_image.url}}">
+                </div>
+            </div>
+          </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div> 
+
+      <div class = 'container'>
+        <div class = 'row'><h4>Sách luyện nghe hàng đầu</h4></div>
+        <div class = 'row'>
+          {% for listen_book in listen_books %}
+          <div class = 'col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2'>
+            <a href = "{% url 'Bookapp:book_detail' listen_book.slug %}"> 
+              <div>
+                <div class="uk-card uk-card-default uk-card-body"> 
+                   <img src = "{{listen_book.cover_image.url}}">
+                </div>
+            </div>
+          </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div> 
+
+      <div class = 'container'>
+        <div class = 'row'><h4>Sách các thủ thuật làm bài</h4></div>
+        <div class = 'row'>
+          {% for tips_book in tips_books %}
+          <div class = 'col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2'>
+            <a href = "{% url 'Bookapp:book_detail' tips_book.slug %}"> 
+              <div>
+                <div class="uk-card uk-card-default uk-card-body"> 
+                   <img src = "{{tips_book.cover_image.url}}">
+                </div>
+            </div>
+          </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div> 
+      {% endblock %}

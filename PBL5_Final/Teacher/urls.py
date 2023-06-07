@@ -14,4 +14,10 @@ urlpatterns = [
     path('adddocument',teacher_add_document,name='AddDocument'),
     path('delete_document/<int:pk>',teacher_delete_document,name = 'DeleteDocument'),
     path('detail_document/<int:pk>',teacher_detail_document,name = "DetailDocument"),
+
+    path('addbook',teacher_add_book,name='AddBook'),
+    path('bookmanager/<int:number>',book_manager,name = 'BookManager'),
+    path('delete_book/<int:pk>',teacher_delete_book,name = 'DeleteBook'),
+    path('detail_book/<int:pk>',teacher_detail_book,name = "DetailBook"),
+    path('detail_book/<int:pk>',teacher_detail_book,name = "DetailBook"),
 ]

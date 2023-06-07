@@ -1,0 +1,29 @@
+
+{% extends 'book_base.html' %}
+{% block title %}
+<title>Tìm kiếm sách</title>
+{% endblock %}
+
+{% block content %}
+<div class = 'container'>
+    <div class = 'row'><h4>Tìm kiếm sách</h4></div>
+    <div class = 'row'>
+        {% if search_books %}
+      {% for book in search_books %}
+      <div class = 'col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2'>
+        <a href = "{% url 'Bookapp:book_detail' book.slug %}">
+          <div>
+            <div class="uk-card uk-card-default uk-card-body"> 
+                <img src = "{{book.cover_image.url}}">
+               
+            </div>
+        </div>
+      </a>
+      </div>
+      {% endfor %}
+      {% else %}
+      <div class = 'row'><h3>Sách Chưa có! Kiểm tra lại sau</h3></div>
+      {% endif %}
+    </div>
+  </div>
+  {% endblock %}

@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'Exam',
     'import_export',
     'Student',
-    'Document'
+    'Document',
+    'Bookapp'
 ]
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_CONFIGS = {
@@ -77,6 +78,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'Bookapp.context_processors.category_links',
+                'Bookapp.context_processors.book_search'
             ],
         },
     },
