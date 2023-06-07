@@ -1,15 +1,15 @@
 {% load static %}
 {% load customfilter %}
 <div class = "group-question" id = "group-question-{{group.id}}">
-  <div class="container" id = "group-info">
+  <div class="container" id = "group-info-{{group.id}}">
   <div class="row">
     <div class="col-11">
       <h2>{{group.content|safe}}</h2>
     </div>
     <div class="col">
       <a href="" class="btn btn-outline-info"
-      hx-get = "{% url 'Exam:UpdateGroupQuestion' pk=group.id %}"
-      hx-target = "#group-question-{{group.id}}"
+      hx-get = "{% url 'Exam:UpdateGroupSkill' pk=group.id %}"
+      hx-target = "#group-info-{{group.id}}"
       hx-swap = "innerHTML"
       >
         <i class="bi bi-pencil"></i>
@@ -20,7 +20,7 @@
         {% comment %} <input type="text" name="" id="group-name" class = "border-0 col-11" value = "{{group.content}}"> {% endcomment %}
         <div class="col-12 d-flex justify-content-start align-item-center">
             <button class = "btn btn-outline-danger border-0" hx-get = "{% url 'Exam:DeleteGroupQuestion' pk=group.id %}" hx-target = "#group-question-{{group.id}}" hx-swap = "outerHMTL"><i class="bi bi-trash3"></i></button>
-            <button class = "btn btn-outline-success border-0" hx-get = "{% url 'Exam:AddQuestionForm' pk=group.id %}" hx-target = "#question-list-{{group.id}}" hx-swap = "beforeend"><i class="bi bi-plus-lg"></i></button>
+            <button class = "btn btn-outline-success border-0" hx-get = "{% url 'Exam:AddQuestionSkillForm' pk=group.id %}" hx-target = "#question-list-{{group.id}}" hx-swap = "beforeend"><i class="bi bi-plus-lg"></i></button>
         </div>
     </div>
     {% if group.file %}
@@ -39,7 +39,7 @@
     <div class = "d-inline-flex flex-column container" id = "question-list-{{group.id}}">
         {% if group.questions %}
         {% for question in group.questions %}
-        {% include 'partials/question_detail.html' with question=question %}
+        {% include 'partials/question_skill_detail.html' with question=question %}
         {% endfor %}
   {% else %}
     

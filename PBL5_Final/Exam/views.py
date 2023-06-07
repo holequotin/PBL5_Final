@@ -64,6 +64,25 @@ def exam_list(request,number):
     }
     return render(request,'partials/exam_list.html',context)
 
+def skill_list(request,number):
+    search = request.GET.get('search')
+    if search == '' or search is None:
+        search = ''
+        exams = ExamPart.objects.filter(user=request.user)
+    else:
+        exams = ExamPart.objects.filter(name__icontains = search, user = request.user)
+    filter_level = request.GET.get('select-level')
+    if filter_level != 'All':
+        exams = exams.filter(level = filter_level,user =request.user)
+    paginator = Paginator(exams,10)
+    page_obj = paginator.page(number)
+    context = {
+        'page_obj' : page_obj,
+        'search' :search,
+        'number' : number
+    }
+    return render(request,'partials/exam_list.html',context)
+
 def group_question_form(request,pk):
     if request.method == "POST" :
         form = AddGroupQuesitonForm(request.POST or None,request.FILES)
@@ -77,6 +96,21 @@ def group_question_form(request,pk):
             return redirect('Teacher:AddExamDetail',pk = part.exam.id)
     form = AddGroupQuesitonForm()
     return render(request,'partials/add_group_question_form.html', {'form' : form,'part_id' : pk})
+
+def group_skill_form(request,pk):
+    if request.method == "POST" :
+        form = AddGroupQuesitonForm(request.POST or None,request.FILES)
+        if form.is_valid():
+            group_question = form.save(commit=False)
+            part = get_object_or_404(ExamPart,id = pk)
+            group_question.exam_part = part
+            group_question.save()    
+            print("Saved")                                                                                                                                                                                                                                            
+            # return render(request,'partials/group_question_detail.html',{'group' : group_question})
+            return redirect('Teacher:AddExamSkillDetail',pk = part.id)
+    form = AddGroupQuesitonForm()
+    return render(request,'partials/add_group_skill_form.html', {'form' : form,'part_id' : pk})
+
 def exam_part_detail(request,pk):
     part = get_object_or_404(ExamPart,id = pk)
     context = {
@@ -101,6 +135,20 @@ def question_form(request,pk):
             print("Is not valid")
     form = AddQuestionForm()
     return render(request,'partials/add_question_form.html',{'form' : form , "pk" : pk})
+
+def question_skill_form(request,pk):
+    if request.method == "POST":
+        form = AddQuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            group_question = get_object_or_404(GroupQuestion,id = pk)
+            question.group_question = group_question
+            question.save()
+            return redirect('Teacher:AddExamSkillDetail', pk = group_question.exam_part.id)
+        else:
+            print("Is not valid")
+    form = AddQuestionForm()
+    return render(request,'partials/add_question_skill_form.html',{'form' : form , "pk" : pk})
 
 def delete_part(request,pk):
     part = get_object_or_404(ExamPart,id = pk)
@@ -141,6 +189,23 @@ def update_question_form(request,pk):
     form = AddQuestionForm(instance=question)
     return render(request,'partials/update_question_form.html',{'form' : form , "pk" : pk})
 
+def update_question_skill_form(request,pk):
+    question = get_object_or_404(Question,id = pk)
+    if request.method == "POST":
+        form = AddQuestionForm(request.POST,instance=question)
+        if form.is_valid():
+            # question = form.save(commit=False)
+            # group_question = get_object_or_404(GroupQuestion,id = pk)
+            # question.group_question = group_question
+            # question.save()
+            form.save()
+            print('question saved')
+            return redirect('Teacher:AddExamSkillDetail', pk = question.group_question.exam_part.id)
+        else:
+            print("Is not valid")
+    form = AddQuestionForm(instance=question)
+    return render(request,'partials/update_question_skill_form.html',{'form' : form , "pk" : pk})
+
 def update_answer(request,pk):
     name = "answer-question-" + str(pk)
     answer = request.POST.get(name)
@@ -161,7 +226,18 @@ def update_group_question(request,pk):
             return redirect('Teacher:AddExamDetail',pk = form.instance.exam_part.exam.id)
     form = AddGroupQuesitonForm(instance=group_question)
     return render(request,'partials/update_group_question_form.html', {'form' : form,'part_id' : group_question.exam_part.id})
-            
+
+def update_group_skill(request,pk):
+    group_question = get_object_or_404(GroupQuestion,id = pk)   
+    if request.method == "POST" :
+        form = AddGroupQuesitonForm(request.POST or None,request.FILES,instance=group_question)
+        if form.is_valid():
+            form.save()
+            print("Saved")                                                                                                                                                                                                                                            
+            # return render(request,'partials/group_question_detail.html',{'group' : group_question})
+            return redirect('Teacher:AddExamSkillDetail',pk = form.instance.exam_part.id)
+    form = AddGroupQuesitonForm(instance=group_question)  
+    return render(request,'partials/update_group_skill_form.html', {'form' : form,'part_id' : group_question.exam_part.id})   
 
 def delete_form(request):
     return HttpResponse('')
