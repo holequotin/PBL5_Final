@@ -77,9 +77,18 @@ def test_part(request,pk):
         #     return redirect('Student:SkillResult',pk = part_his.id)
 def start_skill_exam(request,pk):
     part = get_object_or_404(ExamPart,id = pk)
+    time = part.time * 60
+    input = time
+    idSP = pk
+    giay = input % 60
+    phut= input // 60
     context = {
         'profile' : Profile.objects.get(user = request.user),
-        'type' : 'skill'
+        'type' : 'skill',
+        'input' : input,
+        'phut' : phut,
+        'giay': giay,
+        'idSP' : idSP,  
     }
     #TODO: Chinh ali
     if PracticePartHistory.objects.filter(part = part,status = False,student = request.user).exists():
@@ -177,11 +186,20 @@ def start_test(request,pk):
 
 def new_skill_exam(request,pk):
     pk = int(pk)
+    part = get_object_or_404(ExamPart,id=pk)
+    time = part.time * 60
+    input = time
+    idSP = pk
+    giay = input % 60
+    phut= input // 60
     context = {
         'profile' : Profile.objects.get(user = request.user),
-        'type' : 'skill'
+        'type' : 'skill',
+        'input' : input,
+        'phut' : phut,
+        'giay': giay,
+        'idSP' : idSP,        
     }
-    part = get_object_or_404(ExamPart,id=pk)
     part_history = PracticePartHistory(
                 student = request.user,
                 name = part.name,
