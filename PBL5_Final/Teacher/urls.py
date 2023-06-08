@@ -15,4 +15,13 @@ urlpatterns = [
     path('adddocument',teacher_add_document,name='AddDocument'),
     path('delete_document/<int:pk>',teacher_delete_document,name = 'DeleteDocument'),
     path('detail_document/<int:pk>',teacher_detail_document,name = "DetailDocument"),
+    path('profile',teacher_profile,name="TeacherProfile"),
+
+    path('add-exam-skill',add_exam_skill,name = 'AddExamSkill'),
+    path('create-exam-skill',create_exam_skill,name = "CreateExamSkill"),
+    path('edit-exam-skill/<int:pk>',edit_skill_exam,name='EditExamSkill'),
+    path('delete-exam-skill/<int:pk>',delete_exam_skill,name='DeleteExamSkill'),
+    path('update-exam-skill/<int:pk>',update_skill_exam,name="UpdateExamSkill"),
+    path('skill-manager/<int:number>',exam_skill_manager,name = 'SkillManager'),
+    path('add-exam-skill-detail/<int:pk>',add_exam_skill_detail,name='AddExamSkillDetail')
 ]

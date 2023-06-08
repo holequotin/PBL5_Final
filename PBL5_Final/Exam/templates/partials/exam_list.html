@@ -13,7 +13,7 @@
           {% for exam in page_obj.object_list %}
           <tr hx-target = "this">
               <td><a href="{% url 'Teacher:AddExamDetail' pk=exam.id %}">{{exam.name}}</a></td>
-              <td>{{exam.level.name}}</td>
+              <td>{{exam.level}}</td>
               {% comment %} <td><img
                   src="{{exam.image.url}}">
               </td> {% endcomment %}

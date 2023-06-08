@@ -1,0 +1,10 @@
+<div hx-target="this">
+    <form action="{% url 'Exam:UpdateGroupSkill' pk=form.instance.id %}" method = "POST" enctype="multipart/form-data" hx-encoding = "multipart/form-data"> 
+        {% csrf_token %}
+        {{form.media}}
+        {{form.as_p}}
+        {% comment %} <button class = "btn btn-success" hx-post = "{% url 'Exam:AddGroupQuestionForm' pk=part_id %}">Save</button> {% endcomment %}
+        <button class="btn btn-success" type = "submit">Save</button>
+        <a href="{% url 'Teacher:AddExamSkillDetail' pk=form.instance.exam_part.id %}" class="btn btn-outline-danger">Delete Form</a>
+    </form>
+</div>

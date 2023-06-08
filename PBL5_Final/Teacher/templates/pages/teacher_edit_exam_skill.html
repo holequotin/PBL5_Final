@@ -1,0 +1,64 @@
+{% extends 'teacher_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid no-padding content-area no-sidebar">
+    <div class="row d-flex align-items-center justify-content-center border border-success mt-5">
+        <div class="row align-items-center" style="height: 70px;">     
+            <h2 style="text-align: center;">Cập nhật đề theo kỹ năng</h2>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-5">
+                <form method = "POST" action = "{% url 'Teacher:UpdateExamSkill' pk=exam.id %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>Tên đề thi <label style="color: red;">*</label></label>
+                        <input type="text" class="form-control" id="inputAddress" placeholder="Nhập tên đề thi" required value="{{exam.name}}" name = "name">
+                    </div>
+                    <div class="form-group mt-3 col-8">           
+                        <label>Cấp độ <label style="color: red;">*</label></label>
+                        <select class="form-select" value = {{exam.level}} name = "level">
+                            <option value="N5">N5</option>
+                            <option value="N4">N4</option>
+                            <option value="N3">N3</option>
+                            <option value="N2">N2</option>
+                            <option value="N1">N1</option>
+                          </select>
+                    </div>
+                    <div class="form-group mt-3 col-8">           
+                        <label>Kỹ năng <label style="color: red;">*</label></label>
+                        <select class="form-select" name="skill">
+                            <option value="Vocabulary">文字・語彙</option>
+                            <option value="Grammar">文法</option>
+                            <option value="Reading">読解</option>
+                            <option value="Listening">聴解</option>
+                          </select>
+                    </div>
+                    <div class="form-group mt-3 col-8">
+                        <label>Thời gian <label style="color: red;">*</label></label>
+                        <input type="number" class="form-control" placeholder="Nhập thời gian" required value = "{{exam.time}}" oninput="validateInput(this)" name="time">
+                    </div>
+                    <div class="form-group mt-3 col-8">
+                        <label>Pass score <label style="color: red;">*</label></label>
+                        <input type="number" class="form-control" placeholder="Nhập Pass score" required value="{{exam.pass_score}}" oninput="validateInput(this)" name="score">
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-sm-6 d-flex justify-content-center">
+                            <a href="{% url 'Teacher:SkillManager' number=1 %}" class="btn btn-danger mt-5 mb-3">Huỷ <i class="bi bi-x-circle"></i></a> &nbsp;&nbsp;
+                            <button class="btn btn-primary mt-5 mb-3" type="submit">Cập nhật đề thi <i class="bi bi-pen"></i></button>
+                        </div>
+                    </div>
+                  </form>
+            </div>
+        </div>     
+    </div>
+    <div class="row" style="height: 100px;"></div>
+</div>
+<script>
+    function validateInput(input) {
+        if (input.value < 0) {
+          input.value = 0;
+        }
+      }
+</script>
+{% endblock content %}
