@@ -243,7 +243,7 @@ def update_skill_exam(request,pk):
     name = request.POST.get("name")
     level = request.POST.get("level")
     skill = request.POST.get("skill")
-    time = request.POST.get("time")
+    time = request.POST.get("time")  
     score = request.POST.get("score")
     exam = ExamPart.objects.get(id = pk)
     exam.name = name
@@ -321,7 +321,7 @@ def teacher_delete_book(request, pk):
 def teacher_detail_book(request, pk):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
-    book = get_object_or_404(Book, id=pk)
+    book = get_object_or_404(book_search, id=pk)
     form = BookappForms.AddBookForm(instance=book)
     context = {"user": user, "profile": profile, "form": form}
     return render(request, "pages/teacher_book_detail.html", context)
