@@ -1,4 +1,4 @@
-<a href="">Thêm đề bằng excel</a>
+<a href="{% url 'Teacher:push_excel_skill' pk=part.id %}">Thêm đề bằng excel</a>
 <div class="card" hx-target = "this" id = "part-detail-{{part.id}}">
     <div class="card-header" id="heading-{{part.id}}">
       <h5 class="mb-0">
