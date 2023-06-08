@@ -20,13 +20,6 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("jlpt/",include('JLPT.urls')),
-    path("teacher/", include('Teacher.urls')),
-    path("exam/",include("Exam.urls")),
-    path("teacher/",include('Teacher.urls')),
-    path("exam/",include("Exam.urls")),
-    path("student/",include("Student.urls")),
     path("admin/", admin.site.urls),
     path("jlpt/", include("JLPT.urls")),
     path("teacher/", include("Teacher.urls")),
@@ -35,7 +28,8 @@ urlpatterns = [
     path("exam/", include("Exam.urls")),
     path("student/", include("Student.urls")),
     path("document/",include("Document.urls")),
-    path("administer/",include("Administer.urls"))
+    path("administer/",include("Administer.urls")),
+    path("book/", include("Bookapp.urls")),
 ]
 
 if settings.DEBUG:

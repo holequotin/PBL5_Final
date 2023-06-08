@@ -1,9 +1,12 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
+from Bookapp.context_processors import book_search
 from JLPT.models import *
 from Exam.models import *
 from Document.models import *
+from Bookapp.models import *
 import Exam.forms as ExamForms
 import Document.forms as DocumentForms
+import Bookapp.forms as BookappForms
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
 from tablib import Dataset
@@ -275,3 +278,56 @@ def add_exam_skill_detail(request,pk):
     part = ExamPart.objects.get(id = pk)
     context = {"profile": profile, "part": part}
     return render(request, "pages/add_exam_skill_detail.html", context)
+def book_manager(request, number):
+    user = request.user
+    profile = get_object_or_404(Profile, user=user)
+    books = book_search.objects.filter(user=user)
+    paginator = Paginator(books, 10)
+    page_obj = paginator.page(number)
+    context = {
+        "number": number,
+        "user": user,
+        "profile": profile,
+        "page_obj": page_obj
+    }
+    return render(request, "pages/teacher_book_manager.html", context)
+
+
+def teacher_add_book(request):
+    user = request.user
+    profile = Profile.objects.get(user=user)
+
+    if request.method == "POST":
+        form = BookappForms.AddBookForm(request.POST, request.FILES)
+        if form.is_valid():
+            book = form.save(commit=False)
+            book.user = request.user
+            book.save()
+            form.save_m2m()  # Lưu các trường ManyToMany
+            return redirect("Teacher:BookManager", number=1)
+    else:
+        form = BookappForms.AddBookForm()
+    
+    context = {"form": form, "user": user, "profile": profile}
+    return render(request, "pages/teacher_add_book.html", context)
+
+
+
+def teacher_delete_book(request, pk):
+    book = Book.objects.get(id=pk)
+    book.delete()
+    return HttpResponse("")
+
+def teacher_detail_book(request, pk):
+    user = request.user
+    profile = get_object_or_404(Profile, user=user)
+    book = get_object_or_404(Book, id=pk)
+    form = BookappForms.AddBookForm(instance=book)
+    context = {"user": user, "profile": profile, "form": form}
+    return render(request, "pages/teacher_book_detail.html", context)
+def add_exam_skill(request):
+    profile = Profile.objects.get(user = request.user)
+    context = {
+        'profile' : profile
+    }
+    return render(request,'pages/teacher_add_exam_skill.html',context)
