@@ -20,5 +20,10 @@ urlpatterns = [
     path('delete-exam-skill/<int:pk>',delete_exam_skill,name='DeleteExamSkill'),
     path('update-exam-skill/<int:pk>',update_skill_exam,name="UpdateExamSkill"),
     path('skill-manager/<int:number>',exam_skill_manager,name = 'SkillManager'),
-    path('add-exam-skill-detail/<int:pk>',add_exam_skill_detail,name='AddExamSkillDetail')
+    path('add-exam-skill-detail/<int:pk>',add_exam_skill_detail,name='AddExamSkillDetail'),
+    path('addbook',teacher_add_book,name='AddBook'),
+    path('bookmanager/<int:number>',book_manager,name = 'BookManager'),
+    path('delete_book/<int:pk>',teacher_delete_book,name = 'DeleteBook'),
+    path('detail_book/<int:pk>',teacher_detail_book,name = "DetailBook"),
+    
 ]
