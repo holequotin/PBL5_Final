@@ -1,0 +1,18 @@
+{% extends 'teacher_base.html' %}
+{% load static %}
+{% block linkcss %}
+    <link rel="stylesheet" href="{% static 'css/pages/teacher_add_exam_detail.css' %}">
+{% endblock linkcss %}
+
+
+{% block content %}
+    <div class="row d-flex justify-content-center">
+        <h1 style = "text-align:center" >{{exam.name}}</h1>
+    </div>
+    {% comment %} <button class="btn btn-success" hx-get = "{% url 'Exam:AddExamPartForm' pk=exam.id%}" hx-target = "#exam-part-list" hx-swap = "beforeend">Add Part</button> {% endcomment %}
+    <div class="container exam-part-list" id = "exam-part-list">
+        {% comment %} {% for part in exam.parts %} {% endcomment %}
+        {% include 'partials/exam_skill_detail.html' with part=part %}
+    {% comment %} {% endfor %} {% endcomment %}
+    </div>
+{% endblock content %}

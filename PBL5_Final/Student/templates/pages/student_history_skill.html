@@ -1,0 +1,45 @@
+{% extends 'student_base.html' %}
+{% load static %}
+{% block content %}
+<div class="container no-padding content-area no-sidebar">
+    <div class="row align-items-center" style="height: 100px;">     
+        <h2 style="text-align: center;">Lịch sử luyện tập</h2>
+    </div>
+    <div class="row">
+        <table class="table border">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Trình độ</th>
+                    <th scope="col">Loại đề</th>
+                    <th scope="col">Ngày thi</th>
+                    <th scope="col">Điểm</th>
+                    <th scope="col">Lời giải</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in part_list %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{item.part.level}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.start_time}}</td>
+                        {% if item.status %}
+                        <td>{{item.scored}}/{{item.base_score}}</td>
+                        <td><a style="text-decoration: none;" href="{% url 'Student:SkillResultDetail' pk=item.id %}">Xem</a></td>
+                        {% else %}
+                        <td>Chưa hoàn thành</td>
+                        <td><a style="text-decoration: none;" href="{% url 'Student:TestPart' pk=item.id %}?type=skill">Tiếp tục làm bài</a></td>
+                        {% endif %}
+                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="row" style="height: 100px;">
+
+    </div>
+    
+</div>
+{% endblock content %}

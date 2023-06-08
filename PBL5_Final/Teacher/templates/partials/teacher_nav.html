@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="container-fluid navbar d-flex-inline justify-content-end align-item-center gap-5">
     <center class="navbar-item"><a class = "nav-link" href="#">Trang chủ</a></center>
     <center class="navbar-item"><a class = "nav-link" href="#">Cập nhật JLPT 2023</a></center>
@@ -5,4 +6,28 @@
     <center class="navbar-item"><a class = "nav-link" href="{% url 'Teacher:DocumentManager' number=1 %}">Sách học JLPT</a></center>
     <center class="navbar-item"><a class = "nav-link" href="#">Đề thi chuẩn JLPT</a></center>
     <center class="navbar-item"><a class = "nav-link" href="{% url 'Teacher:ExamManager' number=1 %}">Quản lý bài thi</a></center>
+=======
+{% load static %}
+<div class="container-fluid sticky-top">
+    <div class="row text-center" style="background-color: white; height: 96px;">
+        <ul class="nav justify-content-center align-items-center">
+            <li><img src="{% static 'images/logo-jlpt.jpg' %}" class="img-fluid" style="width: 96px; height: 96px;"></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="nav-item"><a class="nav-link active" href="#">TRANG CHỦ</a></li>
+            <li class="nav-item"><a class="nav-link active" href="#">CẬP NHẬT JLPT 2023</a></li>
+            <li class="nav-item"><a class="nav-link active" href="{% url 'Teacher:DocumentManager' number=1 %}">TÀI LIỆU FREE</a></li>
+            <li class="nav-item"><a class="nav-link active" href="#">SÁCH HỌC JLPT</a></li>
+            <li class="nav-item"><a class="nav-link active" href="{% url 'Teacher:SkillManager' number=1 %}">ĐỀ THEO KỸ NĂNG</a></li>
+            <li class="nav-item"><a class="nav-link active" href="{% url 'Teacher:ExamManager' number=1 %}">QUẢN LÝ BÀI THI</a></li> 
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <!-- <li class="btn btn-primary" style="height: 41px;">VÀO THI NGAY</li> -->
+            <li class="vaothingay" style="vertical-align: middle;">
+                <a href="#" style="background: #93beda;color: #fff; height: 37px; text-align: center;
+                                        width: 131px; padding: 10px !important;margin-top: 29px; list-style-type:none;
+                                        border-radius: 7px;text-decoration: none;">VÀO THI NGAY</a>
+            </li>
+        </ul>
+    </div>
+    <div class="vien2"></div>
+>>>>>>> 3f34d4acfba5c7a31a1350716fe307a493994130
 </div>

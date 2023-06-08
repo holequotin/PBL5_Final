@@ -1,0 +1,60 @@
+{% extends 'student_base.html' %}
+{% load static %}
+{% load custom_tag %}
+{% block content %}
+<div class="container-fluid no-padding content-area no-sidebar">
+    <div class="row align-items-center" style="height: 150px;">
+        <h3 style="text-align: center;">KẾT QUẢ THI</h3>
+    </div>
+    <!-- chứng nhận -->
+    <div class="row justify-content-center" style="height: 410px;">
+        <div class="col-sm-6" style="background-image: url({% static 'images/ketquathi.png' %}); background-repeat: no-repeat; background-position: center;">
+            <div class="row">
+                <h4 style="text-align: center; margin-top: 100px;">{{part.name}} - {{part.level.name}}</h4>
+            </div>
+            <div class="row">
+                <div class="col" style="text-align: center">
+                    <label>Họ & tên thí sinh: </label>
+                    <label> <b>{{profile.user.first_name}} {{profile.user.last_name}}</b> </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" style="text-align: center">
+                    <label>Ngày thi: 02/07/2023</label>
+                    <label></label>
+                </div>
+            </div>
+            <div class="row">
+                
+                <div class="col">
+                    <!--  -->
+                    {% for key in result %}
+                    <div class="row mt-3">
+                        <div class="col justify-content-end mt-2" style="display: flex;">
+                            <h5 style="margin-right: 30px;">{{key}}</h5>
+                            <h5>{{ result|get_item:key}}/{{base_score|get_item:key}}</h5>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!--  -->
+                </div>
+                <div class="col">
+                    <!--  -->
+                    <h5 style="margin-left: 100px; margin-top: 24px;">Tổng điểm</h5>
+                    <h3 style="margin-left: 100px; color: red;">{{ result|sum_filter}}/{{base_score|sum_filter}}</h3>
+                    <!--  -->
+                </div>
+            </div>
+              
+        </div>
+
+    </div>
+    <!-- end chứng nhận -->
+    <div class="row d-flex justify-content-center mt-5">
+        <div class="col-sm-3 d-flex justify-content-center">
+            <a href="{% url 'Student:SkillResultDetail' pk=part.id %}" class="btn btn-info">Xem đáp án</a>
+        </div>      
+    </div>
+    <div class="row" style="height: 150px;"></div> 
+</div>
+{% endblock content %}
