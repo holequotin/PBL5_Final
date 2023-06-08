@@ -9,7 +9,7 @@
     <div class="col">
       <a href="" class="btn btn-outline-info"
       hx-get = "{% url 'Exam:UpdateGroupQuestion' pk=group.id %}"
-      hx-target = "#group-info"
+      hx-target = "#group-question-{{group.id}}"
       hx-swap = "innerHTML"
       >
         <i class="bi bi-pencil"></i>

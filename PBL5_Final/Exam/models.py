@@ -46,6 +46,7 @@ class Exam(models.Model):
     
     
 class ExamPart(models.Model):
+    user = models.ForeignKey(User,null = True,on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     time = models.PositiveIntegerField()
     pass_score = models.PositiveIntegerField(default=0)

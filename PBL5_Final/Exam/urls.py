@@ -17,6 +17,11 @@ urlpatterns = [
     path('hx-delete-form',delete_form,name='DeleteForm'),
     path("hx-delete-question/<int:pk>", delete_question, name="DeleteQuestion"),
     path('hx-exam-list/<int:number>',exam_list,name = 'ExamList'),
+    path('hx-skill-list/<int:number>',skill_list,name = 'SkillList'),
     path('hx-update-question-content/<int:pk>',update_question_content,name = 'UpdateQuestionContent'),
     path('hx-update-question-form/<int:pk>',update_question_form,name = 'UpdateQuestionForm'),
+    path('hx-add-group-skill/<int:pk>',group_skill_form,name = 'AddGroupSkillForm'),
+    path('hx-add-question-skil/<int:pk>',question_skill_form,name = 'AddQuestionSkillForm'),
+    path('hx-update-group-skill/<int:pk>',update_group_skill,name='UpdateGroupSkill'),
+    path('hx-update-question-skill/<int:pk>',update_question_skill_form,name = 'UpdateQuestionSkillForm')
 ]

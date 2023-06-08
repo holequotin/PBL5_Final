@@ -80,7 +80,6 @@ def teacher_add_exam_detail(request, pk):
     context = {"user": user, "profile": profile, "exam": exam}
     return render(request, "pages/teacher_add_exam_detail.html", context)
 
-
 def importExcel(request, pk):
     exam = get_object_or_404(Exam, id=pk)
     if request.method == "POST":
@@ -204,3 +203,75 @@ def teacher_profile(request):
     return render(
         request, "pages/teacher_profile.html", {"user": user, "profile": profile}
     )
+def add_exam_skill(request):
+    profile = Profile.objects.get(user = request.user)
+    context = {
+        'profile' : profile
+    }
+    return render(request,'pages/teacher_add_exam_skill.html',context)
+
+def create_exam_skill(request):
+    name = request.GET.get("name")
+    level = request.GET.get("level")
+    skill = request.GET.get("skill")
+    time = request.GET.get("time")
+    score = request.GET.get("score")
+    
+    exam_part = ExamPart(
+        user = request.user,
+        name = name,
+        time = time,
+        pass_score = score,
+        skill = skill,
+        level = level
+    )
+    exam_part.save()
+    return redirect('Teacher:SkillManager',number = 1)
+
+def edit_skill_exam(request,pk):
+    exam = ExamPart.objects.get(id = pk)
+    context = {
+        'profile' : Profile.objects.get(user = request.user),
+        'exam' : exam
+    }
+    return render(request,'pages/teacher_edit_exam_skill.html',context)
+
+def update_skill_exam(request,pk):
+    name = request.POST.get("name")
+    level = request.POST.get("level")
+    skill = request.POST.get("skill")
+    time = request.POST.get("time")
+    score = request.POST.get("score")
+    exam = ExamPart.objects.get(id = pk)
+    exam.name = name
+    exam.level = level
+    exam.skill = skill
+    exam.time = time
+    exam.pass_score = score
+    exam.save()
+    return redirect('Teacher:SkillManager',number = 1)
+
+def delete_exam_skill(request,pk):
+    exam = ExamPart.objects.get(id = pk)
+    exam.delete()
+    return HttpResponse('')
+
+def exam_skill_manager(request,number):
+    profile = Profile.objects.get(user = request.user)
+    exams = ExamPart.objects.filter(user = request.user)
+    paginator = Paginator(exams, 10)
+    page_obj = paginator.page(number)
+    context = {
+        'profile' : profile,
+        'exams' : exams,
+        'number' : number,
+        "page_obj": page_obj
+    }
+    return render(request,'pages/teacher_exam_skill_manager.html',context)
+
+def add_exam_skill_detail(request,pk):
+    user = request.user
+    profile = get_object_or_404(Profile, user=user)
+    part = ExamPart.objects.get(id = pk)
+    context = {"profile": profile, "part": part}
+    return render(request, "pages/add_exam_skill_detail.html", context)
