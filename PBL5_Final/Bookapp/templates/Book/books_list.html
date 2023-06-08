@@ -28,19 +28,30 @@
             </tr>
           </thead>
           <tbody>
-              {% for book in page_obj.object_list %}
-              <tr hx-target = "this">
-                  {% comment %} <td><a href="{% url 'Teacher:AddDocumentDetail' pk=document.id %}">{{document.title}}</a></td> {% endcomment %}
-                  <td><p>{{book.title}}</p></td>
-                  <td>{{book.category}}</td> 
-                  {% comment %} <td><img
-                      src="{{exam.image.url}}">
-                  </td> {% endcomment %}
-                  <td><form action="">{% csrf_token %} <a class="btn btn-outline-danger" hx-post = "{% url 'Teacher:DeleteBook' pk=book.id %}" hx-swap = "outerHTML"><i class="bi bi-trash"></i></a></form></td>
-                  <td><a class="btn btn-outline-primary" href = "{% url 'Teacher:DetailBook' pk=book.id %}"><i class="bi bi-pen"></i></a></td>
-              </tr>
-              {% endfor %}
-          </tbody>
+            {% for book in page_obj.object_list %}
+            <tr hx-target="this">
+                <td><p>{{ book.title }}</p></td>
+                <td>
+                    {% for category in book.category.all %}
+                        {{ category.name }}
+                    {% endfor %}
+                </td> 
+                <!-- Các cột khác -->
+                <td>
+                    <form action="">{% csrf_token %} 
+                        <a class="btn btn-outline-danger" hx-post="{% url 'Teacher:DeleteBook' pk=book.id %}" hx-swap="outerHTML">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </form>
+                </td>
+                <td>
+                    <a class="btn btn-outline-primary" href="{% url 'Teacher:DetailBook' pk=book.id %}">
+                        <i class="bi bi-pen"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
         </table>
       </div>
       <div class="container">

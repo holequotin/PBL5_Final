@@ -260,28 +260,36 @@ def add_exam_skill_detail(request,pk):
 def book_manager(request, number):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
-    book = Book.objects.all().filter(user=user)
-    paginator = Paginator(book, 10)
+    books = Book.objects.filter(user=user)
+    paginator = Paginator(books, 10)
     page_obj = paginator.page(number)
-    context = {"number": number, "user": user, "profile": profile, "page_obj": page_obj}
+    context = {
+        "number": number,
+        "user": user,
+        "profile": profile,
+        "page_obj": page_obj
+    }
     return render(request, "pages/teacher_book_manager.html", context)
+
 
 def teacher_add_book(request):
     user = request.user
     profile = Profile.objects.get(user=user)
 
-    # form = PostForm()
-    # return render(request, 'pages/teacher_add_document.html', {'form': form})
     if request.method == "POST":
         form = BookappForms.AddBookForm(request.POST, request.FILES)
         if form.is_valid():
             book = form.save(commit=False)
             book.user = request.user
             book.save()
+            form.save_m2m()  # Lưu các trường ManyToMany
             return redirect("Teacher:BookManager", number=1)
-    form = BookappForms.AddBookForm()
+    else:
+        form = BookappForms.AddBookForm()
+    
     context = {"form": form, "user": user, "profile": profile}
     return render(request, "pages/teacher_add_book.html", context)
+
 
 
 def teacher_delete_book(request, pk):

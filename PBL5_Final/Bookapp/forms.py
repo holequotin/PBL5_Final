@@ -18,6 +18,12 @@ class AddBookForm(forms.ModelForm):
         'id': 'summary',
         'name': 'summary'
     }))
+    category = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), widget=forms.SelectMultiple(attrs={
+    'class': 'form-control col-6',
+    'id': 'category-name',
+    'name': 'category-name'
+    }))
+
 
     pdf = forms.FileField(widget=forms.FileInput(attrs={
         'class': 'form-control',
@@ -33,7 +39,7 @@ class AddBookForm(forms.ModelForm):
 
     class Meta:
         model = Book
-        fields = ['title', 'cover_image', 'summary', 'category','pdf', 'recommended_books', 'reading_books', 'grammar_books', 'vocabulary_books', 'listen_books', 'tips_books']
+        fields = ['title', 'cover_image', 'summary', 'category', 'pdf', 'recommended_books','reading_books', 'grammar_books', 'vocabulary_books', 'listen_books', 'tips_books']
 
     def save(self, commit=True):
         instance = super().save(commit=False)
