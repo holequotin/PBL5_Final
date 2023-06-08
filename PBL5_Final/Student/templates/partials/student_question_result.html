@@ -1,0 +1,64 @@
+{% load static %}
+<div class = "row d-inline-flex container-fluid question" id = "detail-question-{{question.id}}">
+    <div class="row">
+        <h3 class="col-12">{{question.content|safe}}</h3>
+    </div>
+    <form action="">
+        {% csrf_token %}
+        <div class = "row container d-inline-flex form-group">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input form-check-input-lg" 
+                    type="radio"
+                    name="answer-question-{{question.id}}" id="optionA-{{question.id}}" value="A"
+                    {% if question.answer == "A" %} checked {% endif %} 
+                />
+                <label class="form-check-label" for="optionD-{{question.id}}"
+                style = "color : 
+                {% if "A" == question.correct %}green{% endif %}
+                {% if "A" != question.correct and "A" == question.answer %}red{% endif %}
+                "
+                >{{question.optionA}}</label>
+            </div> 
+            <div class="form-check form-check-inline">
+                <input class="form-check-input form-check-input-lg" 
+                    type="radio"
+                    name="answer-question-{{question.id}}" id="optionA-{{question.id}}" value="B"
+                    {% if question.answer == "B" %} checked {% endif %} 
+                />
+                <label class="form-check-label" for="optionD-{{question.id}}"
+                style = "color : 
+                {% if "B" == question.correct %}green{% endif %}
+                {% if "B" != question.correct and "B" == question.answer %}red{% endif %}
+                "
+                >{{question.optionB}}</label>
+            </div> 
+            <div class="form-check form-check-inline">
+                <input class="form-check-input form-check-input-lg" 
+                    type="radio"
+                    name="answer-question-{{question.id}}" id="optionA-{{question.id}}" value="C"
+                    {% if question.answer == "C" %} checked {% endif %} 
+                />
+                <label class="form-check-label" for="optionD-{{question.id}}"
+                style = "color : 
+                {% if "C" == question.correct %}green{% endif %}
+                {% if "C" != question.correct and "C" == question.answer %}red{% endif %}
+                "
+                >{{question.optionC}}</label>
+            </div> 
+            <div class="form-check form-check-inline">
+                <input class="form-check-input form-check-input-lg" 
+                    type="radio"
+                    name="answer-question-{{question.id}}" id="optionA-{{question.id}}" value="D"
+                    {% if question.answer == "D" %} checked {% endif %}                     
+                />
+                <label class="form-check-label" for="optionD-{{question.id}}"
+                style = "color : 
+                {% if "D" == question.correct %}green{% endif %}
+                {% if "D" != question.correct and "D" == question.answer %}red{% endif %}
+                "
+                >{{question.optionD}}</label>
+            </div> 
+        </div>
+    </form>
+    <link rel="stylesheet" href="{% static 'css/partials/question_detail.css' %}">
+</div>

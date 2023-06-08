@@ -1,0 +1,21 @@
+{% extends 'teacher_base.html' %}
+{% load static %}
+{% block linkcss %}
+    <link rel="stylesheet" href="{% static 'css/pages/teacher_add_exam.css' %}">
+{% endblock linkcss %}
+
+{% block info %}
+    {% include 'partials/teacher_info.html' %}
+{% endblock info %}
+
+{% block navbar %}
+    {% include 'partials/teacher_nav.html' %}
+{% endblock  %}
+
+{% block content %}
+    {% csrf_token %}
+    <div class="row d-flex justify-content-center">
+        <h1 style = "text-align:center" >Thêm đề thi theo kĩ năng</h1>
+    </div>
+    {% include 'partials/add_exam_form.html' %}
+{% endblock content %}

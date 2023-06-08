@@ -183,3 +183,18 @@ def teacher_detail_document(request, pk):
     form = DocumentForms.AddDocumentForm(instance=document)
     context = {"user": user, "profile": profile, "form": form}
     return render(request, "pages/teacher_document_detail.html", context)
+
+def teacher_add_exam_skill(request):
+    user = request.user
+    profile = Profile.objects.get(user=user)
+    if request.method == "POST":
+        form = ExamForms.AddExamSkillPartForm(request.POST, request.FILES)
+        if form.is_valid():
+            exam = form.save(commit=False)
+            exam.user = request.user
+            exam.save()
+            return redirect("Teacher:ExamManager", number=1)
+    form = ExamForms.AddExamSkillPartForm()
+    context = {"form": form, "user": user, "profile": profile}
+    return render(request, "pages/teacher_add_exam.html", context)
+

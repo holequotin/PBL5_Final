@@ -14,6 +14,13 @@ CATEGORY_CHOICES = [
     ('Grammar','Grammar'),
     ('Vocabulary','Vocabulary'),
 ]
+LEVELS_CHOICES = [
+    ('N1','N1'),
+    ('N2','N2'),
+    ('N3','N3'),
+    ('N4','N4'),
+    ('N5','N5'),
+]
 
 fs = FileSystemStorage(location=settings.MEDIA_ROOT)
 
@@ -43,7 +50,8 @@ class ExamPart(models.Model):
     time = models.PositiveIntegerField()
     pass_score = models.PositiveIntegerField(default=0)
     exam = models.ForeignKey(Exam,on_delete=models.CASCADE,null=True,blank=True)
-    category = models.CharField(max_length=100,null=True,blank=True,choices=CATEGORY_CHOICES)
+    skill = models.CharField(max_length=100,null=True,blank=True,choices=CATEGORY_CHOICES)
+    level = models.CharField(max_length=100,null=True,blank=True,choices=LEVELS_CHOICES)
     
     def groups(self):
         return GroupQuestion.objects.all().filter(exam_part = self)

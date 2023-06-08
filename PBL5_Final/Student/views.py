@@ -11,6 +11,8 @@ from django.db.models import Sum
 from django.db.models import F
 from django.contrib import messages
 from django.contrib.messages import get_messages
+from django.contrib.auth.decorators import user_passes_test,login_required
+import JLPT.test_funcs
 # Create your views here.
 fs = FileSystemStorage(location=settings.MEDIA_ROOT)
 def index(request):
@@ -52,8 +54,10 @@ def test_part(request,pk):
     giay = input % 60
     phut= input // 60
     part_history = get_object_or_404(PracticePartHistory,id = pk)
-    if part_history.status:
-        return redirect('Student:PracticeHistoryDetail',pk = part_history.practice_history.id)
+    if part_history.status == True and part_history.practice_history is not None:
+        return redirect('Student:PracticeHistoryDetail', pk = part_history.practice_history.id) 
+    if part_history.status == True and part_history is None:
+        return redirect('Student:SkillResult',pk = part_history.id)
     context = {
         
         'part_history' : part_history,
@@ -61,7 +65,54 @@ def test_part(request,pk):
         'phut' : phut,
         'giay': giay,
         'idSP' : idSP,
+        'profile' : Profile.objects.get(user = request.user),
+        'type' : 'test'
     }
+    return render(request,'pages/student_test_part.html',context)
+
+        # if part_his.status == True and part_his.practice_history is None:
+        #     return redirect('Student:SkillResult',pk = part_his.id)
+def start_skill_exam(request,pk):
+    part = get_object_or_404(ExamPart,id = pk)
+    context = {
+        'profile' : Profile.objects.get(user = request.user),
+        'type' : 'skill'
+    }
+    #TODO: Chinh ali
+    if PracticePartHistory.objects.filter(part = part,status = False).exists():
+        part_his = PracticePartHistory.objects.filter(part = part,status = False).first()
+        context['part_history'] = part_his
+        return render(request,'pages/student_test_part.html',context)
+    
+    part_history = PracticePartHistory(
+                name = part.name,
+                duration = timedelta(minutes=part.time),
+                pass_score = part.pass_score,
+                part = part,
+                status = False,
+                time_left = timedelta(minutes=part.time)
+            )
+    part_history.save()
+    for group in part.groups():
+              group_history = GroupQuestionHistory(
+                  part = part_history,
+                  content = group.content,
+                  file = group.file
+              )  
+              group_history.save()
+              for question in group.questions():
+                  question_history = QuestionHistory(
+                      group_question = group_history,
+                      content = question.content,
+                      optionA = question.optionA,
+                      optionB = question.optionB,
+                      optionC = question.optionC,
+                      optionD = question.optionD,
+                      score = question.score,
+                      correct = question.correct,
+                  )
+                  question_history.save()
+    context['part_history'] = part_history
     return render(request,'pages/student_test_part.html',context)
 
 def start_test(request,pk):
@@ -190,6 +241,50 @@ def exam_n(request,level):
     }
     return render(request,'pages/student_exam_N.html',context)
 
+def exam_skill(request):
+    if request.session['level'] is None:
+        request.session['level'] = ""
+    if request.session['skill'] is None:
+        request.session['skill'] = ""
+    level = request.GET.get("level")
+    skill = request.GET.get("skill")
+    if level != "" and level is not None:
+        request.session['level'] = level
+    if skill != "" and skill is not None:
+        request.session['skill'] = skill
+    print(request.session['level'],request.session['skill'])
+    parts = ExamPart.objects.filter(level = request.session['level'],skill = request.session['skill'])
+    profile = get_object_or_404(Profile,id = request.user.id)
+    print(parts)
+    context = {
+        'profile' : profile,
+        'parts' : parts
+    }
+    return render(request,'pages/student_select_skill.html',context)
+
+def exam_skill_result(request,pk):
+    result = {}
+    answers = 'ABCD'
+    base_score = {}
+    part = get_object_or_404(PracticePartHistory,id = pk)
+    value = QuestionHistory.objects.filter(group_question__in = part.groups(),answer__exact = F('correct')).aggregate(sum = Sum('score'))
+    total = QuestionHistory.objects.filter(group_question__in = part.groups()).aggregate(sum = Sum('score'))
+    value = 0 if value['sum'] is None else value['sum']
+    total = 0 if total['sum'] is None else total['sum']
+    result[part.name] = value
+    base_score[part.name] = total
+    part.scored = value
+    part.status = True
+    part.save()
+    profile = Profile.objects.get(user = request.user)    
+    context = {
+        'result' : result,
+        'base_score' : base_score,
+        'profile' : profile,
+        'part' : part
+    }
+    return render(request,'pages/student_skill_result.html',context)
+    
 def complete_practice_part(request,pk):
     practice_part = get_object_or_404(PracticePartHistory,id = pk)
     practice_part.status = True
@@ -282,3 +377,13 @@ def end_time(request):
         
         response_data = {'redirect_url': reverse('Student:PracticeHistoryDetail', kwargs={'pk': practice_part.practice_history.id})}
         return JsonResponse(response_data)
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func= JLPT.test_funcs.user_is_student)
+def practice_result_detail(request,pk):
+    profile = Profile.objects.get(user = request.user)
+    practice = get_object_or_404(PracticeHistory,id = pk)
+    context = {
+        'practice' : practice,
+        'profile' : profile
+    }
+    return render(request,'pages/student_practice_result_detail.html',context)
