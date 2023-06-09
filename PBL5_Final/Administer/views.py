@@ -1,7 +1,9 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render,redirect
 from JLPT.models import *
 from Exam.models import *
 from Document.models import *
+from django.db.models import Q
+from django.contrib import messages
 # Create your views here.
 def administer_teacher(request):
     users = User.objects.filter(groups__name='Teacher')
@@ -28,8 +30,9 @@ def administer_student(request):
 def administer_exam(request):
     user = request.user
     profile = Profile.objects.all()
+    exams = Exam.objects.all()
     return render(
-        request, "pages/administer_exam.html", {"user": user, "profile": profile}
+        request, "pages/administer_exam.html", {"user": user, "profile": profile,'exams' : exams}
     )
 def administer_practice_history(request):
     user = request.user
@@ -49,3 +52,93 @@ def administer_book(request):
     return render(
         request, "pages/administer_book.html", {"user": user, "profile": profile}
     )
+    
+def search_teacher(request):
+    print("Hello")
+    name = request.GET.get("search")
+    print(name)
+    if name == "" or None:
+        users = User.objects.filter(groups__name='Teacher')
+        # Lấy hồ sơ (profile) của từng người dùng
+        profiles = []
+        for user in users:
+            profile = get_object_or_404(Profile, user=user)
+            profiles.append(profile)
+    else:
+        users = User.objects.filter(
+            Q(first_name__contains=name) | Q(last_name__contains=name),
+            groups__name='Teacher',                          
+        )
+        # Lấy hồ sơ (profile) của từng người dùng
+        profiles = []
+        for user in users:
+            profile = get_object_or_404(Profile, user=user)
+            profiles.append(profile)
+    return render(request,'partials/teacher_table.html',{"users": users, "profile": profiles})
+
+def edit_teacher(request,pk):
+    user = User.objects.get(id = pk)
+    profile = Profile.objects.get(user = user)
+    return render(request,'partials/edit_teacher_form.html',{'profile' : profile})
+
+def edit_student(request,pk):
+    user = User.objects.get(id = pk)
+    profile = Profile.objects.get(user = user)
+    return render(request,'partials/edit_student_form.html',{'profile' : profile})
+
+def update_teacher(request,pk):
+    user = User.objects.get(id = pk)
+    profile = Profile.objects.get(user = user)
+    first_name = request.POST.get("firstname")
+    last_name = request.POST.get("lastname")
+    email = request.POST.get("email")
+    phone = request.POST.get("phone")
+    
+    user.first_name = first_name
+    user.last_name = last_name
+    user.email = email
+    profile.phone_number = phone
+    
+    user.save()
+    profile.save()
+    messages.success(request,"Cập nhật thông tin thành công")
+    return redirect('Administer:Teacher')
+
+def update_student(request,pk):
+    user = User.objects.get(id = pk)
+    profile = Profile.objects.get(user = user)
+    first_name = request.POST.get("firstname")
+    last_name = request.POST.get("lastname")
+    email = request.POST.get("email")
+    phone = request.POST.get("phone")
+    
+    user.first_name = first_name
+    user.last_name = last_name
+    user.email = email
+    profile.phone_number = phone
+    
+    user.save()
+    profile.save()
+    messages.success(request,"Cập nhật thông tin thành công")
+    return redirect('Administer:Student')
+
+def delete_teacher(request,pk):
+    user = User.objects.get(id = pk)
+    user.delete()
+    messages.success(request,'Xóa giáo viên thành công')
+    return redirect('Administer:Teacher')
+
+def delete_student(request,pk):
+    user = User.objects.get(id = pk)
+    user.delete()
+    messages.success(request,'Xóa học sinh thành công')
+    return redirect('Administer:Student')
+
+def reset_password(request,pk):
+    user = User.objects.get(id = pk)
+    user.set_password('cntt@12345')
+    messages.success(request,'Đặt lại mật khẩu thành công')
+    if user.groups.filter(name = 'Teacher').exists():
+        return redirect('Administer:EditTeacher',pk = user.id)
+    else:
+        return redirect('Administer:EditStudent',pk=user.id)

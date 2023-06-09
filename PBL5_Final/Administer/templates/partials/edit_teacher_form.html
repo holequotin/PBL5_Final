@@ -1,0 +1,45 @@
+<div>
+    {% for message in messages %}
+        {% if message.tags == "success" %}
+        <div class="row mt-4 d-flex justify-content-center align-items-center">
+            <div class="alert alert-success text-white col-6" role="alert" id="myAlert" >
+            {{message}}
+        </div>
+        {% endif %}
+    {% endfor %}
+    <div class="p-4 row d-flex justify-content-center align-items-center" id = "edit-form">
+        <form class = "col-4" method="POST" action = "{% url 'Administer:UpdateTeacher' pk=profile.user.id %}">  
+            {% csrf_token %}
+          <div class="input-group input-group-static mb-4">
+            <label>Họ</label>
+            <input type="text" class="form-control" name="firstname" value="{{profile.user.first_name}}">
+          </div>
+          <div class="input-group input-group-static mb-4">
+            <label>Tên</label>
+            <input type="text" class="form-control" name="lastname" value="{{profile.user.last_name}}">
+          </div>
+          <div class="input-group input-group-static mb-4">
+            <label>Email</label>
+            <input type="email" class="form-control" name="email" value="{{profile.user.email}}">
+          </div>
+          <div class="input-group input-group-static mb-4">
+            <label>Số điện thoại</label>
+            <input type="text" class="form-control" name="phone" value="{{profile.phone_number}}">
+          </div>
+          <div class="input-group input-group-static mb-4">
+            <a class="btn btn-info" hx-post="{% url 'Administer:ResetPassword' pk=profile.user.id %}" hx-target="#edit-form">Đặt lại mật khẩu</a>
+          </div>
+          <div class="input-group input-group-static mb-4">
+            <button type="submit" class="btn btn-success m-2">Lưu</button>
+            <a href="{% url 'Administer:Teacher' %}" class="btn btn-danger m-2">Trở lại</a>
+          </div>
+        </form>
+      </div>
+      <script>
+        // Lấy đối tượng alert và gán vào biến
+        var alert = document.getElementById('myAlert');
+        setTimeout(function() {
+          alert.style.display = 'none';
+        }, 3000);
+      </script>
+</div>

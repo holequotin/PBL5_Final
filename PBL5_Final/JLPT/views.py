@@ -24,10 +24,12 @@ def login_page(request):
                 request.session['level'] = ''
                 request.session['skill'] = ''
                 return redirect('Student:StudentHome')
+            if user.is_superuser:
             # if profile.role == 'teacher':
             #     return redirect('jlpt:TeacherHome')
             # if profile.role == 'student':
             #     return render(request,'student_home.html',{})
+                return redirect('Administer:Teacher')
     return render(request,'pages/login.html',{'title' : 'Đăng nhập'})
 
 def register_page(request):
@@ -43,6 +45,7 @@ def register_page(request):
             user.groups.add(student_group)
             return redirect('jlpt:Login')
     return render(request,'pages/register.html',{'title':'Đăng ký'})
+
 
 @login_required(login_url='jlpt:Login')
 @user_passes_test(user_is_teacher)

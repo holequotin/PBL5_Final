@@ -169,16 +169,16 @@
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Họ và tên</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">UserName</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Role</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">PhoneNumber</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên bài thi</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Cấp độ</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Người đăng</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Điểm pass</th>
 
                     </tr>
                   </thead>
                   <tbody>
 
-                    {% for info in profile %}
+                    {% for exam in exams %}
                     <tr>
                       <td>
                         <div class="d-flex px-2 py-1">
@@ -186,7 +186,7 @@
                               <i class="fa fa-user me-sm-4 ms-sm-2"></i>
                           </div>
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{info.user.first_name}} {{info.user.last_name}}</h6>
+                            <h6 class="mb-0 text-sm">{{exam.name}}</h6>
                           </div>
                         </div>
                       </td>
@@ -194,7 +194,7 @@
                       <td>
                         <div class="d-flex py-1">
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{info.user.username}} </h6>
+                            <h6 class="mb-0 text-sm">{{exam.level.name}}</h6>
                           </div>
                         </div>
                       </td>
@@ -202,7 +202,7 @@
                       <td>
                         <div class=" align-middle text-center">
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{info.role}} </h6>
+                            <h6 class="mb-0 text-sm">{{exam.user.username}} </h6>
                           </div>
                         </div>
                       </td>
@@ -210,7 +210,7 @@
                       <td>
                         <div class=" align-middle text-center">
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{info.phone_number}} </h6>
+                            <h6 class="mb-0 text-sm">{{exam.pass_score}} </h6>
                           </div>
                         </div>
                       </td>
