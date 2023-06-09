@@ -17,66 +17,71 @@
 {% endblock navbar %}
 
 {% block content %}
-<div class="container-fluid row">
-  <div class="col-4 ">
-    <div class="card" style="width: 18rem">           
-      <h1 class="card-title">Giáo viên</h1>
-      <img class="card-img-top" src="{{profile.image.url}}" alt="Card image cap" height="50%">            
-      <h3 class="card-text">Nguyễn Duy Khoa</h3>
-      <h3 class="card-text">ID:24082002</h3>
-  </div>
-  </div>
-  <div class="col-4">
-      <ul class="list-group">
-          <li class="list-group-item active"style="text-align: center">Thông tin tài khoản</li>
-          <li class="list-group-item">Tên: {{user.first_name}} {{user.last_name}}</li>
-          <li class="list-group-item">Trường đại học Bách Khoa</li>
-          <li class="list-group-item">Chức vụ giáo viên</li>
-          <li class="list-group-item">Tài khoản: {{user.username}}</li>
-          <li class="list-group-item">Email: {{user.email}}</li>
-      </ul>
-  </div>
-  <div class="col-4 ">           
-        <div class="contianer">
-              <div class="calendar">
-                <div class="calendar-header">
-                  <span class="month-picker" id="month-picker"> May </span>
-                  <div class="year-picker" id="year-picker">
-                    <span class="year-change" id="pre-year">
-                      <pre><</pre>
-                    </span>
-                    <span id="year">2020 </span>
-                    <span class="year-change" id="next-year">
-                      <pre>></pre>
-                    </span>
-                  </div>
-                </div>
-         
-                <div class="calendar-body">
-                  <div class="calendar-week-days">
-                    <div>Sun</div>
-                    <div>Mon</div>
-                    <div>Tue</div>
-                    <div>Wed</div>
-                    <div>Thu</div>
-                    <div>Fri</div>
-                    <div>Sat</div>
-                  </div>
-                  <div class="calendar-days">
-                  </div>
-                </div>
-                <div class="calendar-footer">
-                </div>
-                <div class="date-time-formate">
-                  <div class="day-text-formate">TODAY</div>
-                  <div class="date-time-value">
-                    <div class="time-formate">02:51:20</div>
-                    <div class="date-formate">23 - july - 2022</div>
-                  </div>
-                </div>
-                <div class="month-list"></div>
-              </div>
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-sm-3 d-flex justify-content-center" style=" align-items: center;">
+          <div class="card border-1" style="width: 250px; height: 400px; box-shadow: 0 0 20px rgba(74, 73, 73, 0.5); margin-top: -80px;">
+              <img class="card-img-top" src="{{profile.image.url}}" alt="">
+              <h5 class="card-title" style="text-align: center; margin-top: 10px;"></h5>
+              <h4 class="card-text" style="text-align: center; color: #083156;"><b>{{user.first_name}} {{user.last_name}}</b></h4>
+              <h5 class="card-text" style="text-align: center;">ID: 24082002</h5>
           </div>
+      </div>
+      
+      <div class="col-sm-5">
+          <div class="row" style="box-shadow: 0 0 50px rgba(6, 6, 6, 0.5); margin-top: 130px; border-radius: 10px;">
+              <ul class="list-group">
+                  <li class="list-group-item active"style="text-align: center"><h2>Thông tin tài khoản</h2></li>
+                  <li class="list-group-item"><h4>Tên: {{user.first_name}} {{user.last_name}}</h4></li>
+                  <li class="list-group-item"><h4>Trường đại học Bách Khoa</h4></li>
+                  <li class="list-group-item"><h4>Chức vụ: giáo viên</h4></li>
+                  <li class="list-group-item"><h4>Tài khoản: {{user.username}}</h4></li>
+                  <li class="list-group-item"><h4>SĐT: {{profile.phone_number}}</h4></li>
+              </ul>
+          </div>
+      </div>
+      <div class="col-sm-4">           
+            <div class="contianer">
+                  <div class="calendar" style="box-shadow: 0 0 20px rgba(51, 50, 50, 0.5);">
+                    <div class="calendar-header">
+                      <span class="month-picker" id="month-picker"> May </span>
+                      <div class="year-picker" id="year-picker">
+                        <span class="year-change" id="pre-year">
+                          <pre><</pre>
+                        </span>
+                        <span id="year">2020 </span>
+                        <span class="year-change" id="next-year">
+                          <pre>></pre>
+                        </span>
+                      </div>
+                    </div>
+             
+                    <div class="calendar-body">
+                      <div class="calendar-week-days">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                      </div>
+                      <div class="calendar-days">
+                      </div>
+                    </div>
+                    <div class="calendar-footer">
+                    </div>
+                    <div class="date-time-formate">
+                      <div class="day-text-formate">TODAY</div>
+                      <div class="date-time-value">
+                        <div class="time-formate">02:51:20</div>
+                        <div class="date-formate">23 - july - 2022</div>
+                      </div>
+                    </div>
+                    <div class="month-list"></div>
+                  </div>
+              </div>
+      </div>
   </div>
 </div>
 {% endblock content %}
