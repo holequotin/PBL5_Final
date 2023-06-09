@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
+from Bookapp.context_processors import book_search
 from JLPT.models import *
 from Exam.models import *
 from Document.models import *
 from Bookapp.models import *
+from Bookapp.models import Book
 import Exam.forms as ExamForms
 import Document.forms as DocumentForms
 import Bookapp.forms as BookappForms
@@ -242,7 +244,7 @@ def update_skill_exam(request,pk):
     name = request.POST.get("name")
     level = request.POST.get("level")
     skill = request.POST.get("skill")
-    time = request.POST.get("time")
+    time = request.POST.get("time")  
     score = request.POST.get("score")
     exam = ExamPart.objects.get(id = pk)
     exam.name = name

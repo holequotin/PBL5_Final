@@ -1,0 +1,82 @@
+{% extends 'administer_base.html' %}
+{% load static %}
+
+{% block content %}
+<body class="g-sidenav-show  bg-gray-200">
+
+
+        {% block aside %}
+          {% include 'partials/administer_aside.html' with active_class1='active bg-gradient-primary' %}
+        {% endblock aside %}        
+
+
+  <!--cái main ni là toàn bộ phần bên phải-->
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <!--cái nav ni là cái phần nav ở ngang ở trên-->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Admin</a></li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Quản lý giáo viên</li>
+          </ol>
+          <h6 class="font-weight-bolder mb-0">Quản lý giáo viên</h6>
+        </nav>
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+          <div class="ms-md-auto pe-md-3 d-flex align-items-center"> 
+          </div>
+          <ul class="navbar-nav  justify-content-end">
+            <li class="nav-item px-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body p-0">
+                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+              </a>
+            </li>
+            <li class="nav-item dropdown pe-2 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-bell cursor-pointer"></i>
+              </a>
+              <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                
+              </ul>
+            </li>
+            <li class="nav-item d-flex align-items-center">
+              <a href="../pages/sign-in.html" class="nav-link text-body font-weight-bold px-0">
+                <i class="fa fa-user me-sm-1"></i>
+                <span class="d-sm-inline d-none">Admin</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+      <div class="row">
+        
+      </div>
+      <div class="row mt-4">
+        
+      </div>
+      <div class="row mb-4">
+        <div class="col-lg-12 col-md-8 mb-md-0 mb-4">
+            <div class="row d-flex justify-content-center">
+                <h1 style = "text-align:center" >{{info.user.first_name}}{{info.user.last_name}}</h1>
+            </div>
+            {% include 'pages/user_detail.html' with users = users %}
+        </div>
+
+      </div>
+      {% block footer %}
+          {% include 'partials/administer_footer.html' %}
+      {% endblock footer %}
+
+    </div>
+  </main>
+
+
+</body>
+
+  {% endblock content %}
+
+
