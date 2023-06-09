@@ -9,4 +9,7 @@ urlpatterns = [
     path('practice-history/',administer_practice_history,name='PracticeHistory'),
     path('document/',administer_document,name='Document'),
     path('book/',administer_book,name='Book'),
+    path('delete_user/<int:pk>',delete_user,name = 'DeleteUser'),
+    path('detail_user/<int:pk>',detail_user,name = "DetailUser"),
+
 ]

@@ -4,6 +4,7 @@ from JLPT.models import *
 from Exam.models import *
 from Document.models import *
 from Bookapp.models import *
+from Bookapp.models import Book
 import Exam.forms as ExamForms
 import Document.forms as DocumentForms
 import Bookapp.forms as BookappForms
@@ -281,7 +282,7 @@ def add_exam_skill_detail(request,pk):
 def book_manager(request, number):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
-    books = book_search.objects.filter(user=user)
+    books = Book.objects.filter(user=user)
     paginator = Paginator(books, 10)
     page_obj = paginator.page(number)
     context = {
@@ -321,7 +322,7 @@ def teacher_delete_book(request, pk):
 def teacher_detail_book(request, pk):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
-    book = get_object_or_404(book_search, id=pk)
+    book = get_object_or_404(Book, id=pk)
     form = BookappForms.AddBookForm(instance=book)
     context = {"user": user, "profile": profile, "form": form}
     return render(request, "pages/teacher_book_detail.html", context)
