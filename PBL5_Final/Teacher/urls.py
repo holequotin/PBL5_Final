@@ -25,5 +25,6 @@ urlpatterns = [
     path('bookmanager/<int:number>',book_manager,name = 'BookManager'),
     path('delete_book/<int:pk>',teacher_delete_book,name = 'DeleteBook'),
     path('detail_book/<int:pk>',teacher_detail_book,name = "DetailBook"),
+    path('import_skill/<int:pk>/',importExcelSkill,name='push_excel_skill'),
     
 ]

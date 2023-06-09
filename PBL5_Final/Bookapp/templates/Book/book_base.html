@@ -1,6 +1,7 @@
+{% extends 'student_base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
+{% load custom_tag %}
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,7 @@
     {% endblock %}
     <link rel = 'stylesheet' href ="{% static 'book/bootstrap/css/bootstrap.min.css' %}">
     <link rel = 'stylesheet' href ="{% static 'book/css/register.css' %}">
-    <link rel = 'stylesheet' href ="{% static 'book/css/style.css' %}">
+    {% comment %} <link rel = 'stylesheet' href ="{% static 'book/css/style.css' %}"> {% endcomment %}
     <link rel = 'stylesheet' href ="{% static 'book/css/home.css' %}">
     <link rel = 'stylesheet' href ="{% static 'book/css/book_detail.css' %}">
     <link rel = 'stylesheet' href = "{% static 'book/uikit/css/uikit.css' %}">
@@ -33,40 +34,13 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'Bookapp:all_books' %}">Books</a>
-          </li>
-          
+          </li>  
         </ul>
-         <form class="d-flex" action = "{% url 'Bookapp:book_search' %}" method="POST" style = 'margin: 0px 150px 0px 150px'>
+        <form class="d-flex" action = "{% url 'Bookapp:book_search' %}" method="POST" style = 'margin: 0px 150px 0px 150px'>
           {% csrf_token %}
           {{search_form.name_of_book}}
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form> 
-
-        
-      {% comment %} <div style = 'width: auto; display: flex'>
-        {% if user.is_authenticated %}
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            Hello {{user.username}}
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Upload Book</a></li>
-            <li><a class="dropdown-item" href="">Logout</a></li>
-          </ul>
-        </div>
-        <!-- <p>Hello {{user.username}}</p>
-        <li class="nav-item">
-          <a class="nav-link" href="">Logout</a>
-        </li> -->
-        {% else %}
-          <a class="nav-link" href="">
-            <button type="button" class="btn btn-outline-primary">Sign Up</button></a>
-            <a class="nav-link" href="">
-              <button type="button" class="btn btn-outline-success">Login</button>
-            </a>
-            
-        {% endif %}
-      </div> {% endcomment %}
       </div>
     </div>
   </nav>
@@ -80,9 +54,9 @@
         <a class="uk-button uk-button-default" href="{% url 'Bookapp:category_detail' category.slug %}"><strong>{{category.name}}</strong></a>
         {% endfor %}
     </p>
-      {% block content %}
+      {% block content1 %}
       <h1>Hello World</h1>
-      {% endblock %}
+      {% endblock content1 %}
 
 
       
@@ -97,4 +71,4 @@
     <script src = "{% static 'bootstrap/js/bootstrap.min.js' %}"></script> -->
     
 </body>
-</html> 
+{% endblock content %}

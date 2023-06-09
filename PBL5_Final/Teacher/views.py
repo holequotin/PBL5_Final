@@ -310,3 +310,67 @@ def add_exam_skill(request):
         'profile' : profile
     }
     return render(request,'pages/teacher_add_exam_skill.html',context)
+
+def importExcelSkill(request, pk):
+    exam_part = get_object_or_404(ExamPart, id=pk)
+    if request.method == "POST":
+        # exam = get_object_or_404(Exam, id=pk)
+        exam_part_id = exam_part.id
+        dataset = Dataset()
+        try:
+            new_file = request.FILES["my_file"]
+            imported_data = dataset.load(new_file.read(), format="xlsx")
+            for data in imported_data:
+                level_resource = LevelResource()
+                exam_resource = ExamResource()
+                exam_part_resource = ExamPartResource()
+                group_question_resource = GroupQuestionResource()
+                question_resource = QuestionResource()
+
+                # Importing data to ExamPart model
+                # exam_part_name = data[4]
+                # exam_part = ExamPart.objects.filter(
+                #     name=exam_part_name, exam=exam
+                # ).first()
+                # if not exam_part:
+                #     exam_part = ExamPart.objects.create(
+                #         name=exam_part_name, time=data[5], pass_score=data[6], exam=exam
+                #     )
+                #     exam_part.save()
+
+                group_question_content = data[0]
+                group_question_file_path = data[1]
+                group_question = GroupQuestion.objects.filter(
+                    content=group_question_content, exam_part=exam_part
+                ).first()
+                if not group_question:
+                    group_question = GroupQuestion.objects.create(
+                        content=group_question_content, exam_part=exam_part
+                    )
+
+                if group_question_file_path:
+                    file_name = os.path.basename(group_question_file_path)
+                    with open(group_question_file_path, "rb") as file:
+                        file_content = file.read()
+                        group_question.file.save(
+                            file_name, ContentFile(file_content), save=True
+                        )
+
+                group_question.save()
+
+                # Importing data to Question model
+                new_question = Question()
+                new_question.content = data[2]
+                new_question.optionA = data[3]
+                new_question.optionB = data[4]
+                new_question.optionC = data[5]
+                new_question.optionD = data[6]
+                new_question.score = data[7]
+                new_question.correct = data[8]
+                new_question.group_question = group_question
+                new_question.save()
+
+            messages.success(request, "Imported successfully.")
+        except Exception as e:
+            messages.error(request, f"An error occurred while importing the file: {e}")
+    return render(request, "pages/add_exam_skill_excel.html",{"exam_part":exam_part})
