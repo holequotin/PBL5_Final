@@ -56,11 +56,13 @@ def teacher_home(request):
     profile = get_object_or_404(Profile,user = user)
     return render(request,'pages/teacher_home.html',{'user' : user, 'profile' : profile})
 
+@login_required(login_url='jlpt:Login')
 def logout_page(request):
     user = request.user
     logout(request)
     return redirect('jlpt:Login')
 
+@login_required(login_url='jlpt:Login')
 def student_home(request):
     # user = request.user
     # profile = get_object_or_404(Profile,user = user)
@@ -114,6 +116,7 @@ def update_profile(request):
             return render(request,'pages/user_info.html',context)
     return redirect('jlpt:UserInfo')
 
+@login_required(login_url='jlpt:Login')
 def change_password(request):
     profile = Profile.objects.get(user = request.user)
     context = {
@@ -121,6 +124,7 @@ def change_password(request):
     }
     return render(request,'pages/user_change_password.html',context)
 
+@login_required(login_url='jlpt:Login')
 def update_password(request):
     user = User.objects.get(id = request.user.id)
     if request.method == "POST":

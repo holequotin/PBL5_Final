@@ -11,6 +11,8 @@ import Bookapp.forms as BookappForms
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
 from tablib import Dataset
+from django.contrib.auth.decorators import user_passes_test,login_required
+import JLPT.test_funcs
 
 from .resources import (
     LevelResource,
@@ -29,6 +31,8 @@ from django.core.paginator import Paginator
 
 
 # Create your views here.
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def teacher_home(request):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
@@ -36,7 +40,8 @@ def teacher_home(request):
         request, "pages/teacher_home.html", {"user": user, "profile": profile}
     )
 
-
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def exam_manager(request, number):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
@@ -46,7 +51,8 @@ def exam_manager(request, number):
     context = {"number": number, "user": user, "profile": profile, "page_obj": page_obj}
     return render(request, "pages/teacher_exam_manager.html", context)
 
-
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def teacher_add_exam(request):
     user = request.user
     profile = Profile.objects.get(user=user)
@@ -61,13 +67,15 @@ def teacher_add_exam(request):
     context = {"form": form, "user": user, "profile": profile}
     return render(request, "pages/teacher_add_exam.html", context)
 
-
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def teacher_delete_exam(request, pk):
     exam = Exam.objects.get(id=pk)
     exam.delete()
     return HttpResponse("")
 
-
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def teacher_detail_exam(request, pk):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
@@ -76,7 +84,8 @@ def teacher_detail_exam(request, pk):
     context = {"user": user, "profile": profile, "form": form}
     return render(request, "pages/teacher_exam_detail.html", context)
 
-
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def teacher_add_exam_detail(request, pk):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
@@ -84,6 +93,8 @@ def teacher_add_exam_detail(request, pk):
     context = {"user": user, "profile": profile, "exam": exam}
     return render(request, "pages/teacher_add_exam_detail.html", context)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def importExcel(request, pk):
     exam = get_object_or_404(Exam, id=pk)
     if request.method == "POST":
@@ -148,6 +159,8 @@ def importExcel(request, pk):
             messages.error(request, f"An error occurred while importing the file: {e}")
     return render(request, "pages/form.html",{"exam":exam})
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def document_manager(request, number):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
@@ -157,6 +170,8 @@ def document_manager(request, number):
     context = {"number": number, "user": user, "profile": profile, "page_obj": page_obj}
     return render(request, "pages/teacher_document_manager.html", context)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def teacher_add_document(request):
     user = request.user
     profile = Profile.objects.get(user=user)
@@ -174,11 +189,15 @@ def teacher_add_document(request):
     context = {"form": form, "user": user, "profile": profile}
     return render(request, "pages/teacher_add_document.html", context)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def teacher_delete_document(request, pk):
     document = Post.objects.get(id=pk)
     document.delete()
     return HttpResponse("")
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def teacher_detail_document(request, pk):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
@@ -187,6 +206,8 @@ def teacher_detail_document(request, pk):
     context = {"user": user, "profile": profile, "form": form}
     return render(request, "pages/teacher_document_detail.html", context)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def teacher_add_exam_skill(request):
     user = request.user
     profile = Profile.objects.get(user=user)
@@ -201,12 +222,17 @@ def teacher_add_exam_skill(request):
     context = {"form": form, "user": user, "profile": profile}
     return render(request, "pages/teacher_add_exam.html", context)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def teacher_profile(request):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
     return render(
         request, "pages/teacher_profile.html", {"user": user, "profile": profile}
     )
+
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def add_exam_skill(request):
     profile = Profile.objects.get(user = request.user)
     context = {
@@ -214,6 +240,8 @@ def add_exam_skill(request):
     }
     return render(request,'pages/teacher_add_exam_skill.html',context)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def create_exam_skill(request):
     name = request.GET.get("name")
     level = request.GET.get("level")
@@ -232,6 +260,8 @@ def create_exam_skill(request):
     exam_part.save()
     return redirect('Teacher:SkillManager',number = 1)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def edit_skill_exam(request,pk):
     exam = ExamPart.objects.get(id = pk)
     context = {
@@ -240,6 +270,8 @@ def edit_skill_exam(request,pk):
     }
     return render(request,'pages/teacher_edit_exam_skill.html',context)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def update_skill_exam(request,pk):
     name = request.POST.get("name")
     level = request.POST.get("level")
@@ -255,11 +287,15 @@ def update_skill_exam(request,pk):
     exam.save()
     return redirect('Teacher:SkillManager',number = 1)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def delete_exam_skill(request,pk):
     exam = ExamPart.objects.get(id = pk)
     exam.delete()
     return HttpResponse('')
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def exam_skill_manager(request,number):
     profile = Profile.objects.get(user = request.user)
     exams = ExamPart.objects.filter(user = request.user)
@@ -273,12 +309,17 @@ def exam_skill_manager(request,number):
     }
     return render(request,'pages/teacher_exam_skill_manager.html',context)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def add_exam_skill_detail(request,pk):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
     part = ExamPart.objects.get(id = pk)
     context = {"profile": profile, "part": part}
     return render(request, "pages/add_exam_skill_detail.html", context)
+
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def book_manager(request, number):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
@@ -293,7 +334,8 @@ def book_manager(request, number):
     }
     return render(request, "pages/teacher_book_manager.html", context)
 
-
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def teacher_add_book(request):
     user = request.user
     profile = Profile.objects.get(user=user)
@@ -313,12 +355,15 @@ def teacher_add_book(request):
     return render(request, "pages/teacher_add_book.html", context)
 
 
-
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def teacher_delete_book(request, pk):
     book = Book.objects.get(id=pk)
     book.delete()
     return HttpResponse("")
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def teacher_detail_book(request, pk):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
@@ -326,6 +371,9 @@ def teacher_detail_book(request, pk):
     form = BookappForms.AddBookForm(instance=book)
     context = {"user": user, "profile": profile, "form": form}
     return render(request, "pages/teacher_book_detail.html", context)
+
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_teacher,login_url='jlpt:Login')
 def add_exam_skill(request):
     profile = Profile.objects.get(user = request.user)
     context = {
