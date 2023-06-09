@@ -18,6 +18,8 @@ def login_page(request):
             profile = Profile.objects.get(user = user)
             login(request,user)
             if user.groups.filter(name = 'Teacher'):
+                request.session['filter_level'] = ''
+                request.session['filter_skill'] = ''
                 return redirect('Teacher:TeacherHome')
             if user.groups.filter(name = 'Student'):
                 print('Is student')
