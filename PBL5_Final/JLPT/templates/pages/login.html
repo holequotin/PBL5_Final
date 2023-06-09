@@ -6,7 +6,7 @@
 {% endblock navbar %}
 
 {% block content %}
-    <div class = "container container-div d-flex justify-content-center">
+    {% comment %} <div class = "container container-div d-flex justify-content-center">
         <form class = "login-form" method = "POST">
             {% csrf_token %}
             <h1>Đăng nhập</h1>
@@ -28,5 +28,49 @@
             </div>
         </form>
     </div>
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}"> {% endcomment %}
+
+
+    <div class="container-fluid no-padding content-area no-sidebar">
+        <div class="row">
+         <div class="col-sm-2"></div>
+             <div class="col-sm-4" style="margin-left: -20px;">
+                 <h3 style="height: 80px; text-align: center; margin-top: 130px; 
+                 color: #083156; font-family: Arial, Helvetica, sans-serif; font-family:cursive;">
+                 <b>Đăng nhập</b></h3>
+ 
+                 <img style="margin-left: 90px; margin-top: -20px; width: 300px; height: 300px;" src="{% static 'images/login.svg' %}" alt="">
+ 
+                 
+             </div>
+             <div class="col-sm-4" style="margin-top: 140px; margin-left: -50px;">
+                 <form style="border: 1px solid #ccc; padding-top: 20px; padding-bottom: 30px; padding-left: 30px; padding-right: 30px; border-radius: 10px;" method="POST">
+                    {% csrf_token %}
+                     <div class="form-group mt-3">
+                             <label style="color: dimgray;">Username</label>
+                             <input type="text" class="form-control" id="username" name = "username" placeholder="Enter username">
+                     </div>
+                     <div class="form-group mt-3">
+                             <label style="color: dimgray;">Password</label>
+                             <input type="password" class="form-control" id="password" name = "password" placeholder="Password">
+                     </div>
+                     
+                     <div style="justify-content: center; display: flex; align-items: center;">
+                        <button type="submit" class="btn btn-primary container"style="background: #083156; color: #fbe56d;  text-align: center;
+                        padding-left: 35px; padding-right: 35px; padding-top: 15px; padding-bottom: 15px !important;
+                        margin-top: 29px; list-style-type:none;
+                        border-radius: 20px;text-decoration: none;">Đăng nhập</button>
+                     </div>
+ 
+                     <div style="justify-content: center; display: flex; align-items: center; margin-top: 20px;">
+                         <span>Bạn chưa có tài khoản?</span> &nbsp; <span><a style="text-decoration: none; color: red;" href="{% url 'jlpt:Register' %}">Đăng ký</a></span>
+                     </div>
+                 </form>
+             </div>
+               
+             <div class="col-sm-2"></div>
+ 
+        </div>
+        
+     </div>
 {% endblock content %}

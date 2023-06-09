@@ -1,26 +1,30 @@
+<div class="vien"></div>
 {% load static %}
-<div class = "container-fluid navbar-div">
-    <nav class="navbar navbar-expand-sm">
-        <div class="container">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-              aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="collapsibleNavId">
-              <div class="navbar-nav me-auto mt-2 mt-lg-0 d-flex justify-content-center">
-                  <li class="nav-item">
-                      <a class="nav-link active" href="#" aria-current="page">Home <span class="visually-hidden">(current)</span></a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
-                  </li>
-              </div>
-              <form class="d-flex my-2 my-lg-0">
-                  <a href = "" class="btn btn-success my-2 my-sm-0" type="submit">Đăng nhập</a>
-              </form>
-          </div>
+    <!-- navbar -->
+    <div class="container-fluid sticky-top">
+        <div class="row text-center" style="background-color: white; height: 96px;">
+            <ul class="nav justify-content-center align-items-center">
+                <li><img src="{% static 'images/logo-jlpt.jpg' %}" class="img-fluid" style="width: 96px; height: 96px;"></li>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <li class="nav-item"><a class="nav-link active" href="#">TRANG CHỦ</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#">CẬP NHẬT JLPT 2023</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#">TÀI LIỆU FREE</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#">SÁCH HỌC JLPT</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#">ĐỀ THEO KỸ NĂNG</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#">ĐỀ THI CHUẨN JLPT</a></li> 
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <!-- <li class="btn btn-primary" style="height: 41px;">VÀO THI NGAY</li> -->
+                <li class="btn-dangnhap" style="vertical-align: middle;">
+                    <a href="{% url 'jlpt:Login' %}" style="background: #fff; color: #083156; border: 1px solid #083156 ;height: 37px; text-align: center;
+                                            width: 131px; padding: 10px !important;margin-top: 29px; list-style-type:none;
+                                            border-radius: 7px;text-decoration: none;">ĐĂNG NHẬP</a>
+                </li>  &nbsp;&nbsp;
+                <li class="btn-dangky" style="vertical-align: middle;">
+                    <a href="{% url 'jlpt:Register' %}" style="background: #083156; color: #fbe56d; height: 37px; text-align: center;
+                                            width: 131px; padding: 10px !important;margin-top: 29px; list-style-type:none;
+                                            border-radius: 7px;text-decoration: none;">ĐĂNG KÝ</a>
+                </li>
+            </ul>
+        </div>
+        <div class="vien2"></div>
     </div>
-  </nav>
-  <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-</div>

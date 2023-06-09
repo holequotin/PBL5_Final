@@ -10,6 +10,7 @@ urlpatterns = [
     path('hx-document/<int:number>',administer_document,name='Document'),
     path('book/',administer_book,name='Book'),
     path('hx-teacher-table',search_teacher,name='TeacherTable'),
+    path('hx-student-table',search_student,name='StudentTable'),
     path('hx-edit-teacher-form/<int:pk>',edit_teacher,name = 'EditTeacher'),
     path('hx-edit-student-form/<int:pk>',edit_student,name='EditStudent'),
     path('update-teacher/<int:pk>',update_teacher,name = 'UpdateTeacher'),

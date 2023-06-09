@@ -121,6 +121,32 @@ def search_teacher(request):
             profiles.append(profile)
     return render(request,'partials/teacher_table.html',{"users": users, "profile": profiles})
 
+def search_student(request):
+    print("Hello")
+    name = request.GET.get("search")
+    print(name)
+    if name == "" or None:
+        print("a")
+        users = User.objects.filter(groups__name='Student')
+        # Lấy hồ sơ (profile) của từng người dùng
+        profiles = []
+        for user in users:
+            profile = get_object_or_404(Profile, user=user)
+            profiles.append(profile)
+    else:
+        print("b")
+
+        users = User.objects.filter(
+            Q(first_name__contains=name) | Q(last_name__contains=name),
+            groups__name='Student',                          
+        )
+        # Lấy hồ sơ (profile) của từng người dùng
+        profiles = []
+        for user in users:
+            profile = get_object_or_404(Profile, user=user)
+            profiles.append(profile)
+    return render(request,'partials/teacher_table.html',{"users": users, "profile": profiles})
+
 def edit_teacher(request,pk):
     user = User.objects.get(id = pk)
     profile = Profile.objects.get(user = user)
