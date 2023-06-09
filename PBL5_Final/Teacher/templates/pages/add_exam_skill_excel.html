@@ -1,0 +1,72 @@
+<style>
+    /* CSS cho mờ nền */
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+    }
+  
+    #modal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+    }
+  </style>
+  
+  <div class="container" id="exam-detail">
+    <!-- ... -->
+    <a href="#" id="add-excel-button">Thêm bằng file excel</a>
+  </div>
+  
+  <div id="overlay">
+    <div id="modal">
+      <h2>Tải lên file Excel</h2>
+      <form id="excel-form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="my_file" />
+        <input type="hidden" name="exam_id" value="/" />
+        <a href="#" class="btn btn-success" onclick="submitFormAndRedirect('{% url 'Teacher:AddExamSkillDetail' pk=exam_part.id%}')">Tải lên</a>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    const addExcelButton = document.getElementById("add-excel-button");
+    const overlay = document.getElementById("overlay");
+  
+    addExcelButton.addEventListener("click", function (event) {
+      event.preventDefault();
+      overlay.style.display = "block";
+    });
+  
+    function submitFormAndRedirect(url) {
+      const excelForm = document.getElementById("excel-form");
+      const formData = new FormData(excelForm);
+  
+      fetch(excelForm.action, {
+        method: excelForm.method,
+        body: formData
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("Tải lên thành công!");
+          overlay.style.display = "none";
+          window.location.href = url;
+        } else {
+          throw new Error("An error occurred while uploading the file.");
+        }
+      })
+      .catch(error => {
+        alert(error.message);
+      });
+    }
+  </script>
+  

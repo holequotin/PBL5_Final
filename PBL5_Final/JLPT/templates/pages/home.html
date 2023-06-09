@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block navbar %}
+    {% include 'guest_navbar.html' %}
+{% endblock navbar %}
+{% block content %}
+        <!-- content -->
+        <div class="container-fluid no-padding content-area no-sidebar">
+            <div class="row" style="background-color: rgb(255, 250, 237)">
+                <div class="row" style="height: 100px;"></div>
+                <div class="col-sm-6">
+                    <h1 style="margin-left: 80px; margin-top: 40px; color: #083156; font-family: Arial, Helvetica, sans-serif; font-family:cursive;"><b>Học tiếng Nhật, đánh bật JLPT.</b></h1>
+                    <div style="margin-left: 80px; margin-top: 30px;">
+                        <img src="{% static 'tick.svg' %}" alt=""> <span style="font-family: Arial, Helvetica, sans-serif; font-family:cursive; font-size: large;">Thi trực tuyến bất kỳ lúc nào, tại bất kỳ đâu</span> <br>
+                        <img style="margin-top: 10px" src="{% static 'images/tick.svg' %}" alt=""> <span style="font-family: Arial, Helvetica, sans-serif; font-family:cursive; font-size: large;">Đề thi đa dạng, đa kỹ năng, chuẩn cấu trúc JLPT</span> <br>
+                        <img style="margin-top: 10px" src="{% static 'images/tick.svg' %}" alt=""> <span style="font-family: Arial, Helvetica, sans-serif; font-family:cursive; font-size: large;">Nguồn tài liệu học tập phong phú được cập nhật mới nhất</span> <br>
+                        <img style="margin-top: 10px" src="{% static 'images/tick.svg' %}" alt=""> <span style="font-family: Arial, Helvetica, sans-serif; font-family:cursive; font-size: large;">Hỗ trợ từ đội ngũ giảng viên và những người có kinh nghiệm</span> <br>
+    
+                        <div class="btn-started" style="margin-top: 60px;display: inline-block">
+                            <a class="btn-started"  href="#" style="background: #083156; color: #fbe56d;  text-align: center;
+                                                    padding-left: 30px; padding-right: 30px; padding-top: 20px; padding-bottom: 20px !important;
+                                                    margin-top: 29px; list-style-type:none;
+                                                    border-radius: 20px;text-decoration: none;"><b>BẮT ĐẦU NGAY!</b></a>
+                        </div>
+                    </div>
+    
+                </div>
+                <div class="col-sm-6">
+                    <img src="{% static 'images/imghome.svg' %}" alt="" srcset="">
+                </div>
+                <div style="height: 200px;"></div>
+            </div>
+            <div class="row align-items-center">
+                <h3 style="height: 80px; text-align: center; margin-top: 100px; color: #083156; font-family: Arial, Helvetica, sans-serif; font-family:cursive;"><b>Đáp ứng mọi nhu cầu</b></h3>
+            </div>
+            <div class="row">
+                <div class="col" style="text-align: center;">
+                    <img src="{% static 'images/thuantien.svg' %}" alt="">
+                    <h5 style="color: #083156; font-family: Arial, Helvetica, sans-serif; font-family:cursive; margin-top: 20px;"><b>Thuận tiện</b></h5>
+                    <p>Việc học và thi trực tuyến mang đến sự thuận tiện cho bạn.
+                         Bạn có thể học bất cứ lúc nào, không phải di chuyển đến các trung tâm học tập,
+                          mà có thể học ngay tại nhà hoặc bất cứ địa điểm nào bạn muốn</p>
+                </div>
+                <div class="col" style="text-align: center;">
+                    <img src="{% static 'images/nhanhchong.svg' %}" alt="">
+                    <h5 style="color: #083156; font-family: Arial, Helvetica, sans-serif; font-family:cursive; margin-top: 20px;"><b>Hiệu quả</b></h5>
+                    <p>Đề thi và tài liệu trên trang web được tạo ra với sự tập trung vào các kỹ năng và kiến thức quan trọng trong JLPT.
+                         Bạn sẽ được tiếp cận với những bài tập thực tế và kiểm tra để chuẩn bị tốt nhất cho kỳ thi</p>
+                </div>
+                <div class="col" style="text-align: center;">
+                    <img src="{% static 'images/mienphi.svg' %}" alt="">
+                    <h5 style="color: #083156; font-family: Arial, Helvetica, sans-serif; font-family:cursive; margin-top: 20px;"><b>Miễn phí</b></h5>
+                    <p>Với chúng tôi, bạn không cần phải lo lắng về các khoản phí học tập. Mọi tài liệu,
+                         bài tập và đề thi đều được cung cấp miễn phí để bạn tiếp cận và nâng cao khả năng tiếng Nhật của mình</p>
+                </div>
+    
+            </div>
+            <div class="row" style="margin-top: 100px;">
+                <div class="col">
+                    <h3 style="height: 80px; text-align: center; margin-top: 180px; 
+                    color: #083156; font-family: Arial, Helvetica, sans-serif; font-family:cursive;">
+                    <b>Thi hiệu quả - điểm số chính xác</b></h3>
+                    <div class="row" style="margin-left: 150px;">
+                        <div class="col-sm-1" style="display: flex; align-items: center; justify-content: center;">
+                            <img src="{% static 'images/clock1.svg' %}" alt="" >
+                        </div> 
+                        <div class="col-sm-11">
+                            <h5 style="color: #083156; font-family: Arial, Helvetica, sans-serif; font-family:cursive;"><b>Thủ tục nhanh gọn</b></h5>
+                            Phần giới thiệu giúp bạn hiểu qua về các quy chế và yêu cầu của bài thi
+                        </div>
+                    </div>
+    
+                    <div class="row" style="margin-left: 150px; margin-top: 30px;">
+                        <div class="col-sm-1" style="display: flex; align-items: center; justify-content: center;">
+                            <img src="{% static 'images/clock2.svg' %}" alt="" >
+                        </div> 
+                        <div class="col-sm-11">
+                            <h5 style="color: #083156; font-family: Arial, Helvetica, sans-serif; font-family:cursive;"><b>Bài thi linh hoạt</b></h5>
+                            Chuỗi các câu hỏi khác nhau để đánh giá kỹ năng tiếng Nhật của bạn
+                        </div>
+                    </div>
+    
+                    <div class="row" style="margin-left: 150px; ; margin-top: 30px">
+                        <div class="col-sm-1" style="display: flex; align-items: center; justify-content: center;">
+                            <img src="{% static 'images/clock3.svg' %}" alt="" >
+                        </div> 
+                        <div class="col-sm-11">
+                            <h5 style="color: #083156; font-family: Arial, Helvetica, sans-serif; font-family:cursive;"><b>Kết quả chính xác</b></h5>
+                             Nhận kết quả thi và đáp án ngay sau thi
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="{% static 'images/landing.svg' %}" alt="">
+                </div>
+            </div>
+    
+            <div class="row justify-content-center" style="margin-top: 100px; margin-bottom: 150px;">
+                <div class="row" style="width: 80%; height: 320px; background-color: #0c3a63; border-radius: 20px;">
+                    <div class="col-sm-3">
+                        <img style="margin-top: 90px;" src="{% static 'images/student1.svg' %}" alt="">
+                    </div>
+                    <div class="col-sm-6" style="display: flex; flex-direction: column; align-items: center;">
+                        <h2 style="text-align: center; color: #fff; 
+                        font-family: Arial, Helvetica, sans-serif; font-family:cursive; margin-top: 50px;">
+                        <b>Đăng ký để truy cập miễn phí</b></h2>
+    
+                        <div class="btn-started" style="margin-top: 70px; display: inline-block">
+                            <a class="btn-started btn-started2"  href="#" style="background: #fbe56d; color: #001836;  text-align: center;
+                                                    padding-left: 50px; padding-right: 50px; padding-top: 30px; padding-bottom: 30px !important;
+                                                    margin-top: 29px; list-style-type:none;
+                                                    border-radius: 20px;text-decoration: none;"><b style="font-size: large;">BẮT ĐẦU NGAY!</b></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <img style="margin-top: -30px;" src="{% static '/images/student2.svg' %}" alt="">
+                    </div>
+    
+                </div>
+            </div>
+            
+        </div>
+{% endblock content %}

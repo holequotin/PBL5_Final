@@ -146,3 +146,6 @@ def update_password(request):
         except:
             messages.error(request,"Mật khẩu không đúng theo yêu cầu")
     return redirect('jlpt:ChangePassword')
+
+def home(request):
+    return render(request,'pages/home.html',{})
