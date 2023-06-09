@@ -32,12 +32,15 @@ def administer_student(request):
     return render(
         request, "pages/administer_student.html", {"user": users, "profiles": profiles}
     )
-def administer_exam(request):
+def administer_exam(request,number):
     user = request.user
     profile = Profile.objects.all()
     exams = Exam.objects.all()
+    paginator = Paginator(exams, 10)
+    page_obj = paginator.page(number)
+    context = {"number": 1, "user": user, "profile": profile, "page_obj": page_obj}
     return render(
-        request, "pages/administer_exam.html", {"user": user, "profile": profile,'exams' : exams}
+        request, "pages/administer_exam.html", context
     )
 def administer_practice_history(request):
     users = User.objects.filter(groups__name='Student')
@@ -51,6 +54,7 @@ def administer_practice_history(request):
         request, "pages/administer_practice_history.html", {"user": user, "profile": profile}
     )
 def administer_document(request, number):
+    print('Hello',number)
     user = request.user
     profile = Profile.objects.all()
     documents = Post.objects.all()
@@ -59,6 +63,24 @@ def administer_document(request, number):
     context = {"number": 1, "user": user, "profile": profile, "page_obj": page_obj}
     return render(
         request, "pages/administer_document.html", context
+    )
+
+def new_document_page(request,number):
+    documents = Post.objects.all()
+    paginator = Paginator(documents, 10)
+    page_obj = paginator.page(number)
+    context = {"number": number,"page_obj": page_obj}
+    return render(
+        request, "partials/document_table.html", context
+    )
+
+def new_exam_page(request,number):
+    exams = Exam.objects.all()
+    paginator = Paginator(exams,10)
+    page_obj = paginator.page(number)
+    context = {"number": number,"page_obj": page_obj}
+    return render(
+        request, "partials/exam_table.html", context
     )
 
 def administer_book(request):
@@ -166,8 +188,6 @@ def reset_password(request,pk):
     else:
         return redirect('Administer:EditStudent',pk=user.id)
 
-
- 
 def delete_user(request, pk):
     user = User.objects.get(id=pk)
     user.delete()

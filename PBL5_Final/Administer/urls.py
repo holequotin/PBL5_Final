@@ -5,7 +5,7 @@ app_name = 'Administer'
 urlpatterns = [
     path('teacher/',administer_teacher,name='Teacher'),
     path('student/',administer_student,name='Student'),
-    path('exam/',administer_exam,name='Exam'),
+    path('exam/<int:number>',administer_exam,name='Exam'),
     path('practice-history/',administer_practice_history,name='PracticeHistory'),
     path('hx-document/<int:number>',administer_document,name='Document'),
     path('book/',administer_book,name='Book'),
@@ -16,5 +16,7 @@ urlpatterns = [
     path('update-student/<int:pk>',update_student,name='UpdateStudent'),
     path('delete-teacher/<int:pk>',delete_teacher,name='DeleteTeacher'),
     path('delete-student/<int:pk>',delete_student,name='DeleteStudent'),
-    path('reset-password/<int:pk>',reset_password,name='ResetPassword')
+    path('reset-password/<int:pk>',reset_password,name='ResetPassword'),
+    path('new-document-page/<int:number>',new_document_page,name = 'NewDocumentPage'),
+    path('new-exam-page/<int:number>',new_exam_page,name = 'NewExamPage')
 ]
