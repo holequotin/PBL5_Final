@@ -22,7 +22,7 @@ def document_list(request,number):
         search = ''
         post = Post.objects.all().filter(user=request.user)
     else:
-        post = Post.objects.filter(name__icontains = search)
+        post = Post.objects.filter(title__icontains = search)
     paginator = Paginator(post,10)
     page_obj = paginator.page(number)
     context = {

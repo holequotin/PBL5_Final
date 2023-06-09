@@ -6,8 +6,9 @@
 
 {% block content %}
 <div class = "row document-list">
-    <div class = "container" id="document-list-container">
-      {% include "Document/document_list.html" %}
-    </div>
+  {% include "partials/teacher_filter_document.html" %}
+  <div class = "container" id="document-list-container">
+    {% include "Document/document_list.html" %}
+  </div>
 </div>
 {% endblock content %}

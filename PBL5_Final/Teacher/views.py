@@ -13,6 +13,7 @@ from django.http import HttpResponse
 from tablib import Dataset
 from django.contrib.auth.decorators import user_passes_test,login_required
 import JLPT.test_funcs
+import openpyxl
 
 from .resources import (
     LevelResource,

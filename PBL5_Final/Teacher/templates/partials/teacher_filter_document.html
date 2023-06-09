@@ -1,0 +1,26 @@
+<div class="row m-lg-2">
+  <div class="container-fluid content mt-3 m-lg-5">
+    <div class="row mb-5">
+      <div class="col-sm-4">
+        <form class="d-flex">
+          <input
+            class="form-control me-2"
+            type="search"
+            name="search"
+            placeholder="Nhập tên tài liệu"
+            hx-get="{% url 'Document:DocumentList' number=1 %}"
+            hx-trigger="keyup changed delay:500ms, search"
+            hx-target="#document-list-container"
+            hx-include="[name = 'select-level']"
+            value="{{search}}"
+          />
+        </form>
+      </div>
+      <div class="col-sm-2">
+        <a class="btn btn-success" href="{% url 'Teacher:AddDocument' %}"
+          ><i class="bi bi-file-earmark-plus"></i>Thêm tài liệu</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
