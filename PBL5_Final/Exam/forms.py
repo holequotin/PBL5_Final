@@ -40,6 +40,27 @@ class AddExamPartForm(forms.ModelForm):
     class Meta:
         model = ExamPart
         fields = ['name','time','pass_score']
+    
+class AddExamSkillPartForm(forms.ModelForm):
+    name = forms.CharField(widget=forms.TextInput(attrs={
+        'class' : 'form-control',
+    }))
+    time = forms.IntegerField(widget = forms.NumberInput(attrs={
+        'class' : 'form-control',
+    }))
+    pass_score = forms.IntegerField(widget = forms.NumberInput(attrs={
+        'class' : 'form-control',
+        'min' : 0
+    }))
+    skill = forms.CharField(widget = forms.TextInput(attrs={
+        'class' : 'form-control',
+    }))
+    level = forms.ModelChoiceField(widget=forms.Select(attrs={
+        'class' : 'form-control',
+    }),queryset=Level.objects.all())
+    class Meta:
+        model = ExamPart
+        fields = ['name','time','pass_score','skill','level']        
         
 class AddGroupQuesitonForm(forms.ModelForm):
     # content = forms.CharField(widget=forms.TextInput(attrs={

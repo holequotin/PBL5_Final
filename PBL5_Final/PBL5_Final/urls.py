@@ -29,6 +29,7 @@ urlpatterns = [
     path("student/", include("Student.urls")),
     path("document/",include("Document.urls")),
     path("book/", include("Bookapp.urls")),
+    path("administer/",include("Administer.urls"))
 ]
 
 if settings.DEBUG:

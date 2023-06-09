@@ -6,17 +6,38 @@
 
 {% block content %}
     <h1 style = "text-align : center">{{part_history.name}}</h1>
+
+    <div id="wrapper">
+      <div id="fixedDiv">
+        
+        <div class="coutdown">
+          <div id="id-input" id-myinteger="{{ idSP }}"></div>
+          <div id="data-input" data-myinteger="{{ input }}"></div>
+          <div class="coutdown-item">
+            {{phut}}:{{giay}}
+          </div>
+        </div>  
+
+      </div>      
+    </div>
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+
+      <script src= "{% static 'js/main.js' %}"defer></script>
+      <script src= "{% static 'js/exit.js' %}"defer></script>
+      
     <div class="container">
     {% for group in part_history.groups %}
         {% include 'partials/student_group_history.html' with group=group %}
       {% endfor %} 
     </div>
     <div style = "display : flex; justify-content : center; align-item : center">
+        
         {% if type == "skill" %}
-        <a href = "{% url 'Student:SkillResult' pk=part_history.id %}"  class = "btn btn-success">Hoàn tất</a>
+        <a id="complete-button" href = "{% url 'Student:SkillResult' pk=part_history.id %}"  class = "btn btn-success">Hoàn tất</a>
         {% endif %}
         {% if type == "test" %}
-        <a href = "{% url 'Student:CompletePart' pk=part_history.id %}"  class = "btn btn-success">Hoàn tất</a>
+        <a id="complete-button" href = "{% url 'Student:CompletePart' pk=part_history.id %}"  class = "btn btn-success">Hoàn tất</a>
         {% endif %}
     </div>
 {% endblock content %}
