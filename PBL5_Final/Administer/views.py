@@ -19,7 +19,7 @@ def administer_teacher(request):
         profile = get_object_or_404(Profile, user=user)
         profiles.append(profile)
     return render(
-        request, "pages/administer_teacher.html", {"users": users, "profiles": profiles}
+        request, "pages/administer_teacher.html", {"user": users, "profiles": profiles}
     )
 def administer_student(request):
     users = User.objects.filter(groups__name='Student')
@@ -30,14 +30,14 @@ def administer_student(request):
         profile = get_object_or_404(Profile, user=user)
         profiles.append(profile)
     return render(
-        request, "pages/administer_student.html", {"user": users, "profiles": profiles}
+        request, "pages/administer_student.html", {"user": users, "profile": profiles}
     )
-def administer_exam(request,number):
+def administer_exam(request):
     user = request.user
     profile = Profile.objects.all()
     exams = Exam.objects.all()
     paginator = Paginator(exams, 10)
-    page_obj = paginator.page(number)
+    page_obj = paginator.page(1)
     context = {"number": 1, "user": user, "profile": profile, "page_obj": page_obj}
     return render(
         request, "pages/administer_exam.html", context
