@@ -39,7 +39,7 @@ def book_list(request,number):
         search = ''
         book = Book.objects.all().filter(user=request.user)
     else:
-        book = Book.objects.filter(name__icontains = search)
+        book = Book.objects.filter(title__icontains = search)
     paginator = Paginator(book,10)
     page_obj = paginator.page(number)
     context = {
