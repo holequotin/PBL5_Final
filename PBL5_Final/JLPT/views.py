@@ -42,10 +42,16 @@ def register_page(request):
             username = request.POST.get("username")
             first_name = request.POST.get("firstname")
             last_name = request.POST.get("lastname")
-            user = User.objects.create_user(username=username,password=password1,first_name=first_name,last_name = last_name)
-            profile = Profile.objects.create(user=user)
-            user.groups.add(student_group)
-            return redirect('jlpt:Login')
+            try:
+                user = User.objects.create_user(username=username,password=password1,first_name=first_name,last_name = last_name)
+                profile = Profile.objects.create(user=user)
+                user.groups.add(student_group)
+                messages.success(request,"Đăng kí thành công")
+                return redirect('jlpt:Login')
+            except:
+                messages.error(request,"Tên đăng nhập đã tồn tại hoặc mật khẩu quá ngắn")
+        else:
+            messages.error(request,"Xác nhận mật khẩu không đúng")
     return render(request,'pages/register.html',{'title':'Đăng ký'})
 
 

@@ -33,6 +33,13 @@
 
     <div class="container-fluid no-padding content-area no-sidebar">
         <div class="row">
+        {% for message in messages %}
+            {% if message.tags == "success" %}
+            <div class="alert alert-success" role="alert" id = "my-alert">
+                {{message}}
+              </div>
+            {% endif %}
+        {% endfor %}
          <div class="col-sm-2"></div>
              <div class="col-sm-4" style="margin-left: -20px;">
                  <h3 style="height: 80px; text-align: center; margin-top: 130px; 
@@ -71,6 +78,13 @@
              <div class="col-sm-2"></div>
  
         </div>
-        
      </div>
+     <script>
+        var alertElement = document.getElementById('my-alert');
+
+        // Đặt thời gian chờ 2 giây (2000 milliseconds) trước khi tắt thông báo
+        setTimeout(function() {
+            alertElement.style.display = 'none';
+        }, 2000);
+     </script>
 {% endblock content %}
