@@ -49,7 +49,7 @@
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên tài liệu</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Thời gian thêm</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Người thêm</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Người Đăng</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Xoá</th>
 
                     </tr>
@@ -90,23 +90,66 @@
                       
                       <td>
                         <form action="">{% csrf_token %} 
-                          <a class="btn btn-outline-danger" hx-post = "{% url 'Teacher:DeleteDocument' pk=post.id %}" hx-swap = "outerHTML">
-                            <i class="bi bi-trash">
-
-                            </i>
-                          </a>
-                        </form>
+                          <div class=" align-middle text-center">
+                            <a class="btn btn-link text-danger px-3 mb-0" hx-post = "{% url 'Teacher:DeleteDocument' pk=post.id %}" hx-swap = "outerHTML">
+                              <i class="material-icons text-sm me-2">delete                                     
+                              </i>Delete
+                            </a>
+                        </div>
+                      </form>
                       </td>
 
 
 
-                  </tr>
+                    </tr>
 
                     {% endfor %}
 
-                    
+        
                   </tbody>
                 </table>
+              </div>
+              <div class="container">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li class="page-item 
+                      {% if not page_obj.has_previous %}
+                        disabled
+                      {% endif %}
+                        ">
+                      <a class="page-link"
+                      {% if page_obj.has_previous %}
+                        href = "#"       
+                        hx-get={% url 'Administer:Document' number=page_obj.previous_page_number %} 
+                        hx-include=[name='search'] 
+                        hx-target="#document-list-container"     
+                      {% endif %}
+                      >Previous</a>
+                    </li>
+                    {% for i in page_obj.paginator.page_range %}
+                    <li class="page-item 
+                    {% if number == forloop.counter %}active{% endif %}"
+                    ><a class="page-link" href="" 
+                    hx-get={% url 'Administer:Document' number=i %} 
+                    hx-include=[name='search'] 
+                    hx-target="#document-list-container">{{i}}</a></li>
+                    {% endfor %}
+                    <li class="page-item 
+                    {% if not page_obj.has_next %}
+                    disabled
+                    {% endif %}
+                    ">
+                      <a class="page-link" href="#"
+                      {% if page_obj.has_next %}
+                      href = "{% url 'Administer:Document' number=page_obj.next_page_number %}"       
+                      hx-get={% url 'Administer:Document' number=page_obj.next_page_number %} 
+                      hx-include=[name='search'] 
+                      hx-target="#document-list-container"     
+                      {% endif %}
+                      >Next</a>
+                    </li>
+                  </ul>
+                </nav>
               </div>
             </div>
           </div>

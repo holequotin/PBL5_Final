@@ -50,12 +50,12 @@ def administer_practice_history(request):
     return render(
         request, "pages/administer_practice_history.html", {"user": user, "profile": profile}
     )
-def administer_document(request):
+def administer_document(request, number):
     user = request.user
     profile = Profile.objects.all()
     documents = Post.objects.all()
     paginator = Paginator(documents, 10)
-    page_obj = paginator.page(1)
+    page_obj = paginator.page(number)
     context = {"number": 1, "user": user, "profile": profile, "page_obj": page_obj}
     return render(
         request, "pages/administer_document.html", context

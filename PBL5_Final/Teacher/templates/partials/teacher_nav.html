@@ -4,7 +4,7 @@
         <ul class="nav justify-content-center align-items-center">
             <li><img src="{% static 'images/logo-jlpt.jpg' %}" class="img-fluid" style="width: 96px; height: 96px;"></li>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="nav-item"><a class="nav-link active" href="#">TRANG CHỦ</a></li>
+            <li class="nav-item"><a class="nav-link active" href="{% url 'Teacher:TeacherHome' %}">TRANG CHỦ</a></li>
             <li class="nav-item"><a class="nav-link active" href="#">CẬP NHẬT JLPT 2023</a></li>
             <li class="nav-item"><a class="nav-link active" href="{% url 'Teacher:DocumentManager' number=1 %}">TÀI LIỆU FREE</a></li>
             <li class="nav-item"><a class="nav-link active" href="{% url 'Teacher:BookManager' number=1 %}">SÁCH HỌC JLPT</a></li>
