@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='practicehistory',
             name='image',
-            # field=models.ImageField(default='media/jlpt.jpeg', storage=django.core.files.storage.FileSystemStorage(location='E:\\ki_6\\PBL\\PBL5_Final\\PBL5_Final\\media'), upload_to='media/history'),
-            field=models.ImageField(default='media/jlpt.jpeg', storage=django.core.files.storage.FileSystemStorage(location='D:\\PBL5_Final\\PBL5_Final\\media'), upload_to='media/history'),
+            field=models.ImageField(default='media/jlpt.jpeg', storage=django.core.files.storage.FileSystemStorage(location='E:\\ki_6\\PBL\\PBL5_Final\\PBL5_Final\\media'), upload_to='media/history'),
+            #field=models.ImageField(default='media/jlpt.jpeg', storage=django.core.files.storage.FileSystemStorage(location='D:\\PBL5_Final\\PBL5_Final\\media'), upload_to='media/history'),
         ),
     ]
