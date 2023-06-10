@@ -8,6 +8,9 @@ from django.db.models import Q
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.shortcuts import render,redirect
+from JLPT.groups import teacher_group
+from django.shortcuts import render, redirect
+from .forms import UserForm
 
 # Create your views here.
 def administer_teacher(request):
@@ -225,3 +228,23 @@ def detail_user(request, pk):
 
     context = {"user": user, "profile": profile}
     return render(request, "pages/administer_detail.html", context)
+
+def add_teacher_form(request):
+    print('Teacher Form')
+    form = UserForm()
+    return render(request,'partials/add_teacher_form.html',{'form': form})
+
+def create_teacher(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        print(form.data)
+        if form.is_valid():
+            user = form.save(commit=False)
+            print(user)
+            user.save()
+            user.groups.add(teacher_group)
+            profile = Profile.objects.create(user=user)
+            return redirect('Administer:Teacher')  # Điều hướng đến trang thành công sau khi tạo user
+    else:
+        form = UserForm()
+    return render(request,'pages/administer_add_teacher_form.html',{'form': form})

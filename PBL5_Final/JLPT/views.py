@@ -99,6 +99,7 @@ def user_info(request):
 
 @login_required(login_url='jlpt:Login')
 def update_profile(request):
+    print(request.FILES)
     profile = Profile.objects.get(user = request.user)
     user = User.objects.get(id = profile.user.id)
     if request.method == "POST":
@@ -110,6 +111,9 @@ def update_profile(request):
             user.last_name = cleaned_data['last_name']
             user.email = cleaned_data['email']
             profile.phone_number = cleaned_data['phone_num']
+            if len(request.FILES) > 0:
+                print("have image")
+                profile.image = request.FILES['image']    
             profile.save()
             user.save()
             messages.success(request,'Cập nhật thông tin thành công')

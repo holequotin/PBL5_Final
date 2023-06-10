@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="col-sm-8 m-lg-3">
-            <form method = "post" action = "{% url 'jlpt:UpdateProfile' %}">
+            <form method = "post" action = "{% url 'jlpt:UpdateProfile' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
                     <label>Họ  <label style="color: red;">*</label></label>
@@ -61,6 +61,13 @@
                         <label>Số điện thoại <label style="color: red;">*</label></label>
                         {{form.phone_num}}
                         <p class="text-danger">{{form.phone_num.errors|join:", "}}</p>
+                    </div>                        
+                </div>
+                
+                <div class="form-row mt-3">
+                    <div class="form-group col-md-6">
+                        <label>Avatar <label style="color: red;"></label></label>
+                        <input type="file" class="form-control" name="image">
                     </div>                        
                 </div>
                 <button type="submit" class="btn btn-primary mt-5">Cập nhật</button>
