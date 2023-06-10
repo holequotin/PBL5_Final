@@ -1,0 +1,59 @@
+<div>
+    {% for message in messages %}
+        {% if message.tags == "success" %}
+        <div class="row mt-4 d-flex justify-content-center align-items-center">
+            <div class="alert alert-success text-white col-6" role="alert" id="myAlert" >
+            {{message}}
+        </div>
+        {% endif %}
+    {% endfor %}
+    <div class="p-4 row d-flex justify-content-center align-items-center" id = "add-form">
+        <h4 style = "text-align:center">Thêm giáo viên</h4>
+        <form class = "col-4" method="POST" action = "{% url 'Administer:CreateTeacher' %}">  
+            {% csrf_token %}
+          <div class="input-group input-group-static mb-4">
+            <label>Họ</label>
+            {% comment %} <input type="text" class="form-control" name="firstname" value="{{profile.user.first_name}}"> {% endcomment %}
+            {{form.first_name}}
+            <p class="text-danger">{{form.first_name.errors}}</p>
+          </div>
+          <div class="input-group input-group-static mb-4">
+            <label>Tên</label>
+            {% comment %} <input type="text" class="form-control" name="lastname" value="{{profile.user.last_name}}"> {% endcomment %}
+            {{form.last_name}}
+            <p class="text-danger">{{form.last_name.errors}}</p>
+          </div>
+          <div class="input-group input-group-static mb-4">
+            <label>Tên đăng nhập</label>
+            {% comment %} <input type="email" class="form-control" name="username" value="{{profile.user.email}}"> {% endcomment %}
+            {{form.username}}
+            <p class="text-danger">{{form.username.errors}}</p>
+          </div>
+          <div class="input-group input-group-static mb-4">
+            <label>Mật khẩu</label>
+            <p></p>
+            {% comment %} <input type="text" class="form-control" name="password" value="{{profile.phone_number}}"> {% endcomment %}
+            {{form.password1}}
+            <p class="text-danger">{{form.password1.errors}}</p>
+          </div>
+          <div class="input-group input-group-static mb-4">
+            <label>Xác nhận Mật khẩu</label>
+            <p></p>
+            {% comment %} <input type="text" class="form-control" name="password" value="{{profile.phone_number}}"> {% endcomment %}
+            {{form.password2}}
+            <p class="text-danger">{{form.password2.errors}}</p>
+          </div>
+          <div class="input-group input-group-static mb-4">
+            <button type="submit" class="btn btn-success m-2">Lưu</button>
+            <a href="{% url 'Administer:Teacher' %}" class="btn btn-danger m-2">Trở lại</a>
+          </div>
+        </form>
+      </div>
+      <script>
+        // Lấy đối tượng alert và gán vào biến
+        var alert = document.getElementById('myAlert');
+        setTimeout(function() {
+          alert.style.display = 'none';
+        }, 3000);
+      </script>
+  </div>
