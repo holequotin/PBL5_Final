@@ -93,7 +93,7 @@
                       <td>
                         <form action="">{% csrf_token %} 
                           <div class=" align-middle text-center">
-                             <a class="btn btn-link text-danger px-3 mb-0" hx-post = "{% url 'Teacher:DeleteBook' pk=book.id %}" hx-swap = "outerHTML">
+                             <a class="btn btn-link text-danger px-3 mb-0" hx-post = "{% url 'Administer:DeleteBook' pk=book.id %}" hx-swap = "outerHTML">
                               <i class="material-icons text-sm me-2">delete
                               </i>Delete
                             </a>
@@ -113,9 +113,7 @@
         </div>
 
       </div>
-      {% block footer %}
-          {% include 'partials/administer_footer.html' %}
-      {% endblock footer %}
+
     </div>
   </main>
 

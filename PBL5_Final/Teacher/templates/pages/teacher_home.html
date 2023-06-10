@@ -21,7 +21,11 @@
   <div class="row">
       <div class="col-sm-3 d-flex justify-content-center" style=" align-items: center;">
           <div class="card border-1" style="width: 250px; height: 400px; box-shadow: 0 0 20px rgba(74, 73, 73, 0.5); margin-top: -80px;">
-              <img class="card-img-top" src="{{profile.image.url}}" alt="">
+              <img class="card-img-top" src="
+              {% if profile.image %}
+                {{profile.image.url}}
+              {% endif %}
+              " alt="">
               <h5 class="card-title" style="text-align: center; margin-top: 10px;"></h5>
               <h4 class="card-text" style="text-align: center; color: #083156;"><b>{{user.first_name}} {{user.last_name}}</b></h4>
               <h5 class="card-text" style="text-align: center;">ID: 24082002</h5>

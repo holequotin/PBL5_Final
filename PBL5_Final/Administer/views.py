@@ -248,3 +248,18 @@ def create_teacher(request):
     else:
         form = UserForm()
     return render(request,'pages/administer_add_teacher_form.html',{'form': form})
+
+def delete_document(request, pk):
+    document = Post.objects.get(id=pk)
+    document.delete()
+    return HttpResponse("")
+
+def delete_book(request, pk):
+    book = Book.objects.get(id=pk)
+    book.delete()
+    return HttpResponse("")
+
+def delete_exam(request, pk):
+    exam = Exam.objects.get(id=pk)
+    exam.delete()
+    return HttpResponse("")

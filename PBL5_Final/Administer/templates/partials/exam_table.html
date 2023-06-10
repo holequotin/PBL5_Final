@@ -8,13 +8,14 @@
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Cấp độ</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Người đăng</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Điểm pass</th>
-    
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Delete</th>
+
               </tr>
             </thead>
             <tbody>
     
               {% for exam in page_obj.object_list %}
-              <tr>
+              <tr hx-target = "this">
                 <td>
                   <div class="d-flex px-2 py-1">
                     <div>
@@ -49,6 +50,18 @@
                     </div>
                   </div>
                 </td>
+
+                <td>
+                  <form action="">{% csrf_token %} 
+                    <div class=" align-middle text-center">
+                      <a class="btn btn-link text-danger px-3 mb-0" hx-post = "{% url 'Administer:DeleteExam' pk=exam.id %}" hx-swap = "outerHTML">
+                        <i class="material-icons text-sm me-2">delete                                     
+                        </i>Delete
+                      </a>
+                  </div>
+                </form>
+                </td>
+
               </tr>
               {% endfor %}
     

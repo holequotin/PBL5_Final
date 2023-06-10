@@ -21,5 +21,9 @@ urlpatterns = [
     path('new-document-page/<int:number>',new_document_page,name = 'NewDocumentPage'),
     path('new-exam-page/<int:number>',new_exam_page,name = 'NewExamPage'),
     path('hx-add-teacher-form/',add_teacher_form,name = 'AddTeacherForm'),
-    path('create-teacher/',create_teacher,name='CreateTeacher')
+    path('create-teacher/',create_teacher,name='CreateTeacher'),
+    path('delete_document/<int:pk>',delete_document,name='DeleteDocument'),
+    path('delete_book/<int:pk>',delete_book,name='DeleteBook'),
+    path('delete_exam/<int:pk>',delete_exam,name='DeleteExam'),
+
 ]

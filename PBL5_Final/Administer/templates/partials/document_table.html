@@ -46,7 +46,7 @@
             <td>
               <form action="">{% csrf_token %} 
                 <div class=" align-middle text-center">
-                  <a class="btn btn-link text-danger px-3 mb-0" hx-post = "{% url 'Teacher:DeleteDocument' pk=post.id %}" hx-swap = "outerHTML">
+                  <a class="btn btn-link text-danger px-3 mb-0" hx-post = "{% url 'Administer:DeleteDocument' pk=post.id %}" hx-swap = "outerHTML">
                     <i class="material-icons text-sm me-2">delete                                     
                     </i>Delete
                   </a>
