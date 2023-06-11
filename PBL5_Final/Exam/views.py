@@ -45,16 +45,21 @@ def exam_part_form(request,pk):
 
 def exam_list(request,number):
     search = request.GET.get('search')
-    if search == '' or search is None:
+    if search is None:
         search = ''
-        exams = Exam.objects.all().filter(user=request.user)
     else:
-        exams = Exam.objects.filter(name__icontains = search, user = request.user)
+        request.session['search_filter'] = search
+    exams = Exam.objects.filter(name__icontains = request.session['search_filter'], user = request.user)
     filter_level = request.GET.get('select-level')
-    print(filter_level)
-    if filter_level != 'All':
-        filter_level = get_object_or_404(Level,name = filter_level)
-        exams = exams.filter(level = filter_level,user =request.user)
+    if filter_level == 'All':
+        request.session['filter_level'] = ''
+    else:
+        if filter_level is not None:
+            request.session['filter_level'] = filter_level
+    print(request.session['filter_level'])
+    if request.session['filter_level'] != '':
+        filter_level_obj = get_object_or_404(Level,name = request.session['filter_level'])
+        exams = exams.filter(level = filter_level_obj,user =request.user)
     paginator = Paginator(exams,10)
     page_obj = paginator.page(number)
     context = {

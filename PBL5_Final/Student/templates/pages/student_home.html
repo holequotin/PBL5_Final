@@ -5,7 +5,128 @@
 {% endblock linkcss %}
 
 {% block content %}
-    <div class="container-fluid banner">
+<div class="container-fluid no-padding content-area no-sidebar">
+    <div class="row" style="background-color: rgb(255, 250, 237)">
+        <div class="row" style="height: 100px;"></div>
+        <div class="col-sm-6">
+            <h1 style="margin-left: 80px; margin-top: 20px; color: #083156; font-family: Arial, Helvetica, sans-serif; font-family:cursive;"><b>Tập gym lên cơ, luyện đề lên N</b></h1>
+            <div style="margin-left: 80px; margin-top: 30px;">
+               
+                <p style="font-family: Arial, Helvetica, sans-serif; font-family:cursive; font-size: large;">Hãy bắt đầu hành trình luyện đề ngay hôm nay để nắm vững kiến thức và tự tin đối đầu với kỳ thi JLPT.
+                     Luyện đề không chỉ giúp bạn làm quen với định dạng và nội dung của đề thi, mà còn rèn luyện kỹ năng làm bài, 
+                     tăng cường từ vựng và ngữ pháp. Với sự đồng hành của chúng tôi, bạn sẽ tiến bộ từng ngày và tiến sát đến mục 
+                     tiêu đạt được chứng chỉ JLPT mong muốn. Hãy dành thời gian luyện đề hàng ngày và chinh phục những thử 
+                     thách mới để trở thành người vượt qua mọi khó khăn và thành công rực rỡ trong kỳ thi JLPT.</p>
+
+                <div class="btn-kynang" style="margin-top: 60px;display: inline-block;">
+                    <a class="btn-kynang"  href="{% url 'Student:SkillList' %}" style="background: #083156; color: #fbe56d;  text-align: center;
+                                            padding-left: 30px; padding-right: 30px; padding-top: 20px; padding-bottom: 20px !important;
+                                            margin-top: 29px; list-style-type:none;
+                                            border-radius: 20px;text-decoration: none;"><b>ĐỀ KỸ NĂNG</b></a>
+                </div> &nbsp; &nbsp; &nbsp;
+                <div class="btn-chuan" style="margin-top: 60px;display: inline-block">
+                    <a class="btn-chuan"  href="{% url 'Student:ExamSelectList' %}" style="background: #fff; color:#083156; border: 1px solid #083156 ;  text-align: center;
+                                            padding-left: 30px; padding-right: 30px; padding-top: 20px; padding-bottom: 20px !important;
+                                            margin-top: 29px; list-style-type:none;
+                                            border-radius: 20px;text-decoration: none;"><b>ĐỀ CHUẨN JLPT</b></a>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-6">
+            <img src="{% static 'images/homestudent.svg' %}" alt="" srcset="" style="margin-left: 40px; margin-top: -30px;">
+        </div>
+        <div style="height: 100px;"></div>
+    </div>
+    <div class="row justify-content-center">
+        <img src="{% static 'images/muiten.svg' %}" alt="" style="height: 50px; width: 50px; margin-top: -30px;">
+    </div>
+    <div class="row justify-content-center" style="margin-top: 100px;">
+        <img src="{% static 'images/dethilinhhoat.svg' %}" alt="" style="width: 200px; height: 200px;">
+    </div>
+    <div class="row align-items-center">
+        <h3 style="height: 80px; text-align: center; color: #083156; font-family: Arial, Helvetica, sans-serif; font-family:cursive;"><b>Luyện đề hiệu quả</b></h3>
+    </div>
+    <div class="row">
+        <div class="col" style="text-align: center;">
+            <img src="{% static 'images/dethidadang1.svg' %}" alt="">
+            <h5 style="color: #083156; font-family: Arial, Helvetica, sans-serif; font-family:cursive; margin-top: 20px;"><b>Đề thi đa dạng</b></h5>
+            <p>Chúng tôi cung cấp một loạt các đề thi chuẩn JLPT và đề kỹ năng từ N1 đến N5,
+                 giúp bạn rèn luyện trên các cấp độ khác nhau và làm quen với định dạng của kỳ thi thực tế.</p>
+        </div>
+        <div class="col" style="text-align: center; margin-top: 13px;">
+            <img src="{% static 'images/chatluongdethi.svg' %}" alt="">
+            <h5 style="color: #083156; font-family: Arial, Helvetica, sans-serif; font-family:cursive; margin-top: 20px;"><b>Chất lượng đề thi</b></h5>
+            <p>Các đề thi trên trang web của chúng tôi được tạo ra bởi các chuyên gia có kinh nghiệm, 
+                đảm bảo tính chuẩn xác và phù hợp với các yêu cầu của kỳ thi JLPT.</p>
+        </div>
+        <div class="col" style="text-align: center;">
+            <img src="{% static 'images/phanhoi.svg' %}" alt="">
+            <h5 style="color: #083156; font-family: Arial, Helvetica, sans-serif; font-family:cursive; margin-top: 20px;"><b>Phản hồi tức thì</b></h5>
+            <p>Khi làm đề thi trên trang web, bạn sẽ nhận được kết quả và phản hồi ngay lập tức. 
+                Điều này giúp bạn nhận biết được điểm mạnh và điểm yếu của mình, từ đó cải thiện kỹ năng học tập.</p>
+        </div>
 
     </div>
+    <div class="row" style="margin-top: 150px; justify-content: center;">
+        <img src="{% static 'images/tailieukhac.svg' %}" alt="" style="width: 200px; height: 200px;">
+    </div>
+    <div class="row align-items-center mt-3">
+        <h3 style="height: 80px; text-align: center; color: #083156; font-family: Arial, Helvetica, sans-serif; font-family:cursive;"><b>Tài liệu khác</b></h3>
+    </div>
+
+    <div class="row" style="margin-top: 100px;">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-4">
+            <img src="{% static 'images/tailieu.svg' %}" alt="">
+        </div>
+        <div class="col-sm-5">
+            <div class="row" style="margin-left: 30px;">
+                <h5 style="color: #083156; font-family: Arial, Helvetica, sans-serif; font-family:cursive; margin-top: 10px;"><b>Sách học JLPT</b></h5>
+            </div>
+            <div class="row" style="margin-left: 30px;">
+                <p>Chúng tôi cung cấp các sách giáo trình tiếng Nhật chuyên sâu, 
+                    được biên soạn bởi các chuyên gia và giáo viên có kinh nghiệm. 
+                    Những sách này bao gồm các chủ đề về từ vựng, ngữ pháp, đọc hiểu và nghe hiểu, 
+                    giúp bạn nắm vững kiến thức cần thiết cho kỳ thi JLPT.</p>
+            </div>
+            <div class="row">
+                <div class="btn-truycap" style="margin-top: 20px;display: inline-block; margin-left: 30px;">
+                    <a class="btn-truycap"  href="{% url 'Bookapp:home' %}" style="background:#083156; color:#fbe56d; border: 1px solid #083156 ;  text-align: center;
+                                            padding-left: 30px; padding-right: 30px; padding-top: 20px; padding-bottom: 20px !important;
+                                            margin-top: 29px; list-style-type:none;
+                                            border-radius: 20px;text-decoration: none;"><b>Truy cập</b></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 100px; margin-bottom: 150px;">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-4">
+            <img src="{% static 'images/tailieuthamkhao.svg' %}" alt="" style="width: 500px;">
+        </div>
+        <div class="col-sm-5">
+            <div class="row" style="margin-left: 30px;">
+                <h5 style="color: #083156; font-family: Arial, Helvetica, sans-serif; 
+                font-family:cursive; margin-top: 20px;"><b>Tài liệu tham khảo</b></h5>
+            </div>
+            <div class="row" style="margin-left: 30px;">
+                <p>Ngoài các sách giáo trình và đề thi, chúng tôi cung cấp các tài liệu phụ bổ sung như từ điển tiếng Nhật,
+                     sách ngữ pháp, bài viết và bài báo để bạn mở rộng vốn từ vựng, 
+                     cải thiện kỹ năng đọc và nắm bắt ngữ pháp một cách chi tiết.</p>
+            </div>
+            <div class="row">
+                <div class="btn-truycap" style="margin-top: 20px;display: inline-block; margin-left: 30px;">
+                    <a class="btn-truycap"  href="{% url 'Document:test' %}" style="background:#083156; color:#fbe56d; border: 1px solid #083156 ;  text-align: center;
+                                            padding-left: 30px; padding-right: 30px; padding-top: 20px; padding-bottom: 20px !important;
+                                            margin-top: 29px; list-style-type:none;
+                                            border-radius: 20px;text-decoration: none;"><b>Truy cập</b></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<!-- end content -->
+
 {% endblock content %}

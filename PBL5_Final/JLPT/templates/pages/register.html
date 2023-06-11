@@ -6,48 +6,98 @@
 {% endblock navbar %}
 
 {% block content %}
-    <div class = "container container-div d-flex justify-content-center">
-        <form class = "login-form" method = "POST">
-            {% csrf_token %}
-            <h1>Đăng kí</h1>
-            <div class="form-group row">
-                <div class = "col-6">
-                    <input type="text" class = "form-control" id = "firstname" name = "firstname">
-                    <label for="">First name</label>
-                </div>
-                <div class = "col-6">
-                    <input type="text" class = "form-control" id = "lastname" name = "lastname">
-                    <label for="">Last name</label>
-                </div>
-            </div>
-            <div class = "row">
-                <div class = "col">
-                    <input type="text" class = "form-control" id = "username" name = "username">
-                    <label for="">Username</label>
-                </div>
-            </div>
-            <div class = "row">
-                <div class = "col">
-                    <input type="password" class = "form-control" id = "password1" name = "password1">
-                    <label for="">Password</label>
-                </div>
-            </div>
-            <div class = "row">
-                <div class = "col">
-                    {{form.password2}}
-                    <input type="password" class = "form-control" id = "password2" name = "password2">
-                    <label for="">Confirm password</label>
-                </div>
-            </div>
-            <div class = "form-group">
-            <button type="submit" class="btn btn-danger container">Đăng Kí</button>
-            <div class = "container d-flex justify-content-center">
-                <p class = "container form-group">
-                    Đã có tài khoản?, đăng nhập <a href="">tại đây</a>
-                </p>
-            </div>
-            </div> 
-        </form>
-    </div>
-    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <div class="container-fluid no-padding content-area no-sidebar">
+        <div class="row">
+        {% for message in messages %}
+            {% if message.tags == "error" %}
+            <div class="alert alert-danger" role="alert" id = "my-alert">
+                {{message}}
+              </div>
+            {% endif %}
+        {% endfor %}
+         <div class="col-sm-2"></div>
+             <div class="col-sm-4" style="margin-left: -20px;">
+                 <h3 style="height: 80px; text-align: center; margin-top: 140px; 
+                 color: #083156; font-family: Arial, Helvetica, sans-serif; font-family:cursive;">
+                 <b>Đăng ký tài khoản</b></h3>
+ 
+                 <div class="row" style="margin-left: 130px;">
+                     <div class="col-sm-1" style="display: flex; align-items: center; justify-content: center;">
+                         <img style="margin-top: -15px;" src="{% static 'images/register1.svg' %}" alt="" >
+                     </div> 
+                     <div class="col-sm-11">
+                         <p>Tài liệu phong phú</p>
+                     </div>
+                 </div>
+                 <div class="row" style="margin-left: 130px; margin-top: 30px;">
+                     <div class="col-sm-1" style="display: flex; align-items: center; justify-content: center;">
+                         <img style="margin-top: -15px;" src="{% static 'images/register2.svg' %}" alt="" >
+                     </div> 
+                     <div class="col-sm-11">
+                         <p>Thi thử không giới hạn, miễn phí</p>
+                     </div>
+                 </div>
+                 <div class="row" style="margin-left: 130px; margin-top: 30px;">
+                     <div class="col-sm-1" style="display: flex; align-items: center; justify-content: center;">
+                         <img style="margin-top: -15px;" src="{% static 'images/register3.svg' %}" alt="" >
+                     </div> 
+                     <div class="col-sm-11">
+                         <p>Ước tính điểm số ngay lập tức</p>
+                     </div>
+                 </div>
+ 
+                 
+             </div>
+             <div class="col-sm-4" style="margin-top: 90px; margin-left: -50px;">
+                 <form style="border: 1px solid #ccc; padding-top: 20px; padding-bottom: 20px; padding-left: 30px; padding-right: 30px; border-radius: 10px;" method = "POST" action="{% url 'jlpt:Register' %}">
+                    {% csrf_token %} 
+                    <div style="display: flex; justify-content: space-between;">
+                         <div class="form-group">
+                             <label style="color: dimgray;">First name</label>
+                             <input type="text" class = "form-control" id = "firstname" name = "firstname">
+                         </div>
+                         <div class="form-group">
+                             <label style="color: dimgray;">Last name</label>
+                             <input type="text" class = "form-control" id = "lastname" name = "lastname">
+                         </div>
+                     </div>
+                     <div class="form-group mt-3">
+                             <label style="color: dimgray;">Username</label>
+                             <input type="text" class = "form-control" id = "username" name = "username">
+                     </div>
+                     <div class="form-group mt-3">
+                             <label style="color: dimgray;">Password</label>
+                             <input type="password" class = "form-control" id = "password1" name = "password1">
+                     </div>
+                     <div class="form-group mt-3">
+                            {{form.password2}}
+                             <label style="color: dimgray;">Confirm password</label>
+                             <input type="password" class = "form-control" id = "password2" name = "password2">
+                     </div>
+                     
+                     <div style="justify-content: center; display: flex; align-items: center;">
+                        <button type="submit" class="btn btn-register container" style="background: #083156; color: #fbe56d;  text-align: center;
+                        padding-left: 35px; padding-right: 35px; padding-top: 15px; padding-bottom: 15px !important;
+                        margin-top: 29px; list-style-type:none;
+                        border-radius: 20px;text-decoration: none;">Đăng Kí</button>
+                     </div>
+ 
+                     <div style="justify-content: center; display: flex; align-items: center; margin-top: 20px;">
+                         <span>Bạn đã có tài khoản?</span> &nbsp; <span><a style="text-decoration: none; color: red;" href="{% url 'jlpt:Login' %}">Đăng nhập</a></span>
+                     </div>
+                 </form>
+             </div>
+               
+             <div class="col-sm-2"></div>
+ 
+        </div>
+     </div>
+     <script>
+        var alertElement = document.getElementById('my-alert');
+
+        // Đặt thời gian chờ 2 giây (2000 milliseconds) trước khi tắt thông báo
+        setTimeout(function() {
+            alertElement.style.display = 'none';
+        }, 2000);
+     </script>
 {% endblock content %}

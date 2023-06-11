@@ -27,12 +27,12 @@
   <div class = 'container'>
     <div class = 'row'><h4>Sách luyện đọc hàng đầu</h4></div>
     <div class = 'row'>
-      {% for reading_book in reading_books %}
+      {% for reading_books in reading_book %}
       <div class = 'col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2'>
-        <a href = "{% url 'Bookapp:book_detail' reading_book.slug %}">
+        <a href = "{% url 'Bookapp:book_detail' reading_books.slug %}">
           <div>
             <div class="uk-card uk-card-default uk-card-body"> 
-               <img src = "{{reading_book.cover_image.url}}">
+               <img src = "{{reading_books.cover_image.url}}">
             </div>
         </div>
       </a>

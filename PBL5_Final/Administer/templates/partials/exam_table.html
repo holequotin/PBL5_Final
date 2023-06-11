@@ -1,0 +1,110 @@
+<div id = "exam-list-container">
+    <div class="card-body px-0 pb-2">
+        <div class="table-responsive">
+          <table class="table align-items-center mb-0">
+            <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên bài thi</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Cấp độ</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Người đăng</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Điểm pass</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Delete</th>
+
+              </tr>
+            </thead>
+            <tbody>
+    
+              {% for exam in page_obj.object_list %}
+              <tr hx-target = "this">
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div>
+                        <i class="fa fa-user me-sm-4 ms-sm-2"></i>
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">{{exam.name}}</h6>
+                    </div>
+                  </div>
+                </td>
+                
+                <td>
+                  <div class="d-flex py-1">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">{{exam.level.name}}</h6>
+                    </div>
+                  </div>
+                </td>
+    
+                <td>
+                  <div class=" align-middle text-center">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">{{exam.user.username}} </h6>
+                    </div>
+                  </div>
+                </td>
+    
+                <td>
+                  <div class=" align-middle text-center">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">{{exam.pass_score}} </h6>
+                    </div>
+                  </div>
+                </td>
+
+                <td>
+                  <form action="">{% csrf_token %} 
+                    <div class=" align-middle text-center">
+                      <a class="btn btn-link text-danger px-3 mb-0" hx-post = "{% url 'Administer:DeleteExam' pk=exam.id %}" hx-swap = "outerHTML">
+                        <i class="material-icons text-sm me-2">delete                                     
+                        </i>Delete
+                      </a>
+                  </div>
+                </form>
+                </td>
+
+              </tr>
+              {% endfor %}
+    
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="container">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item 
+              {% if not page_obj.has_previous %}
+                disabled
+              {% endif %}
+                ">
+              <a class="page-link"
+              {% if page_obj.has_previous %}    
+                hx-get={% url 'Administer:NewExamPage' number=page_obj.previous_page_number %} 
+                hx-target="#exam-list-container"     
+              {% endif %}
+              >Previous</a>
+            </li>
+            {% for i in page_obj.paginator.page_range %}
+            <li class="page-item 
+            {% if number == forloop.counter %}active{% endif %}"
+            ><a class="page-link" href="" 
+            hx-get={% url 'Administer:NewExamPage' number=i %} 
+            hx-target="#exam-list-container">{{i}}</a></li>
+            {% endfor %}
+            <li class="page-item 
+            {% if not page_obj.has_next %}
+            disabled
+            {% endif %}
+            ">
+              <a class="page-link" href="#"
+              {% if page_obj.has_next %}    
+              hx-get={% url 'Administer:NewExamPage' number=page_obj.next_page_number %} 
+              hx-target="#exam-list-container"     
+              {% endif %}
+              >Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+</div>

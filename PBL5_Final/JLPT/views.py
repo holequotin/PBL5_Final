@@ -18,16 +18,20 @@ def login_page(request):
             profile = Profile.objects.get(user = user)
             login(request,user)
             if user.groups.filter(name = 'Teacher'):
+                request.session['filter_level'] = ''
+                request.session['filter_skill'] = ''
                 return redirect('Teacher:TeacherHome')
             if user.groups.filter(name = 'Student'):
                 print('Is student')
                 request.session['level'] = ''
                 request.session['skill'] = ''
                 return redirect('Student:StudentHome')
+            if user.is_superuser:
             # if profile.role == 'teacher':
             #     return redirect('jlpt:TeacherHome')
             # if profile.role == 'student':
             #     return render(request,'student_home.html',{})
+                return redirect('Administer:Teacher')
     return render(request,'pages/login.html',{'title' : 'Đăng nhập'})
 
 def register_page(request):
@@ -38,11 +42,18 @@ def register_page(request):
             username = request.POST.get("username")
             first_name = request.POST.get("firstname")
             last_name = request.POST.get("lastname")
-            user = User.objects.create_user(username=username,password=password1,first_name=first_name,last_name = last_name)
-            profile = Profile.objects.create(user=user)
-            user.groups.add(student_group)
-            return redirect('jlpt:Login')
+            try:
+                user = User.objects.create_user(username=username,password=password1,first_name=first_name,last_name = last_name)
+                profile = Profile.objects.create(user=user)
+                user.groups.add(student_group)
+                messages.success(request,"Đăng kí thành công")
+                return redirect('jlpt:Login')
+            except:
+                messages.error(request,"Tên đăng nhập đã tồn tại hoặc mật khẩu quá ngắn")
+        else:
+            messages.error(request,"Xác nhận mật khẩu không đúng")
     return render(request,'pages/register.html',{'title':'Đăng ký'})
+
 
 @login_required(login_url='jlpt:Login')
 @user_passes_test(user_is_teacher)
@@ -51,11 +62,13 @@ def teacher_home(request):
     profile = get_object_or_404(Profile,user = user)
     return render(request,'pages/teacher_home.html',{'user' : user, 'profile' : profile})
 
+@login_required(login_url='jlpt:Login')
 def logout_page(request):
     user = request.user
     logout(request)
     return redirect('jlpt:Login')
 
+@login_required(login_url='jlpt:Login')
 def student_home(request):
     # user = request.user
     # profile = get_object_or_404(Profile,user = user)
@@ -86,6 +99,7 @@ def user_info(request):
 
 @login_required(login_url='jlpt:Login')
 def update_profile(request):
+    print(request.FILES)
     profile = Profile.objects.get(user = request.user)
     user = User.objects.get(id = profile.user.id)
     if request.method == "POST":
@@ -97,6 +111,9 @@ def update_profile(request):
             user.last_name = cleaned_data['last_name']
             user.email = cleaned_data['email']
             profile.phone_number = cleaned_data['phone_num']
+            if len(request.FILES) > 0:
+                print("have image")
+                profile.image = request.FILES['image']    
             profile.save()
             user.save()
             messages.success(request,'Cập nhật thông tin thành công')
@@ -109,6 +126,7 @@ def update_profile(request):
             return render(request,'pages/user_info.html',context)
     return redirect('jlpt:UserInfo')
 
+@login_required(login_url='jlpt:Login')
 def change_password(request):
     profile = Profile.objects.get(user = request.user)
     context = {
@@ -116,6 +134,7 @@ def change_password(request):
     }
     return render(request,'pages/user_change_password.html',context)
 
+@login_required(login_url='jlpt:Login')
 def update_password(request):
     user = User.objects.get(id = request.user.id)
     if request.method == "POST":
@@ -137,3 +156,6 @@ def update_password(request):
         except:
             messages.error(request,"Mật khẩu không đúng theo yêu cầu")
     return redirect('jlpt:ChangePassword')
+
+def home(request):
+    return render(request,'pages/home.html',{})

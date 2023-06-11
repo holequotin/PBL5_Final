@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
+from JLPT.views import home
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -28,8 +29,9 @@ urlpatterns = [
     path("exam/", include("Exam.urls")),
     path("student/", include("Student.urls")),
     path("document/",include("Document.urls")),
+    path("administer/",include("Administer.urls")),
     path("book/", include("Bookapp.urls")),
-    path("administer/",include("Administer.urls"))
+    path('',home,name ='Home')
 ]
 
 if settings.DEBUG:

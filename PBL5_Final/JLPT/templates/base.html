@@ -26,10 +26,10 @@
 </head>
 <body>
     {% block navbar %}
-        {% if profile.role == "student" %}
+        {% if role == "student" %}
             {% include 'partials/student_info.html' %}
             {% include 'partials/student_navbar.html' %}
-        {% elif profile.role == "teacher" %}
+        {% elif role == "teacher" %}
             {% include 'partials/teacher_info.html' %}
             {% include 'partials/teacher_nav.html' %}
         {% endif %}

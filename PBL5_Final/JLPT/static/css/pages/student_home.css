@@ -1,8 +1,44 @@
 @import url('../partials/student_info.css');
 @import url('../partials/student_navbar.css');
-.banner{
-    background-image: url(../../images/student_banner.png);
-    height: 85vh;
-    background-size: cover;
-    background-position: center;
+.vien {
+    height: 4px;
+    width: 100%;
+    background: linear-gradient(to right, rgb(126, 66, 66), orange, rgb(190, 190, 72), rgb(35, 107, 123), rgb(183, 140, 70), rgb(179, 95, 95), rgb(23, 177, 103));
+  }
+.nav-link {
+    color: rgb(46, 44, 44); 
+  }
+.vien2 {
+    height: 2px;
+    width: 100%;
+    background: rgba(205, 209, 212, .5);;
+  }
+
+.btn-vaothi{
+  width: 107px;
+  height: 50px;
+  background-color: #4c6b94;
+  color: white;
 }
+.btn-vaothi:hover{
+  width: 107px;
+  height: 50px;
+  background-color: #7087a7;
+  color: white;
+}
+.btn-truycap:hover,
+.btn-chuan:hover,
+.btn-kynang:hover{
+    animation-name: button-hover;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes button-hover {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-5px);
+    }
+  }

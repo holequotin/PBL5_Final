@@ -15,6 +15,10 @@ from django.contrib.auth.decorators import user_passes_test,login_required
 import JLPT.test_funcs
 # Create your views here.
 fs = FileSystemStorage(location=settings.MEDIA_ROOT)
+
+
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def index(request):
     user = request.user
     profile = get_object_or_404(Profile,user = user)
@@ -23,6 +27,8 @@ def index(request):
     }
     return render(request,'pages/student_home.html',context)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def exam_list(request,level):
     level_obj = get_object_or_404(Level,name = level)
     exams = Exam.objects.all().filter(level = level_obj)
@@ -33,6 +39,8 @@ def exam_list(request,level):
     }
     return render(request,'pages/student_exam_list.html',context )
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def exam_detail(request,pk):
     exam = get_object_or_404(PracticeHistory,id = pk)
     context = {
@@ -40,6 +48,8 @@ def exam_detail(request,pk):
     }
     return render(request,'pages/student_exam_detail.html',context)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def practice_history_detail(request,pk):
     practice_history = get_object_or_404(PracticeHistory,id = pk)
     context = {
@@ -47,6 +57,9 @@ def practice_history_detail(request,pk):
         'profile' : Profile.objects.get(user = request.user)
     }
     return render(request,'pages/student_practice_history_detail.html',context)
+
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def test_part(request,pk):
     type = request.GET.get('type')
     if type != "skill":
@@ -56,6 +69,9 @@ def test_part(request,pk):
     idSP = pk
     giay = input % 60
     phut= input // 60
+    type = request.GET.get('type')
+    if type != "skill":
+        type = "test"
     part_history = get_object_or_404(PracticePartHistory,id = pk)
     if part_history.status == True and part_history.practice_history is not None:
         return redirect('Student:PracticeHistoryDetail', pk = part_history.practice_history.id) 
@@ -75,11 +91,22 @@ def test_part(request,pk):
 
         # if part_his.status == True and part_his.practice_history is None:
         #     return redirect('Student:SkillResult',pk = part_his.id)
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def start_skill_exam(request,pk):
     part = get_object_or_404(ExamPart,id = pk)
+    time = part.time * 60
+    input = time
+    idSP = pk
+    giay = input % 60
+    phut= input // 60
     context = {
         'profile' : Profile.objects.get(user = request.user),
-        'type' : 'skill'
+        'type' : 'skill',
+        'input' : input,
+        'phut' : phut,
+        'giay': giay,
+        'idSP' : idSP,  
     }
     #TODO: Chinh ali
     if PracticePartHistory.objects.filter(part = part,status = False,student = request.user).exists():
@@ -122,6 +149,8 @@ def start_skill_exam(request,pk):
     context['part_history'] = part_history
     return render(request,'pages/student_test_part.html',context)    
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def start_test(request,pk):
     exam = get_object_or_404(Exam,id = pk)
     if PracticeHistory.objects.filter(exam = exam,status = False,student = request.user).exists():
@@ -175,13 +204,24 @@ def start_test(request,pk):
                   question_history.save()
         return redirect('Student:PracticeHistoryDetail', pk=practice_history.id)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def new_skill_exam(request,pk):
     pk = int(pk)
+    part = get_object_or_404(ExamPart,id=pk)
+    time = part.time * 60
+    input = time
+    idSP = pk
+    giay = input % 60
+    phut= input // 60
     context = {
         'profile' : Profile.objects.get(user = request.user),
-        'type' : 'skill'
+        'type' : 'skill',
+        'input' : input,
+        'phut' : phut,
+        'giay': giay,
+        'idSP' : idSP,        
     }
-    part = get_object_or_404(ExamPart,id=pk)
     part_history = PracticePartHistory(
                 student = request.user,
                 name = part.name,
@@ -214,6 +254,9 @@ def new_skill_exam(request,pk):
     context['part_history'] = part_history
     return render(request,'pages/student_test_part.html',context)   
 #TODO : New test
+
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def new_test(request,pk):
     pk = int(pk)
     exam = get_object_or_404(Exam,id = pk)
@@ -260,6 +303,8 @@ def new_test(request,pk):
                   question_history.save()
     return redirect('Student:PracticeHistoryDetail', pk=practice_history.id)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def update_answer(request,pk):
     name = "answer-question-" + str(pk)
     answer = request.POST.get(name)
@@ -268,17 +313,23 @@ def update_answer(request,pk):
     question_history.save()
     return redirect('Student:QuestionHistory',pk = pk)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def question_history_detail(request,pk):
     question_history = get_object_or_404(QuestionHistory,id = pk)
     return render(request,'partials/student_question_history.html',{'question' : question_history })
     return render(request,'pages/student_exam_list.html',context)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def exam_select_list(request):
     context = {
         'profile' : Profile.objects.get(user = request.user)
     }
     return render(request,'pages/student_select_exam_new.html',context)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def exam_n(request,level):
     level_obj = level
     context = {
@@ -286,6 +337,8 @@ def exam_n(request,level):
     }
     return render(request,'pages/student_exam_N.html',context)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def exam_skill(request):
     if request.session['level'] is None:
         request.session['level'] = ""
@@ -307,6 +360,8 @@ def exam_skill(request):
     }
     return render(request,'pages/student_select_skill.html',context)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def exam_skill_result(request,pk):
     result = {}
     answers = 'ABCD'
@@ -330,7 +385,10 @@ def exam_skill_result(request,pk):
         'part' : part
     }
     return render(request,'pages/student_skill_result.html',context)
-    
+
+
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def complete_practice_part(request,pk):
     practice_part = get_object_or_404(PracticePartHistory,id = pk)
     practice_part.status = True
@@ -349,6 +407,8 @@ def complete_practice_part(request,pk):
     
     return redirect('Student:PracticeHistoryDetail',pk = practice_part.practice_history.id)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def practice_result(request,pk):
     #TODO : kiểm tra bài thi đã hoàn thành hay chưa
     result = {}
@@ -375,6 +435,8 @@ def practice_result(request,pk):
     }
     return render(request,'pages/student_practice_result.html',context)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def history_list(request):
     user = request.user
     profile = Profile.objects.get(user = user)
@@ -395,6 +457,8 @@ def history_skill(request):
     }
     return render(request,'pages/student_history_skill.html',context)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def save_exit_time(request):
     if request.method == 'POST':
         data = json.loads(request.body) #đọc json và lấy dữ liệu từ json
@@ -410,6 +474,8 @@ def save_exit_time(request):
 
         return JsonResponse({'message': 'Success'})  # Phản hồi thành công
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def end_time(request):
     if request.method == 'POST':
         data = json.loads(request.body) #đọc json và lấy dữ liệu từ json
@@ -433,6 +499,19 @@ def end_time(request):
         
         response_data = {'redirect_url': reverse('Student:PracticeHistoryDetail', kwargs={'pk': practice_part.practice_history.id})}
         return JsonResponse(response_data)
+    
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
+def history_skill(request):
+    user = request.user
+    profile = Profile.objects.get(user = user)
+    part_list = PracticePartHistory.objects.filter(student = user,practice_history__isnull = True)
+    context = {
+        'part_list' : part_list,
+        'profile' : profile
+    }
+    return render(request,'pages/student_history_skill.html',context)
+
 @login_required(login_url='jlpt:Login')
 @user_passes_test(test_func= JLPT.test_funcs.user_is_student)
 def practice_result_detail(request,pk):
@@ -444,6 +523,8 @@ def practice_result_detail(request,pk):
     }
     return render(request,'pages/student_practice_result_detail.html',context)
 
+@login_required(login_url='jlpt:Login')
+@user_passes_test(test_func=JLPT.test_funcs.user_is_student,login_url='jlpt:Login')
 def skill_result_detail(request,pk):
     profile = Profile.objects.get(user = request.user)
     part = get_object_or_404(PracticePartHistory,id = pk)

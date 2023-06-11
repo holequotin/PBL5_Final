@@ -1,0 +1,81 @@
+{% extends 'administer_base.html' %}
+{% load static %}
+
+{% block content %}
+<body class="g-sidenav-show  bg-gray-200">
+  <!-- cái aside ni là cái cột chọn các chức năng bên trái-->
+      {% block aside %}
+        {% include 'partials/administer_aside.html' with active_class1='active bg-gradient-primary' %}
+      {% endblock aside %}        
+
+  <!--cái main ni là toàn bộ phần bên phải-->
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <!--cái nav ni là cái phần nav ở ngang ở trên-->
+      {% block nav %}
+        {% include 'partials/administer_nav.html' with name='Quản lý học sinh' %}
+      {% endblock nav %}
+    <!-- End Navbar -->
+    
+    <div class="container-fluid py-4">  
+      <div class="row mt-4">
+      {% for message in messages %}
+          {% if message.tags == "success" %}
+          <div class="row mt-4">
+            <div class="alert alert-success text-white" role="alert" id="myAlert">
+              {{message}}
+          </div>
+          {% endif %}
+      {% endfor %}
+      </div>
+      <div class="row mb-4">
+        <div class="col-lg-12 col-md-8 mb-md-0 mb-4">
+          <div class="card">
+            <div class="card-header pb-0">
+              <div class="row">
+                <div class="col-lg-3 col-3">
+                  <h6>Quản lý giáo viên</h6>
+                  <!--<p class="text-sm mb-0">
+                    <i class="fa fa-check text-info" aria-hidden="true"></i>
+                    <span class="font-weight-bold ms-1">30 done</span> this month
+                  </p>--> 
+                </div>
+
+                <div class="col-lg-3 col-3">
+                  <div class="input-group input-group-outline">
+                    <label class="form-label">Tìm kiếm</label>
+                    <input type="text" class="form-control"
+                    hx-get="{% url 'Administer:TeacherTable' %}" 
+                    hx-trigger="keyup changed delay:500ms, search" 
+                    hx-target="#search-results" 
+                    name = "search"
+                    >
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-6 my-auto text-end">
+                    <a class="btn btn-info" hx-get = "{% url 'Administer:AddTeacherForm' %}" hx-target = "#search-results">Thêm giáo viên</a>
+                </div>
+              </div>
+            </div>
+            <!--Teacher table-->
+            {% include 'partials/add_teacher_form.html' %}
+          </div>
+        </div>
+      </div>
+      {% block footer %}
+          {% include 'partials/administer_footer.html' %}
+      {% endblock footer %}
+    </div>
+    <script>
+      // Lấy đối tượng alert và gán vào biến
+      var alert = document.getElementById('myAlert');
+      setTimeout(function() {
+        alert.style.display = 'none';
+      }, 2000);
+    </script>
+  </main>
+
+
+{% endblock content %}
+
